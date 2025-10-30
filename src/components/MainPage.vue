@@ -1,22 +1,11 @@
 <template>
-  <CategoryNav class="categoryBtn" />
+  <HeadLine></HeadLine>
 </template>
 
 <script setup lang="ts">
-import CategoryNav from './navbar/CategoryNav.vue';
-import { getHeadLineData } from '../apis/NewsApis';
+import HeadLine from './templates/HeadLine.vue';
 
-getHeadLineData();
 </script>
 
 
-<style>
-.read-the-docs {
-  color: #888;
-}
-
-.categoryBtn {
-  margin-top: 1rem;
-  margin-left: 1rem;
-}
-</style>
+<style></style>
