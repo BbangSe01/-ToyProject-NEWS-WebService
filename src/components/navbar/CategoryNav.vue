@@ -6,11 +6,11 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
         >
-            {{ categories[categoryIdx] }}
+            {{ props.categories.list[props.categories.index] }}
         </button>
         <ul class="dropdown-menu">
             <li
-                v-for="(category, index) in categories"
+                v-for="(category, index) in props.categories.list"
                 :key="index"
                 v-on:click="clickCategory(index)"
             ><a
@@ -24,13 +24,17 @@
 
 
 <script setup lang="ts">
-import { ref } from 'vue';
-const categories: string[] = ['business', 'entertainment', 'general', 'health', 'science', 'sports', 'technology'];
-const categoryIdx = ref<number>(0);
+import { defineProps, defineEmits } from 'vue';
+import type { CategoryType } from '../../types';
 
+const props = defineProps<{
+    categories: CategoryType
+}>();
+
+const emit = defineEmits(['update-category']);
 
 const clickCategory = (index: number) => {
-    categoryIdx.value = index;
+    emit('update-category', index)
 }
 </script>
 <style></style>
