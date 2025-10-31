@@ -3,6 +3,9 @@
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "types": ["vite/client"],
+    "module": "ESNext",       // import.meta 사용 가능
+    "target": "ES2020",       // async/await 지원
+    "lib": ["ES2020", "DOM"], // Promise, fetch 등 포함
 
     /* Linting */
     "strict": true,
