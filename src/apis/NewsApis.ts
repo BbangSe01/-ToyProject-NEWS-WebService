@@ -2,10 +2,10 @@ import axiosInstance from "./axiosInstance"
 
 const apikey = import.meta.env.VITE_NEWS_API_KEY
 
-export const getHeadLineData = () => {
+export const getHeadLineData = async (category:string) => {
     try {
-        const res = axiosInstance.get(`top-headlines?country=us&pageSize=10&category=business&apikey=${apikey}`)
-        console.log('res:',res);
+        const res = await axiosInstance.get(`top-headlines?country=us&pageSize=10&category=${category}&apikey=${apikey}`)
+        return res.data.articles;
     } catch(err) {
         console.error(err);
     }
