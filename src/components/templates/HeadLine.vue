@@ -7,13 +7,19 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { reactive, watch, ref } from 'vue';
 import CategoryNav from '../navbar/CategoryNav.vue';
-import type { CategoryType } from '../../types';
+import type { CategoryType, NewsType } from '../../types';
+import { getHeadLineData } from '../../apis/NewsApis';
 
 const categories = reactive<CategoryType>({
     list: ['business', 'entertainment', 'general', 'health', 'science', 'sports', 'technology'],
     index: 0
+})
+
+const headlineData = ref<Array<NewsType>>([]);
+watch(() => categories.index, async (newVal: number, oldVal: number) => {
+    headlineData.value = await getHeadLineData(categories.list[newVal]!);
 })
 </script>
 
