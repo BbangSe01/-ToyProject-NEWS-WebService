@@ -1,11 +1,15 @@
 <template>
-  <CategoryNav
-    :categories="categories"
-    @update-category="categories.index = $event"
-    class="categoryBtn"
-  />
-  <div v-for="item in headlineData" key="item.title">
-    <NewsCard :newsData="item" />
+  <div class="headlineArea">
+    <CategoryNav
+      :categories="categories"
+      @update-category="categories.index = $event"
+      class="categoryBtn"
+    />
+    <div class="cardArea">
+      <div v-for="item in headlineData" key="item.title">
+        <NewsCard :newsData="item" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -38,7 +42,7 @@
   );
 </script>
 
-<style>
+<style scoped>
   .read-the-docs {
     color: #888;
   }
@@ -46,5 +50,17 @@
   .categoryBtn {
     margin-top: 1rem;
     margin-left: 1rem;
+  }
+  .headlineArea {
+    /* background-color: black; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .cardArea {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
   }
 </style>
