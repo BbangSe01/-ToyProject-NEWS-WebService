@@ -1,40 +1,39 @@
 <template>
-    <div class="dropdown">
-        <button
-            class="btn btn-secondary dropdown-toggle"
-            type="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-        >
-            {{ props.categories.list[props.categories.index] }}
-        </button>
-        <ul class="dropdown-menu">
-            <li
-                v-for="(category, index) in props.categories.list"
-                :key="index"
-                v-on:click="clickCategory(index)"
-            ><a
-                    class="dropdown-item"
-                    href="#"
-                >{{ category }}</a></li>
-        </ul>
-    </div>
-
+  <div class="button-line">
+    <button
+      v-for="(category, idx) in props.categories.list"
+      class="each-btn"
+      v-on:click="clickCategory(idx)"
+    >
+      {{ category }}
+    </button>
+  </div>
 </template>
 
-
 <script setup lang="ts">
-import { defineProps, defineEmits } from 'vue';
-import type { CategoryType } from '../../types';
+  import { defineProps, defineEmits } from "vue";
+  import type { CategoryType } from "../../types";
 
-const props = defineProps<{
-    categories: CategoryType
-}>();
+  const props = defineProps<{
+    categories: CategoryType;
+  }>();
 
-const emit = defineEmits(['update-category']);
+  console.log(props.categories);
+  const emit = defineEmits(["update-category"]);
 
-const clickCategory = (index: number) => {
-    emit('update-category', index)
-}
+  const clickCategory = (index: number) => {
+    emit("update-category", index);
+  };
 </script>
-<style></style>
+<style scoped>
+  .button-line {
+    display: flex;
+    margin-bottom: 3rem;
+  }
+  .each-btn {
+    background-color: white;
+    margin-right: 1rem;
+    border: 1px solid black;
+    border-radius: 10px;
+  }
+</style>
