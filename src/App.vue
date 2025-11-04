@@ -1,26 +1,30 @@
 <script setup lang="ts">
-import MainPage from './components/MainPage.vue';
-import MainNav from './components/navbar/MainNav.vue';
+  import MainPage from "./components/MainPage.vue";
+  import MainNav from "./components/navbar/MainNav.vue";
 </script>
 
 <template>
-  <main-nav />
-  <MainPage />
+  <div class="fullScreen">
+    <main-nav />
+    <MainPage />
+  </div>
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
+<style>
+  /* ✅ 전역 폰트 선언 */
+  @font-face {
+    font-family: "Continuous";
+    src: url("./assets/fonts/continuous.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+  }
+  .fullScreen {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100dvh;
+    margin: 0;
+    padding: 0;
+    font-family: "Continuous", sans-serif;
+  }
 </style>

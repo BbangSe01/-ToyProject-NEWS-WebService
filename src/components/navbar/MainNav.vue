@@ -1,56 +1,24 @@
 <template>
-    <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-            <a
-                class="navbar-brand"
-                href="#"
-            >News</a>
-            <button
-                class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarText"
-                aria-controls="navbarText"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-            >
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div
-                class="collapse navbar-collapse"
-                id="navbarText"
-            >
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a
-                            class="nav-link active"
-                            aria-current="page"
-                            href="#"
-                        >HeadLine</a>
-                    </li>
-                    <li class="nav-item">
-                        <a
-                            class="nav-link"
-                            href="#"
-                        >Search</a>
-                    </li>
-                    <li class="nav-item">
-                        <a
-                            class="nav-link"
-                            href="#"
-                        >미정</a>
-                    </li>
-                </ul>
-                <!-- <span class="navbar-text">
-          Navbar text with an inline element
-        </span> -->
-            </div>
-        </div>
-    </nav>
+  <div class="navbar">News</div>
 </template>
 
 <script>
-
+  import "../../style.css";
 </script>
 
-<style scoped></style>
+<style scoped>
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5rem;
+    z-index: 10;
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+  }
+</style>
