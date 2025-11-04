@@ -36,9 +36,10 @@
   const headlineData = ref<Array<NewsType>>([]);
   watch(
     () => categories.index,
-    async (newVal: number, oldVal: number) => {
+    async (newVal, oldVal) => {
       headlineData.value = await getHeadLineData(categories.list[newVal]!);
-    }
+    },
+    { immediate: true }
   );
 </script>
 
