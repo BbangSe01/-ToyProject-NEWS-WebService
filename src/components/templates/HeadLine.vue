@@ -2,6 +2,7 @@
   <div class="headlineArea">
     <CategoryNav
       :categories="categories"
+      :is-loading="isFetching"
       @update-category="categories.index = $event"
       class="categoryBtn"
     />
@@ -42,12 +43,11 @@
 
   const headlineData = ref<Array<NewsType>>([]);
   const isFetching = ref(false);
-  // const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+
   watch(
     () => categories.index,
     async (newVal, oldVal) => {
       isFetching.value = true;
-      // await sleep(500);
       headlineData.value = await getHeadLineData(categories.list[newVal]!);
       isFetching.value = false;
     },

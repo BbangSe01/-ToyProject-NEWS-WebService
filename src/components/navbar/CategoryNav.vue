@@ -1,8 +1,12 @@
 <template>
   <div class="button-line">
     <button
+      :disabled="isLoading && idx !== props.categories.index"
       v-for="(category, idx) in props.categories.list"
-      :class="{ active: idx === props.categories.index }"
+      :class="[
+        { active: idx === props.categories.index },
+        // { disabled: isLoading && idx !== props.categories.index },
+      ]"
       v-on:click="clickCategory(idx)"
     >
       {{ category }}
@@ -16,6 +20,7 @@
 
   const props = defineProps<{
     categories: CategoryType;
+    isLoading: boolean;
   }>();
 
   console.log(props.categories);
