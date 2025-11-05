@@ -14,7 +14,7 @@
     />
     <div class="cardArea" v-else>
       <div v-for="item in headlineData" :key="item.url">
-        <NewsCard :newsData="item" />
+        <NewsCard :newsData="item" @click="goToDetailPage()" />
       </div>
     </div>
   </div>
@@ -27,7 +27,9 @@
   import type { CategoryType, NewsType } from "../../types";
   import { getHeadLineData } from "../../apis/NewsApis";
   import { VueSpinnerClock } from "vue3-spinners";
+  import { useRouter } from "vue-router";
 
+  const router = useRouter();
   const categories = reactive<CategoryType>({
     list: [
       "business",
@@ -53,6 +55,12 @@
     },
     { immediate: true }
   );
+
+  const goToDetailPage = () => {
+    router.push({
+      path: "/detailNews",
+    });
+  };
 </script>
 
 <style scoped>

@@ -1,5 +1,5 @@
 <template>
-  <div class="card-box">
+  <div class="card-box" @click="$emit('click', props.newsData)">
     <img
       :src="props.newsData.urlToImage || blackImg"
       class="cardImg"
@@ -17,13 +17,13 @@
 </template>
 
 <script setup lang="ts">
-  import { defineProps } from "vue";
+  import { defineProps, defineEmits } from "vue";
   import blackImg from "../../assets/images/blackImg.jpg";
   import type { NewsType } from "../../types";
   const props = defineProps<{
     newsData: NewsType;
   }>();
-
+  const emit = defineEmits(["click"]);
   console.log(props?.newsData);
 </script>
 
