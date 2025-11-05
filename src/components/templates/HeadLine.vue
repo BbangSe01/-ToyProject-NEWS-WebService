@@ -5,8 +5,14 @@
       @update-category="categories.index = $event"
       class="categoryBtn"
     />
-    <div class="cardArea">
-      <div v-for="item in headlineData" key="item.title">
+    <VueSpinnerClock
+      v-if="isFetching"
+      size="150"
+      class="loading-spinner"
+      :speedMultiplier="1.5"
+    />
+    <div class="cardArea" v-else>
+      <div v-for="item in headlineData" :key="item.url">
         <NewsCard :newsData="item" />
       </div>
     </div>
@@ -19,6 +25,7 @@
   import CategoryNav from "../navbar/CategoryNav.vue";
   import type { CategoryType, NewsType } from "../../types";
   import { getHeadLineData } from "../../apis/NewsApis";
+  import { VueSpinnerClock } from "vue3-spinners";
 
   const categories = reactive<CategoryType>({
     list: [
@@ -34,10 +41,15 @@
   });
 
   const headlineData = ref<Array<NewsType>>([]);
+  const isFetching = ref(false);
+  // const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
   watch(
     () => categories.index,
     async (newVal, oldVal) => {
+      isFetching.value = true;
+      // await sleep(500);
       headlineData.value = await getHeadLineData(categories.list[newVal]!);
+      isFetching.value = false;
     },
     { immediate: true }
   );
@@ -53,7 +65,6 @@
     margin-left: 1rem;
   }
   .headlineArea {
-    /* background-color: black; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -63,5 +74,9 @@
     flex-direction: column;
     justify-content: center;
     gap: 2rem;
+  }
+  .loading-spinner {
+    margin-top: 10rem;
+    margin-bottom: 10rem;
   }
 </style>
