@@ -1,12 +1,11 @@
 <script setup lang="ts">
-  import MainPage from "./components/MainPage.vue";
   import MainNav from "./components/navbar/MainNav.vue";
 </script>
 
 <template>
   <div class="fullScreen">
     <main-nav />
-    <MainPage />
+    <router-view />
   </div>
 </template>
 

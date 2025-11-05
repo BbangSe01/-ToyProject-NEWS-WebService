@@ -1,13 +1,13 @@
 <template>
   <div class="main-page">
     <section class="headline-section">
-      <HeadLine />
+      <HeadLinePage />
     </section>
   </div>
 </template>
 
 <script setup lang="ts">
-  import HeadLine from "./templates/HeadLine.vue";
+  import HeadLinePage from "./templates/HeadLinePage.vue";
 </script>
 
 <style scoped>
