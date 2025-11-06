@@ -9,9 +9,7 @@
       <h5 class="card-title">{{ props.newsData.title }}</h5>
       <p class="date-and-author">
         <small>{{ props.newsData.publishedAt }}</small>
-        <small>{{ props.newsData.author }}</small>
       </p>
-      <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
     </div>
   </div>
 </template>

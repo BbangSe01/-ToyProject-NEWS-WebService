@@ -33,6 +33,7 @@
   import { VueSpinnerClock } from "vue3-spinners";
   import { useRouter } from "vue-router";
   import { useNewsDataStore } from "../../stores/newsData.ts";
+  import dayjs from "dayjs";
 
   const router = useRouter();
   const newsStore = useNewsDataStore();
@@ -57,16 +58,21 @@
     () => categories.index,
     async (newVal, oldVal) => {
       isFetching.value = true;
-      headlineData.value = await getHeadLineData(categories.list[newVal]!);
+      const response = await getHeadLineData(categories.list[newVal]!);
+      headlineData.value = response.map((x: NewsType) => {
+        const formattedDate = dayjs(x.publishedAt).format("YYYY-MM-DD");
+        return {
+          ...x,
+          publishedAt: formattedDate,
+        };
+      });
       isFetching.value = false;
     },
     { immediate: true }
   );
 
   const dialogVisible = ref(false);
-  watch(dialogVisible, (newVal, oldVal) =>
-    console.log("dialogVisible", newVal)
-  );
+
   const goToDetailPage = (url: string) => {
     const newData = headlineData.value.find((x) => x.url === url);
     if (newData) {
