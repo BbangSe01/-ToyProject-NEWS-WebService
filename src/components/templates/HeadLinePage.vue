@@ -14,7 +14,7 @@
     />
     <div class="cardArea" v-else>
       <div v-for="item in headlineData" :key="item.url">
-        <NewsCard :newsData="item" @click="goToDetailPage()" />
+        <NewsCard :newsData="item" @click="goToDetailPage(item.url)" />
       </div>
     </div>
   </div>
@@ -28,8 +28,11 @@
   import { getHeadLineData } from "../../apis/NewsApis";
   import { VueSpinnerClock } from "vue3-spinners";
   import { useRouter } from "vue-router";
+  import { useNewsDataStore } from "../../stores/newsData.ts";
 
   const router = useRouter();
+  const news = useNewsDataStore();
+
   const categories = reactive<CategoryType>({
     list: [
       "business",
@@ -56,7 +59,12 @@
     { immediate: true }
   );
 
-  const goToDetailPage = () => {
+  const goToDetailPage = (url: string) => {
+    const newData = headlineData.value.find((x) => x.url === url);
+    console.log("newData", newData);
+    if (newData) {
+      news.setDetailData(newData);
+    }
     router.push({
       path: "/detailNews",
     });
