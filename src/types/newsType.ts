@@ -1,14 +1,14 @@
 export interface sourceType {
-    id?: string,
-    name: string
+  id: string | null;
+  name: string;
 }
 export interface NewsType {
-    author?: string,
-    content?: string,
-    description?: string,
-    publishedAt: string,
-    source: sourceType,
-    title: string,
-    url: string,
-    urlToImage?: string
+  author: string | null;
+  content: string | null;
+  description: string | null;
+  publishedAt: string;
+  source: sourceType;
+  title: string;
+  url: string;
+  urlToImage: string | null;
 }
