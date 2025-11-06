@@ -24,7 +24,6 @@
     newsData: NewsType;
   }>();
   const emit = defineEmits(["click"]);
-  console.log(props?.newsData);
 </script>
 
 <style scoped>

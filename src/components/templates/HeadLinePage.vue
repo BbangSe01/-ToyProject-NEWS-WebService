@@ -31,7 +31,7 @@
   import { useNewsDataStore } from "../../stores/newsData.ts";
 
   const router = useRouter();
-  const news = useNewsDataStore();
+  const newsStore = useNewsDataStore();
 
   const categories = reactive<CategoryType>({
     list: [
@@ -61,9 +61,8 @@
 
   const goToDetailPage = (url: string) => {
     const newData = headlineData.value.find((x) => x.url === url);
-    console.log("newData", newData);
     if (newData) {
-      news.setDetailData(newData);
+      newsStore.setDetailData(newData);
     }
     router.push({
       path: "/detailNews",
