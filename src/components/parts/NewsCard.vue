@@ -34,6 +34,7 @@
     border: 1px solid #e2e2e2;
     border-radius: 10px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
   }
   .cardImg {
     width: 25rem;
