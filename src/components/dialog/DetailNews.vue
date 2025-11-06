@@ -7,17 +7,45 @@
         class="close-btn"
         @click="$emit('close', false)"
       />
+      <div class="news-content-area">
+        <div class="news-title">{{ detailData.title }}</div>
+        <div class="author-and-date">
+          <div class="news-author">{{ detailData.author }}</div>
+          <div v-if="detailData.author" class="blank"></div>
+          <div class="news-date">{{ detailData.publishedAt }}</div>
+        </div>
+        <div class="img-box">
+          <img
+            :src="detailData.urlToImage as string"
+            alt="기사 이미지"
+            class="news-img"
+          />
+        </div>
+        <div class="news-description">{{ detailData.description }}</div>
+        <div class="button-box" @click="goToArticle()">
+          <p class="go-article-btn">View Full Article</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
   import { defineEmits } from "vue";
-
+  import { useNewsDataStore } from "../../stores/newsData";
   const emit = defineEmits(["close"]);
+
+  const newsDataStore = useNewsDataStore();
+  const detailData = newsDataStore.detailData;
+
+  const goToArticle = () => {
+    window.open(`${detailData.url}`, "_blank");
+  };
 </script>
 
-<style>
+<style scoped>
+  @import url("https://fonts.googleapis.com/css2?family=Merriweather&family=Montserrat&display=swap");
+
   .modal-overlay {
     position: fixed;
     inset: 0; /* top, right, bottom, left = 0 */
@@ -29,15 +57,17 @@
 
   .modal-area {
     position: relative;
-    min-width: 900px;
-    min-height: 550px;
+    width: 900px;
+    height: 600px;
     background-color: white;
     color: black;
     border: 1px solid black;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
+    align-items: center;
     margin-top: 5rem;
+    overflow: auto;
   }
   .close-btn {
     position: absolute; /*모달 내부 우측 상단 */
@@ -45,6 +75,53 @@
     right: 1rem;
     width: 2rem;
     height: 2rem;
+    cursor: pointer;
+  }
+  .news-content-area {
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+    font-family: "Merriweather", serif;
+  }
+  .news-title {
+    font-family: "Montserrat", sans-serif;
+    font-size: 30px;
+  }
+  .author-and-date {
+    display: flex;
+    margin-top: 1rem;
+    color: gray;
+  }
+  .blank {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+  .img-box {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .news-img {
+    width: 80%;
+  }
+  .news-description {
+    margin-top: 2rem;
+  }
+  .button-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  .go-article-btn {
+    border: 1px solid black;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    background-color: black;
+    color: white;
     cursor: pointer;
   }
 </style>
