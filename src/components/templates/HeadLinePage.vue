@@ -17,6 +17,9 @@
         <NewsCard :newsData="item" @click="goToDetailPage(item.url)" />
       </div>
     </div>
+    <Teleport to="body">
+      <DetailNews v-if="dialogVisible" @close="dialogVisible = $event" />
+    </Teleport>
   </div>
 </template>
 
@@ -24,6 +27,7 @@
   import { reactive, watch, ref } from "vue";
   import NewsCard from "../parts/NewsCard.vue";
   import CategoryNav from "../navbar/CategoryNav.vue";
+  import DetailNews from "../dialog/detailNews.vue";
   import type { CategoryType, NewsType } from "../../types";
   import { getHeadLineData } from "../../apis/NewsApis";
   import { VueSpinnerClock } from "vue3-spinners";
@@ -59,14 +63,16 @@
     { immediate: true }
   );
 
+  const dialogVisible = ref(false);
+  watch(dialogVisible, (newVal, oldVal) =>
+    console.log("dialogVisible", newVal)
+  );
   const goToDetailPage = (url: string) => {
     const newData = headlineData.value.find((x) => x.url === url);
     if (newData) {
       newsStore.setDetailData(newData);
     }
-    router.push({
-      path: "/detailNews",
-    });
+    dialogVisible.value = true;
   };
 </script>
 
