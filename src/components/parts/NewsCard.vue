@@ -49,6 +49,7 @@
     justify-content: center;
   }
   .card-title {
+    font-family: "Montserrat", sans-serif;
     font-size: 1.5rem;
     margin-bottom: 2rem;
   }

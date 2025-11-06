@@ -7,7 +7,14 @@
 </script>
 
 <style scoped>
+  @font-face {
+    font-family: "Continuous";
+    src: url("../../assets/fonts/continuous.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+  }
   .navbar {
+    font-family: "Continuous", serif;
     position: fixed;
     top: 0;
     left: 0;
@@ -19,6 +26,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 50px;
+    font-size: 55px;
   }
 </style>

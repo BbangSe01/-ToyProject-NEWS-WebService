@@ -10,13 +10,8 @@
 </template>
 
 <style>
-  /* ✅ 전역 폰트 선언 */
-  @font-face {
-    font-family: "Continuous";
-    src: url("./assets/fonts/continuous.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
-  }
+  @import url("https://fonts.googleapis.com/css2?family=Merriweather&family=Montserrat&display=swap");
+
   .fullScreen {
     display: flex;
     flex-direction: column;
@@ -24,6 +19,6 @@
     min-height: 100dvh;
     margin: 0;
     padding: 0;
-    font-family: "Continuous", sans-serif;
+    font-family: "Merriweather", serif;
   }
 </style>
