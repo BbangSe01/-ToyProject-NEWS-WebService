@@ -16,12 +16,17 @@
         </div>
         <div class="img-box">
           <img
-            :src="detailData.urlToImage as string"
+            :src="detailData.urlToImage as string || noImg"
             alt="기사 이미지"
             class="news-img"
+            @error="onImgError"
           />
         </div>
-        <div class="news-description">{{ detailData.description }}</div>
+        <div class="news-description">
+          {{
+            detailData.description || "Summary information is not available."
+          }}
+        </div>
         <div class="button-box" @click="goToArticle()">
           <p class="go-article-btn">View Full Article</p>
         </div>
@@ -33,6 +38,7 @@
 <script setup lang="ts">
   import { defineEmits } from "vue";
   import { useNewsDataStore } from "../../stores/newsData";
+  import noImg from "../../assets/images/Image_not_available.png";
   const emit = defineEmits(["close"]);
 
   const newsDataStore = useNewsDataStore();
@@ -40,6 +46,11 @@
 
   const goToArticle = () => {
     window.open(`${detailData.url}`, "_blank");
+  };
+
+  const onImgError = (e: Event) => {
+    const target = e.target as HTMLImageElement;
+    target.src = noImg;
   };
 </script>
 

@@ -1,9 +1,10 @@
 <template>
   <div class="card-box" @click="$emit('click', props.newsData)">
     <img
-      :src="props.newsData.urlToImage || blackImg"
+      :src="props.newsData.urlToImage || noImg"
       class="cardImg"
-      alt="..."
+      alt="뉴스 이미지"
+      @error="onImgError"
     />
     <div class="card-text-area">
       <h5 class="card-title">{{ props.newsData.title }}</h5>
@@ -16,12 +17,17 @@
 
 <script setup lang="ts">
   import { defineProps, defineEmits } from "vue";
-  import blackImg from "../../assets/images/blackImg.jpg";
+  import noImg from "../../assets/images/Image_not_available.png";
   import type { NewsType } from "../../types";
   const props = defineProps<{
     newsData: NewsType;
   }>();
   const emit = defineEmits(["click"]);
+
+  const onImgError = (e: Event) => {
+    const target = e.target as HTMLImageElement;
+    target.src = noImg;
+  };
 </script>
 
 <style scoped>
