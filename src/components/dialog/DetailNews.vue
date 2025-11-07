@@ -46,6 +46,17 @@
 <style scoped>
   @import url("https://fonts.googleapis.com/css2?family=Merriweather&family=Montserrat&display=swap");
 
+  @keyframes showDetailModal {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   .modal-overlay {
     position: fixed;
     inset: 0; /* top, right, bottom, left = 0 */
@@ -68,6 +79,7 @@
     align-items: center;
     margin-top: 5rem;
     overflow: auto;
+    animation: showDetailModal 0.5s linear;
   }
   .close-btn {
     position: absolute; /*모달 내부 우측 상단 */
