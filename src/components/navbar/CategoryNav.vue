@@ -22,9 +22,6 @@
     categories: CategoryType;
     isLoading: boolean;
   }>();
-
-  console.log(props.categories);
-  console.log(props.categories);
   const emit = defineEmits(["update-category"]);
 
   const clickCategory = (index: number) => {
@@ -37,10 +34,12 @@
     margin-bottom: 2rem;
   }
   button {
+    padding: 0.7rem;
     background-color: white;
     margin-right: 1rem;
     border: 1px solid black;
-    border-radius: 10px;
+    border-radius: 20px;
+    font-size: 15px;
   }
   button.active {
     background-color: black;

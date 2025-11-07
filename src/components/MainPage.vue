@@ -27,5 +27,6 @@
   .headline-section {
     border-bottom: 1px solid #e5e7eb;
     margin-top: 5rem;
+    margin-bottom: 2rem;
   }
 </style>

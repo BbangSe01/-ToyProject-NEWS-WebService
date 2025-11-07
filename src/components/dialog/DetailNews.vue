@@ -101,7 +101,8 @@
     cursor: pointer;
   }
   .news-content-area {
-    width: 85%;
+    width: 80%;
+    /* background-color: black; */
     display: flex;
     flex-direction: column;
     margin-top: 1rem;
@@ -109,7 +110,8 @@
   }
   .news-title {
     font-family: "Montserrat", sans-serif;
-    font-size: 30px;
+    font-size: 1.7rem;
+    padding-top: 1rem;
   }
   .author-and-date {
     display: flex;
@@ -127,7 +129,7 @@
     justify-content: center;
   }
   .news-img {
-    width: 80%;
+    width: 85%;
   }
   .news-description {
     margin-top: 2rem;

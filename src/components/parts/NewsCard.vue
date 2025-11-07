@@ -32,8 +32,8 @@
 
 <style scoped>
   .card-box {
-    width: 60rem;
-    height: 15rem;
+    width: 55rem;
+    height: 10rem;
     display: flex;
     border: 1px solid #e2e2e2;
     border-radius: 10px;
@@ -41,26 +41,32 @@
     cursor: pointer;
   }
   .cardImg {
-    width: 25rem;
+    width: 20rem;
     height: 100%;
     border: 1px solid #e2e2e2;
     border-radius: 10px 0 0 10px; /* 왼쪽 위, 왼쪽 아래만 둥글게 */
   }
   .card-text-area {
     width: 35rem;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
   .card-title {
     font-family: "Montserrat", sans-serif;
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
+    height: 80%;
+    font-size: 1.2rem;
+    padding-left: 1rem;
+    padding-top: 2rem;
   }
   .date-and-author {
     display: flex;
+    height: 20%;
     justify-content: flex-end; /* ✅ 오른쪽으로 정렬 */
     gap: 1rem; /* 날짜와 작성자 사이 여백 */
     margin-right: 1.5rem;
+    font-size: 0.8rem;
+    padding-top: 1rem;
   }
 </style>

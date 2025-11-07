@@ -83,10 +83,6 @@
 </script>
 
 <style scoped>
-  .read-the-docs {
-    color: #888;
-  }
-
   .categoryBtn {
     margin-top: 1rem;
     margin-left: 1rem;
@@ -101,6 +97,7 @@
     flex-direction: column;
     justify-content: center;
     gap: 2rem;
+    margin-top: 1rem;
   }
   .loading-spinner {
     margin-top: 10rem;
