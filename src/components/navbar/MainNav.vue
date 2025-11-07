@@ -1,9 +1,12 @@
 <template>
-  <div class="navbar">News</div>
+  <div class="nav-area">
+    <p class="nav-title">News</p>
+    <SearchBar />
+  </div>
 </template>
 
-<script>
-  import "../../style.css";
+<script setup lang="ts">
+  import SearchBar from "../parts/SearchBar.vue";
 </script>
 
 <style scoped>
@@ -13,7 +16,7 @@
     font-weight: normal;
     font-style: normal;
   }
-  .navbar {
+  .nav-area {
     font-family: "Continuous", serif;
     position: fixed;
     top: 0;
@@ -25,7 +28,11 @@
     color: white;
     display: flex;
     justify-content: center;
-    align-items: center;
+    gap: 50rem;
     font-size: 55px;
+  }
+  .nav-title {
+    margin-top: 0.4rem;
+    display: flex;
   }
 </style>
