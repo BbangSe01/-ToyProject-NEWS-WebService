@@ -9,8 +9,9 @@
   .search-area {
     display: flex;
     align-items: center;
-    font-size: 15px;
+    font-size: 1rem;
     font-family: "Merriweather", serif;
+    margin-right: 5%;
   }
   .search-input {
     width: 300px;

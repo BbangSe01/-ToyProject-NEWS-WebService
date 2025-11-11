@@ -34,6 +34,7 @@
     margin-bottom: 2rem;
   }
   button {
+    font-family: "Merriweather", serif;
     padding: 0.7rem;
     background-color: white;
     margin-right: 1rem;

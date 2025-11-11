@@ -7,10 +7,10 @@
       @error="onImgError"
     />
     <div class="card-text-area">
-      <h5 class="card-title">{{ props.newsData.title }}</h5>
-      <p class="date-and-author">
+      <div class="card-title">{{ props.newsData.title }}</div>
+      <div class="card-date">
         <small>{{ props.newsData.publishedAt }}</small>
-      </p>
+      </div>
     </div>
   </div>
 </template>
@@ -51,22 +51,22 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
   }
   .card-title {
     font-family: "Montserrat", sans-serif;
+    width: 95%;
     height: 80%;
     font-size: 1.2rem;
+    display: flex;
+    align-items: center;
     padding-left: 1rem;
-    padding-top: 2rem;
   }
-  .date-and-author {
+  .card-date {
     display: flex;
     height: 20%;
     justify-content: flex-end; /* ✅ 오른쪽으로 정렬 */
-    gap: 1rem; /* 날짜와 작성자 사이 여백 */
     margin-right: 1.5rem;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     padding-top: 1rem;
   }
 </style>

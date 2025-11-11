@@ -27,12 +27,12 @@
     background-color: black;
     color: white;
     display: flex;
-    justify-content: center;
-    gap: 50rem;
+    justify-content: space-between;
+    align-items: center;
     font-size: 55px;
   }
   .nav-title {
-    margin-top: 0.4rem;
-    display: flex;
+    padding-top: 0.7rem;
+    margin-left: 5%;
   }
 </style>
