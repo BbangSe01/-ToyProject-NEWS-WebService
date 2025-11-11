@@ -12,3 +12,14 @@ export const getHeadLineData = async (category: string) => {
     console.error(err);
   }
 };
+
+export const searchNewsData = async (keyword: string) => {
+  try {
+    const res = await axiosInstance.get(
+      `everything?q=${keyword}&apiKey=${apikey}`
+    );
+    return res.data.articles;
+  } catch (err) {
+    console.error(err);
+  }
+};
