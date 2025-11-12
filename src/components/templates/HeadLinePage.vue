@@ -27,7 +27,7 @@
   import { reactive, watch, ref } from "vue";
   import NewsCard from "../parts/NewsCard.vue";
   import CategoryNav from "../navbar/CategoryNav.vue";
-  import detailNews from "../dialog/DetailNews.vue";
+  import DetailNews from "../dialog/DetailNews.vue";
   import type { CategoryType, NewsType } from "../../types";
   import { getHeadLineData } from "../../apis/NewsApis";
   import { VueSpinnerClock } from "vue3-spinners";

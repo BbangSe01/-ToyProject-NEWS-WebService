@@ -6,21 +6,19 @@
       class="search-input"
       v-model="keyword"
     />
-    <button type="submit" class="search-btn" @click="goSearchPage">
-      Search
-    </button>
+    <button type="submit" class="search-btn">Search</button>
   </form>
 </template>
 
 <script setup lang="ts">
-  import { ref } from "vue";
+  import { ref, watch, computed } from "vue";
   import { useRouter } from "vue-router";
-  // type 정의 해야 함
   const keyword = ref("");
-
+  const isInput = computed(() => keyword.value.length > 0);
   const router = useRouter();
 
   const goSearchPage = () => {
+    if (!isInput.value) return;
     router.push({ name: "Search", query: { keyword: keyword.value } });
   };
 </script>
