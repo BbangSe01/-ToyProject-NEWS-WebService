@@ -12,6 +12,7 @@
       class="loading-spinner"
       :speedMultiplier="1.5"
     />
+    <img v-else-if="isError" :src="ErrorImg" alt="에러 이미지" class="error-img"></img>
     <div class="cardArea" v-else>
       <div v-for="item in headlineData" :key="item.url">
         <NewsCard :newsData="item" @click="goToDetailPage(item.url)" />
@@ -25,6 +26,7 @@
 
 <script setup lang="ts">
   import { reactive, watch, ref } from "vue";
+  import ErrorImg from "../../assets/images/error-img.jpg"
   import NewsCard from "../parts/NewsCard.vue";
   import CategoryNav from "../navbar/CategoryNav.vue";
   import DetailNews from "../dialog/DetailNews.vue";
@@ -52,21 +54,26 @@
   });
 
   const headlineData = ref<Array<NewsType>>([]);
-  const isFetching = ref(false);
-
+  const isFetching = ref<boolean>(false);
+  const isError = ref<boolean>(false);
   watch(
     () => categories.index,
     async (newVal, oldVal) => {
-      isFetching.value = true;
-      const response = await getHeadLineData(categories.list[newVal]!);
-      headlineData.value = response.map((x: NewsType) => {
-        const formattedDate = dayjs(x.publishedAt).format("YYYY-MM-DD");
-        return {
-          ...x,
-          publishedAt: formattedDate,
-        };
-      });
-      isFetching.value = false;
+      try {
+        isFetching.value = true;
+        const response = await getHeadLineData(categories.list[newVal]!);
+        headlineData.value = response.map((x: NewsType) => {
+          const formattedDate = dayjs(x.publishedAt).format("YYYY-MM-DD");
+          return {
+            ...x,
+            publishedAt: formattedDate,
+          };
+        });
+      } catch (err) {
+        isError.value = true;
+      } finally {
+        isFetching.value = false;
+      }
     },
     { immediate: true }
   );
@@ -103,5 +110,10 @@
   .loading-spinner {
     margin-top: 10rem;
     margin-bottom: 10rem;
+  }
+  .error-img {
+    width: 80%;
+    height:20rem;
+    padding: 5rem;
   }
 </style>
