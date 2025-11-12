@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import type { NewsType } from "../types/newsType";
 
 export const useNewsDataStore = defineStore("newsData", () => {

@@ -27,7 +27,7 @@
   import { reactive, watch, ref } from "vue";
   import NewsCard from "../parts/NewsCard.vue";
   import CategoryNav from "../navbar/CategoryNav.vue";
-  import DetailNews from "../dialog/detailNews.vue";
+  import detailNews from "../dialog/DetailNews.vue";
   import type { CategoryType, NewsType } from "../../types";
   import { getHeadLineData } from "../../apis/NewsApis";
   import { VueSpinnerClock } from "vue3-spinners";
@@ -83,14 +83,15 @@
 </script>
 
 <style scoped>
-  .categoryBtn {
-    margin-top: 1rem;
-    margin-left: 1rem;
-  }
   .headlineArea {
     display: flex;
     flex-direction: column;
     align-items: center;
+    border-bottom: 1px solid #e5e7eb;
+    margin-top: 7rem;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+    max-width: 1200px;
   }
   .cardArea {
     display: flex;
