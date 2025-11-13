@@ -41,7 +41,7 @@
 
   const isFetching = ref<boolean>(false);
   const isError = ref<boolean>(false);
-  
+
   const searchData = ref<NewsType[]>([]);
   const nowPage = ref<number>(1);
 
@@ -60,6 +60,8 @@
         const results = await searchNewsData(keyword.value);
         searchStore.setSearchData(results);
         searchData.value = searchStore.searchData.slice(0, 10);
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       } catch {
         isError.value = true;
       } finally {
