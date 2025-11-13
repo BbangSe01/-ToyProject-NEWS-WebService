@@ -27,6 +27,7 @@
   import { ref, watch, computed } from "vue";
   import { searchNewsData } from "../../apis/NewsApis";
   import { VueSpinnerClock } from "vue3-spinners";
+  import dayjs from "dayjs";
   import NewsCard from "../parts/NewsCard.vue";
   import DetailNews from "../dialog/DetailNews.vue";
   import { useNewsDataStore } from "../../stores/newsData.ts";
@@ -57,7 +58,14 @@
         isFetching.value = true;
         searchStore.searchData = [];
         nowPage.value = 1;
-        const results = await searchNewsData(keyword.value);
+        let results = await searchNewsData(keyword.value);
+        results = results.map((x: NewsType) => {
+          const formattedDate = dayjs(x.publishedAt).format("YYYY-MM-DD");
+          return {
+            ...x,
+            publishedAt: formattedDate,
+          };
+        });
         searchStore.setSearchData(results);
         searchData.value = searchStore.searchData.slice(0, 10);
 
