@@ -5,7 +5,7 @@
       <li
         v-for="(item, idx) in props.list"
         :key="item"
-        @click="$emit('update:modelValue', idx)"
+        @click.stop="selectCategory(idx)"
       >
         {{ item }}
       </li>
@@ -25,6 +25,11 @@
   const isOpen = ref(false);
 
   const toggleDropdown = () => {
+    isOpen.value = !isOpen.value;
+  };
+
+  const selectCategory = (idx: number) => {
+    emits("update:modelValue", idx);
     isOpen.value = !isOpen.value;
   };
 </script>
