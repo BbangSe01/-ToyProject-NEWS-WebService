@@ -12,6 +12,7 @@
     />
     <img v-else-if="isError" :src="ErrorImg" alt="에러 이미지" class="error-img"></img>
     <div class="news-area" v-else>
+      <SearchDropdown :list="searchCategory.list" v-model="searchCategory.index" />
       <div v-for="item in searchData" :key="item.url">
         <NewsCard :newsData="item" @click="goToDetailPage(item.url)" />
       </div>
@@ -24,12 +25,13 @@
 </template>
 <script setup lang="ts">
   import { useRoute } from "vue-router";
-  import { ref, watch, computed } from "vue";
+  import { ref, watch, computed, reactive } from "vue";
   import { searchNewsData } from "../../apis/NewsApis";
   import { VueSpinnerClock } from "vue3-spinners";
   import dayjs from "dayjs";
   import NewsCard from "../parts/NewsCard.vue";
   import DetailNews from "../dialog/DetailNews.vue";
+  import SearchDropdown from "../parts/SearchDropdown.vue";
   import { useNewsDataStore } from "../../stores/newsData.ts";
   import { useSearchDataStore } from "../../stores/searchData.ts";
   import ErrorImg from "../../assets/images/error-img.jpg"
@@ -49,6 +51,11 @@
   const isNext = computed(
     () => nowPage.value * 10 < searchStore.searchData.length
   );
+
+  const searchCategory = reactive({
+    list : ['publishedAt', 'relevancy', 'popularity'],
+    index: 0
+  })
 
   watch(
     keyword,
