@@ -1,12 +1,19 @@
 <template>
   <div class="nav-area">
-    <p class="nav-title">News</p>
+    <div class="nav-title" @click="goToHeadline">News</div>
     <SearchBar />
   </div>
 </template>
 
 <script setup lang="ts">
   import SearchBar from "../parts/SearchBar.vue";
+  import { useRouter } from "vue-router";
+
+  const router = useRouter();
+
+  const goToHeadline = () => {
+    router.push({ name: "Headline" });
+  };
 </script>
 
 <style scoped>
@@ -34,5 +41,6 @@
   .nav-title {
     padding-top: 0.7rem;
     margin-left: 5%;
+    cursor: pointer;
   }
 </style>
