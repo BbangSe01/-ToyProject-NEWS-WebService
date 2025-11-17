@@ -26,14 +26,13 @@
 <script setup lang="ts">
   import { useRoute } from "vue-router";
   import { ref, watch, computed, reactive } from "vue";
-  import { searchNewsData } from "../../apis/NewsApis";
   import { VueSpinnerClock } from "vue3-spinners";
-  import dayjs from "dayjs";
   import NewsCard from "../parts/NewsCard.vue";
   import DetailNews from "../dialog/DetailNews.vue";
   import SearchDropdown from "../parts/SearchDropdown.vue";
   import { useNewsDataStore } from "../../stores/newsData.ts";
   import { useSearchDataStore } from "../../stores/searchData.ts";
+  import { getSearchData } from "../../utils/getSearchData.ts";
   import ErrorImg from "../../assets/images/error-img.jpg"
   import type { NewsType } from "../../types";
   const route = useRoute();
@@ -64,16 +63,9 @@
       try {
         isFetching.value = true;
         searchStore.searchData = [];
+        searchCategory.index=0;
         nowPage.value = 1;
-        let results = await searchNewsData(keyword.value);
-        results = results.map((x: NewsType) => {
-          const formattedDate = dayjs(x.publishedAt).format("YYYY-MM-DD");
-          return {
-            ...x,
-            publishedAt: formattedDate,
-          };
-        });
-        searchStore.setSearchData(results);
+        await getSearchData({keyword:newVal, sortBy: searchCategory.list[searchCategory.index] as string})
         searchData.value = searchStore.searchData.slice(0, 10);
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -85,6 +77,24 @@
     },
     { immediate: true }
   );
+
+  watch(()=>searchCategory.index, async (newVal, oldVal) => {
+      isError.value = false;
+      try {
+        isFetching.value = true;
+        searchStore.searchData = [];
+        nowPage.value = 1;
+        await getSearchData({keyword:keyword.value, sortBy: searchCategory.list[searchCategory.index] as string})
+        searchData.value = searchStore.searchData.slice(0, 10);
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch {
+        isError.value = true;
+      } finally {
+        isFetching.value = false;
+      }
+    },
+  )
 
   watch(nowPage, async (newVal, oldVal) => {
     const addData = searchStore.searchData.slice(
