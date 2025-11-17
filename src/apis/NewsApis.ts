@@ -1,4 +1,5 @@
 import axiosInstance from "./axiosInstance";
+import type { SearchType } from "../types";
 const apikey = import.meta.env.VITE_NEWS_API_KEY;
 
 export const getHeadLineData = async (category: string) => {
@@ -12,10 +13,10 @@ export const getHeadLineData = async (category: string) => {
   }
 };
 
-export const searchNewsData = async (keyword: string) => {
+export const searchNewsData = async ({ keyword, sortBy }: SearchType) => {
   try {
     const res = await axiosInstance.get(
-      `everything?q=${keyword}&apiKey=${apikey}`
+      `everything?q=${keyword}&apiKey=${apikey}&sortBy=${sortBy}`
     );
     return res.data.articles;
   } catch (err) {
