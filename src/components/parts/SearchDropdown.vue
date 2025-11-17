@@ -1,5 +1,5 @@
 <template>
-  <div class="dropdown-area">
+  <div class="dropdown-area" ref="dropdownRef">
     <div class="dropdown-button" @click="toggleDropdown">
       {{ list[modelValue] }}
     </div>
@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from "vue";
+  import { onMounted, onBeforeUnmount, ref } from "vue";
   const props = defineProps<{
     list: string[];
     modelValue: number;
@@ -24,7 +24,14 @@
   const emits = defineEmits(["update:modelValue"]);
   // 드롭다운 열림/닫힘 상태
   const isOpen = ref(false);
+  const dropdownRef = ref<HTMLElement | null>(null);
 
+  const handleClickOutside = (e: MouseEvent) => {
+    const target = e.target as Node;
+    if (dropdownRef.value && !dropdownRef.value.contains(target)) {
+      isOpen.value = false;
+    }
+  };
   const toggleDropdown = () => {
     isOpen.value = !isOpen.value;
   };
@@ -33,6 +40,14 @@
     emits("update:modelValue", idx);
     isOpen.value = !isOpen.value;
   };
+
+  onMounted(() => {
+    document.addEventListener("click", handleClickOutside);
+  });
+
+  onBeforeUnmount(() => {
+    document.removeEventListener("click", handleClickOutside);
+  });
 </script>
 
 <style scoped>
