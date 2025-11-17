@@ -1,11 +1,13 @@
 <template>
-  <div class="dropdown-toggle" @click="toggleDropdown">
-    {{ props.list[props.modelValue] }}
+  <div class="dropdown-area">
+    <div class="dropdown-button" @click="toggleDropdown">
+      {{ list[modelValue] }}
+    </div>
     <ul class="dropdown-menu" v-show="isOpen">
       <li
-        v-for="(item, idx) in props.list"
-        :key="item"
-        @click.stop="selectCategory(idx)"
+        v-for="(item, index) in props.list"
+        class="dropdown-list"
+        @click="selectCategory(index)"
       >
         {{ item }}
       </li>
@@ -15,7 +17,6 @@
 
 <script setup lang="ts">
   import { ref } from "vue";
-
   const props = defineProps<{
     list: string[];
     modelValue: number;
@@ -35,41 +36,87 @@
 </script>
 
 <style scoped>
-  .dropdown-toggle {
-    width: 120px;
-    background-color: #f5f5f5;
-    border-radius: 6px;
-    padding: 10px;
+  @keyframes slide-in {
+    0% {
+      top: 0%;
+      opacity: 0;
+    }
+    40% {
+      top: 40%;
+      opacity: 0.4;
+    }
+    70% {
+      top: 70%;
+      opacity: 0.7;
+    }
+    100% {
+      top: 101%;
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-out {
+    0% {
+      top: 101%;
+      opacity: 1;
+    }
+    40% {
+      top: 70%;
+      opacity: 0.7;
+    }
+    70% {
+      top: 40%;
+      opacity: 0.4;
+    }
+    100% {
+      top: 0%;
+      opacity: 0;
+    }
+  }
+
+  .dropdown-area {
     position: relative;
-    display: inline-block;
+    width: 7.5rem;
+    border: 1px solid black;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: self-end;
+  }
+
+  .dropdown-button {
+    display: flex;
+    padding: 10px;
     text-align: center;
-    cursor: pointer;
-    user-select: none;
-    border: 1px solid #ddd;
-    align-self: flex-end;
   }
 
   .dropdown-menu {
     position: absolute;
-    top: 100%;
-    left: 0;
+    top: 101%;
+    width: 100%;
     background: white;
     border: 1px solid #ddd;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    border-radius: 6px;
     list-style: none;
-    padding: 0.5rem 0;
-    margin: 4px 0 0;
-    width: 100%;
+    margin: 0;
     z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0; /* ← 이것을 빠트려서 들여쓰기처럼 보임 */
+    animation: slide-in 0.4s linear forwards;
   }
 
-  .dropdown-menu li {
-    padding: 0.5rem;
-    cursor: pointer;
+  .dropdown-list {
+    width: 100%;
+    text-align: center;
+    height: 1.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
   }
-
-  .dropdown-menu li:hover {
+  .dropdown-list:hover {
     background-color: #f3f4f6;
   }
 </style>
