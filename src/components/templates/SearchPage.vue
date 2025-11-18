@@ -37,7 +37,7 @@
   import type { NewsType } from "../../types";
   const route = useRoute();
   const keyword = computed(() => (route.query.keyword as string) || "");
-
+  
   const newsStore = useNewsDataStore();
   const searchStore = useSearchDataStore();
 

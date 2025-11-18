@@ -8,11 +8,14 @@
 <script setup lang="ts">
   import SearchBar from "../parts/SearchBar.vue";
   import { useRouter } from "vue-router";
+  import { useSearchDataStore } from "../../stores/searchData";
 
   const router = useRouter();
+  const searchStore = useSearchDataStore();
 
   const goToHeadline = () => {
     router.push({ name: "Headline" });
+    searchStore.setSearchWord("");
   };
 </script>
 
