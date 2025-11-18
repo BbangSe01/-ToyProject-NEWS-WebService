@@ -37,7 +37,6 @@
   import type { NewsType } from "../../types";
   const route = useRoute();
   const keyword = computed(() => (route.query.keyword as string) || "");
-  
   const newsStore = useNewsDataStore();
   const searchStore = useSearchDataStore();
 
@@ -56,30 +55,8 @@
     index: 0
   })
 
-  watch(
-    keyword,
-    async (newVal, oldVal) => {
-      isError.value = false;
-      try {
-        isFetching.value = true;
-        searchStore.searchData = [];
-        searchCategory.index=0;
-        nowPage.value = 1;
-        await getSearchData({keyword:newVal, sortBy: searchCategory.list[searchCategory.index] as string})
-        searchData.value = searchStore.searchData.slice(0, 10);
-
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } catch {
-        isError.value = true;
-      } finally {
-        isFetching.value = false;
-      }
-    },
-    { immediate: true }
-  );
-
-  watch(()=>searchCategory.index, async (newVal, oldVal) => {
-      isError.value = false;
+  const fetchSearchData = async()=> {
+    isError.value = false;
       try {
         isFetching.value = true;
         searchStore.searchData = [];
@@ -93,10 +70,23 @@
       } finally {
         isFetching.value = false;
       }
+  }
+
+  watch(
+    keyword,
+    async () => {
+      searchCategory.index=0;
+      await fetchSearchData();
+    },
+    { immediate: true }
+  );
+
+  watch(()=>searchCategory.index, async () => {
+      await fetchSearchData();
     },
   )
 
-  watch(nowPage, async (newVal, oldVal) => {
+  watch(nowPage, () => {
     const addData = searchStore.searchData.slice(
       (nowPage.value - 1) * 10,
       nowPage.value * 10
