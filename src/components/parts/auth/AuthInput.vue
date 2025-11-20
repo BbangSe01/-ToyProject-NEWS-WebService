@@ -5,7 +5,7 @@
       {{ isLogin ? "User Login" : "User Sign Up" }}
     </div>
     <form class="auth-input-area">
-      <input required placeholder="  ID" type="text" />
+      <input required placeholder="  Email" type="email" />
       <input required placeholder="  Password" type="password" />
       <input
         v-if="!isLogin"
@@ -29,6 +29,8 @@
   const props = defineProps<{
     isLogin: boolean;
   }>();
+
+  // 서버 구성 후 유효성 검사 추가하기
 </script>
 
 <style scoped>
