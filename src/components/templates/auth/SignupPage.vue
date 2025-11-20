@@ -1,7 +1,7 @@
 <template>
-  <div>회원가입</div>
+  <AuthInput :is-login="false" />
 </template>
 
-<script>
-  console.log("회원가입 페이지");
+<script setup lang="ts">
+  import AuthInput from "../../parts/auth/AuthInput.vue";
 </script>
