@@ -4,17 +4,30 @@
     <div class="auth-comments">
       {{ isLogin ? "User Login" : "User Sign Up" }}
     </div>
-    <form class="auth-input-area">
-      <input required placeholder="  Email" type="email" />
-      <input required placeholder="  Password" type="password" />
+    <form class="auth-input-area" @submit.prevent="isLogin ? null : signUp()">
+      <input
+        required
+        placeholder="  Email"
+        type="email"
+        v-model="signupInput.username"
+      />
+      <input
+        required
+        placeholder="  Password"
+        type="password"
+        v-model="signupInput.password"
+      />
       <input
         v-if="!isLogin"
         required
         placeholder="  Confirm Password"
         type="password"
+        v-model="signupInput.password2"
       />
+      <button class="auth-btn" type="submit">
+        {{ isLogin ? "Login" : "Sign Up" }}
+      </button>
     </form>
-    <button class="auth-btn">{{ isLogin ? "Login" : "Sign Up" }}</button>
     <div v-if="isLogin" class="go-signup">
       <p class="signup-comment">Don't have an account?</p>
       <router-link to="/signup" class="go-signup-btn">Sign up</router-link>
@@ -24,13 +37,32 @@
 
 <script setup lang="ts">
   import authImg from "../../../assets/images/auth-img.png";
-  import { defineProps } from "vue";
+  import { signup } from "../../../apis/AuthApis";
+  import { defineProps, reactive } from "vue";
 
   const props = defineProps<{
     isLogin: boolean;
   }>();
 
+  const signupInput = reactive({
+    username: "",
+    password: "",
+    password2: "",
+  });
   // 서버 구성 후 유효성 검사 추가하기
+
+  const signUp = async () => {
+    try {
+      const res = await signup({
+        username: signupInput.username,
+        password: signupInput.password,
+        password2: signupInput.password2,
+      });
+      console.log(res);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 </script>
 
 <style scoped>
