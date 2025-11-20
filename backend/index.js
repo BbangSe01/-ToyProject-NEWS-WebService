@@ -13,6 +13,8 @@ app.get("/", (req, res) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use("/user", require("./routes/loginRoutes"));
+
 app.listen(port, () => {
   console.log(`App running on port ${port}...`);
 });
