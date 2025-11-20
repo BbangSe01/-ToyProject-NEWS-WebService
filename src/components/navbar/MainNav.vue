@@ -1,12 +1,16 @@
 <template>
   <div class="nav-area">
     <div class="nav-title" @click="goToHeadline">News</div>
-    <SearchBar />
+    <div class="nav-right">
+      <SearchBar />
+      <LoginButton />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
   import SearchBar from "../parts/SearchBar.vue";
+  import LoginButton from "../parts/LoginButton.vue";
   import { useRouter } from "vue-router";
   import { useSearchDataStore } from "../../stores/searchData";
 
@@ -40,6 +44,10 @@
     justify-content: space-between;
     align-items: center;
     font-size: 55px;
+  }
+  .nav-right {
+    display: flex;
+    margin-right: 5%;
   }
   .nav-title {
     padding-top: 0.7rem;

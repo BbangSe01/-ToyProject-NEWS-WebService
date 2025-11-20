@@ -40,7 +40,6 @@
     align-items: center;
     font-size: 1rem;
     font-family: "Merriweather", serif;
-    margin-right: 5%;
   }
   .search-input {
     width: 300px;
