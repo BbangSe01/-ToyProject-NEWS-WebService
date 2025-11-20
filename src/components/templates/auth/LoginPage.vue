@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-  import authImg from "../../assets/images/auth-img.png";
+  import authImg from "../../../assets/images/auth-img.png";
 </script>
 
 <style scoped>

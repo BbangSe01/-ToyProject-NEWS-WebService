@@ -9,8 +9,8 @@
 </template>
 
 <script setup lang="ts">
-  import SearchBar from "../parts/SearchBar.vue";
-  import LoginButton from "../parts/LoginButton.vue";
+  import SearchBar from "../parts/search/SearchBar.vue";
+  import LoginButton from "../parts/auth/LoginButton.vue";
   import { useRouter } from "vue-router";
   import { useSearchDataStore } from "../../stores/searchData";
 

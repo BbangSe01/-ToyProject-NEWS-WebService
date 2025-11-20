@@ -29,7 +29,7 @@
   import { VueSpinnerClock } from "vue3-spinners";
   import NewsCard from "../parts/NewsCard.vue";
   import DetailNews from "../dialog/DetailNews.vue";
-  import SearchDropdown from "../parts/SearchDropdown.vue";
+  import SearchDropdown from "../parts/search/SearchDropdown.vue";
   import { useNewsDataStore } from "../../stores/newsData.ts";
   import { useSearchDataStore } from "../../stores/searchData.ts";
   import { getSearchData } from "../../utils/getSearchData.ts";
