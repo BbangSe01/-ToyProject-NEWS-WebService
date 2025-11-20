@@ -9,7 +9,7 @@
     <button class="login-btn">Login</button>
     <div class="go-signup">
       <p class="signup-comment">Don't have an account?</p>
-      <router-link to="" class="go-signup-btn">Sign up</router-link>
+      <router-link to="/signup" class="go-signup-btn">Sign up</router-link>
     </div>
   </div>
 </template>
