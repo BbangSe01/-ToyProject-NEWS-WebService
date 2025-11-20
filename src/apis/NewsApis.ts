@@ -1,4 +1,4 @@
-import axiosInstance from "./axiosInstance";
+import { axiosInstance } from "./axiosInstance";
 import type { SearchType } from "../types";
 const apikey = import.meta.env.VITE_NEWS_API_KEY;
 
