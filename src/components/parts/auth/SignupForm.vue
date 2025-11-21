@@ -3,18 +3,24 @@
     <img :src="authImg" alt="인증 이미지" class="signup-img" />
     <div class="signup-comments">User Sign Up</div>
     <form class="signup-form-area" @submit.prevent="signUp()">
-      <SignupInput v-model="baseInput" />
+      <SignupInput v-model="baseInput" v-model:touched="touched" />
       <button class="signup-btn" type="submit">Sign Up</button>
     </form>
-    <!-- <p v-if="usernameValid">올바른 이메일 주소를 입력하세요.</p>
-    <p v-if="passwordValid">올바른 비밀번호를 입력하세요.</p>
-    <p v-if="!checkPassword">비밀번호 불일치</p> -->
+    <p v-if="touched.username && baseInput.username && !usernameValid">
+      올바른 이메일 주소를 입력하세요.
+    </p>
+    <p v-if="touched.password && baseInput.password && !passwordValid">
+      올바른 비밀번호를 입력하세요.
+    </p>
+    <p v-if="passwordValid && baseInput.password2 && !checkPassword">
+      비밀번호 불일치
+    </p>
   </div>
 </template>
 
 <script setup lang="ts">
   import authImg from "../../../assets/images/auth-img.png";
-  import type { baseInputType } from "../../../types";
+  import type { baseInputType, baseTouchType } from "../../../types";
   import {
     isValidEmail,
     isValidPassword,
@@ -28,6 +34,11 @@
     username: "",
     password: "",
     password2: "",
+  });
+
+  const touched = ref<baseTouchType>({
+    username: false,
+    password: false,
   });
 
   const usernameValid = computed(() => isValidEmail(baseInput.value.username));
