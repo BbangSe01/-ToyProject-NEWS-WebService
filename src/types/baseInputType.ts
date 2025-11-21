@@ -4,7 +4,7 @@ export interface baseInputType {
   password2: string;
 }
 
-export interface baseValidType {
-  idValid: boolean;
-  pwValid: boolean;
+export interface baseTouchType {
+  username: boolean;
+  password: boolean;
 }
