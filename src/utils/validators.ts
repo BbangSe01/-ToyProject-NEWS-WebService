@@ -3,7 +3,7 @@ const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 // 이메일 유효성 검사 메서드
 export const isValidEmail = (email: string): boolean => {
-  return !emailPattern.test(email);
+  return emailPattern.test(email);
 };
 
 // 비밀번호 정규식 (프로젝트 규모에 맞게 약소한 조건으로 설정)
@@ -12,7 +12,7 @@ const passwordPattern = /^(?=.*[a-zA-Z])(?=.*\d).{4,}$/;
 
 // 비밀번호 유효성 검사 메서드
 export const isValidPassword = (password: string): boolean => {
-  return !passwordPattern.test(password);
+  return passwordPattern.test(password);
 };
 
 // 비밀번호 확인 메서드
