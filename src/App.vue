@@ -12,6 +12,11 @@
 <style>
   @import url("https://fonts.googleapis.com/css2?family=Merriweather&family=Montserrat&display=swap");
 
+  input,
+  button {
+    box-sizing: border-box;
+  }
+
   .fullScreen {
     display: flex;
     flex-direction: column;
