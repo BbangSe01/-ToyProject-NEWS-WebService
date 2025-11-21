@@ -6,15 +6,16 @@
       <SignupInput v-model="baseInput" v-model:touched="touched" />
       <button class="signup-btn" type="submit">Sign Up</button>
     </form>
-    <p v-if="touched.username && baseInput.username && !usernameValid">
-      올바른 이메일 주소를 입력하세요.
-    </p>
-    <p v-if="touched.password && baseInput.password && !passwordValid">
-      올바른 비밀번호를 입력하세요.
-    </p>
-    <p v-if="passwordValid && baseInput.password2 && !checkPassword">
-      비밀번호 불일치
-    </p>
+    <div class="signup-error">
+      <p v-if="touched.username && !usernameValid">
+        - Please enter a valid email address.
+      </p>
+      <p v-if="touched.password && !passwordValid">
+        - Please enter a password with at least one letter, one number, and at
+        least 4 characters in total.
+      </p>
+      <p v-if="passwordValid && !checkPassword">- Passwords do not match.</p>
+    </div>
   </div>
 </template>
 
@@ -70,6 +71,7 @@
   .signup-area {
     margin-top: 7rem;
     display: flex;
+    width: 30%;
     flex-direction: column;
     align-items: center;
   }
@@ -97,5 +99,16 @@
     border-radius: 10px;
     cursor: pointer;
     font-size: 1.2rem;
+  }
+  .signup-error {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    /* background-color: pink; */
+  }
+  .signup-error p {
+    color: red;
+    font-size: 0.8rem;
+    margin-bottom: -0.2rem;
   }
 </style>
