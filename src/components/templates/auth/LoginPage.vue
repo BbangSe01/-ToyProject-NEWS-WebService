@@ -1,7 +1,7 @@
 <template>
-  <AuthInput :is-login="true" />
+  <LoginForm />
 </template>
 
 <script setup lang="ts">
-  import AuthInput from "../../parts/auth/AuthInput.vue";
+  import LoginForm from "../../parts/auth/LoginForm.vue";
 </script>
