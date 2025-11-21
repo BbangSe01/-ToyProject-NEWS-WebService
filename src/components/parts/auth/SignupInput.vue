@@ -1,16 +1,14 @@
 <template>
   <div class="signup-input-area">
-    <div class="username-line">
-      <input
-        :value="modelValue.username"
-        class="signup-username-input"
-        required
-        placeholder="  Email"
-        type="email"
-        @input="(e) => updateField('username', e)"
-      />
-      <button class="dup-check-btn">중복확인</button>
-    </div>
+    <input
+      :value="modelValue.username"
+      class="signup-username-input"
+      required
+      placeholder="  Email"
+      type="email"
+      @input="(e) => updateField('username', e)"
+      @blur="updateTouched('username')"
+    />
     <input
       :value="modelValue.password"
       class="signup-pw-input"
@@ -18,6 +16,7 @@
       placeholder="  Password"
       type="password"
       @input="(e) => updateField('password', e)"
+      @blur="updateTouched('password')"
     />
     <input
       :value="modelValue.password2"
@@ -32,12 +31,13 @@
 
 <script setup lang="ts">
   import { defineProps, defineEmits } from "vue";
-  import type { baseInputType } from "../../../types";
+  import type { baseInputType, baseTouchType } from "../../../types";
   const props = defineProps<{
     modelValue: baseInputType;
+    touched: baseTouchType;
   }>();
 
-  const emit = defineEmits(["update:modelValue"]);
+  const emit = defineEmits(["update:modelValue", "update:touched"]);
 
   const updateField = (key: keyof baseInputType, e: Event) => {
     const newValue = (e.target as HTMLInputElement).value;
@@ -47,6 +47,13 @@
       [key]: newValue,
     });
   };
+
+  const updateTouched = (key: keyof baseInputType) => {
+    emit("update:touched", {
+      ...props.touched,
+      [key]: true,
+    });
+  };
 </script>
 
 <style scoped>
@@ -54,29 +61,11 @@
     display: flex;
     flex-direction: column;
   }
-  .username-line {
-    display: flex;
-  }
-  .signup-username-input {
-    width: 13rem;
-    height: 2rem;
-    border: 2px solid black;
-    border-radius: 10px;
-    margin-bottom: 0.5rem;
-  }
-  .signup-pw-input {
+  .signup-input-area input {
     width: 18rem;
     height: 2rem;
     border: 2px solid black;
     border-radius: 10px;
     margin-bottom: 0.5rem;
-  }
-  .dup-check-btn {
-    width: 4.5rem;
-    margin-left: 0.5rem;
-    height: 2rem;
-    font-size: 0.8rem;
-    border-radius: 10px;
-    cursor: pointer;
   }
 </style>
