@@ -4,7 +4,13 @@
     <div class="signup-comments">User Sign Up</div>
     <form class="signup-form-area" @submit.prevent="signUp()">
       <SignupInput v-model="baseInput" v-model:touched="touched" />
-      <button class="signup-btn" type="submit">Sign Up</button>
+      <button
+        class="signup-btn"
+        type="submit"
+        :disabled="!usernameValid || !passwordValid || !checkPassword"
+      >
+        Sign Up
+      </button>
     </form>
     <div class="signup-error">
       <p v-if="touched.username && !usernameValid">
@@ -55,6 +61,13 @@
 
   const signUp = async () => {
     try {
+      if (
+        !usernameValid.value ||
+        !passwordValid.value ||
+        !checkPassword.value
+      ) {
+        return;
+      }
       const res = await signup({
         username: baseInput.value.username,
         password: baseInput.value.password,
@@ -100,11 +113,14 @@
     cursor: pointer;
     font-size: 1.2rem;
   }
+  .signup-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
   .signup-error {
     display: flex;
     flex-direction: column;
-    width: 60%;
-    /* background-color: pink; */
+    width: 19rem;
   }
   .signup-error p {
     color: red;
