@@ -7,7 +7,7 @@
         required
         placeholder="  Email"
         type="email"
-        @input="renewUsername"
+        @input="(e) => updateField('username', e)"
       />
       <button class="dup-check-btn">중복확인</button>
     </div>
@@ -17,7 +17,7 @@
       required
       placeholder="  Password"
       type="password"
-      @input="renewPassword"
+      @input="(e) => updateField('password', e)"
     />
     <input
       :value="modelValue.password2"
@@ -25,7 +25,7 @@
       required
       placeholder="  Confirm Password"
       type="password"
-      @input="renewPassword2"
+      @input="(e) => updateField('password2', e)"
     />
   </div>
 </template>
@@ -39,30 +39,12 @@
 
   const emit = defineEmits(["update:modelValue"]);
 
-  const renewUsername = (e: Event) => {
+  const updateField = (key: keyof baseInputType, e: Event) => {
     const newValue = (e.target as HTMLInputElement).value;
 
     emit("update:modelValue", {
       ...props.modelValue,
-      username: newValue,
-    });
-  };
-
-  const renewPassword = (e: Event) => {
-    const newValue = (e.target as HTMLInputElement).value;
-
-    emit("update:modelValue", {
-      ...props.modelValue,
-      password: newValue,
-    });
-  };
-
-  const renewPassword2 = (e: Event) => {
-    const newValue = (e.target as HTMLInputElement).value;
-
-    emit("update:modelValue", {
-      ...props.modelValue,
-      password2: newValue,
+      [key]: newValue,
     });
   };
 </script>
