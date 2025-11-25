@@ -71,7 +71,6 @@
       const res = await signup({
         username: baseInput.value.username,
         password: baseInput.value.password,
-        password2: baseInput.value.password2,
       });
       console.log(res);
     } catch (err) {

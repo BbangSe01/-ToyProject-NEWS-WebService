@@ -5,10 +5,7 @@ const { isValidEmail, isValidPassword } = require("../utils/validators");
 // POST /register
 const registerUser = async (req, res) => {
   try {
-    const { username, password, password2 } = req.body;
-    if (password !== password2) {
-      return res.status(400).json({ message: "Passwords do not match" });
-    }
+    const { username, password } = req.body;
 
     if (!isValidEmail(username)) {
       return res
