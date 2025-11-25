@@ -35,6 +35,7 @@
   } from "../../../utils/validators";
   import SignupInput from "./SignupInput.vue";
   import { signup } from "../../../apis/AuthApis";
+  import { AxiosError } from "axios";
   import { reactive, watch, ref, computed } from "vue";
 
   const baseInput = ref<baseInputType>({
@@ -74,7 +75,16 @@
       });
       console.log(res);
     } catch (err) {
-      console.error(err);
+      if (err instanceof AxiosError) {
+        const errorType = err.response?.data?.code;
+        switch (errorType) {
+          case "USER_EMAIL_DUPLICATED":
+            alert("Duplicated Email");
+            break;
+          default:
+            alert("Server Error");
+        }
+      }
     }
   };
 </script>
