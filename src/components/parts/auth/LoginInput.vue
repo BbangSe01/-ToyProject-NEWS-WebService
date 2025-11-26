@@ -1,12 +1,11 @@
 <template>
-  <div class="signup-input-area">
+  <div class="login-input-area">
     <input
       :value="modelValue.username"
       required
       placeholder="  Email"
       type="email"
       @input="(e) => updateField('username', e)"
-      @blur="updateTouched('username')"
     />
     <input
       :value="modelValue.password"
@@ -14,27 +13,18 @@
       placeholder="  Password"
       type="password"
       @input="(e) => updateField('password', e)"
-      @blur="updateTouched('password')"
-    />
-    <input
-      :value="modelValue.password2"
-      required
-      placeholder="  Confirm Password"
-      type="password"
-      @input="(e) => updateField('password2', e)"
     />
   </div>
 </template>
 
 <script setup lang="ts">
   import { defineProps, defineEmits } from "vue";
-  import type { baseInputType, baseTouchType } from "../../../types";
+  import type { baseInputType } from "../../../types";
   const props = defineProps<{
-    modelValue: baseInputType;
-    touched: baseTouchType;
+    modelValue: Omit<baseInputType, "password2">;
   }>();
 
-  const emit = defineEmits(["update:modelValue", "update:touched"]);
+  const emit = defineEmits(["update:modelValue"]);
 
   const updateField = (key: keyof baseInputType, e: Event) => {
     const newValue = (e.target as HTMLInputElement).value;
@@ -44,21 +34,14 @@
       [key]: newValue,
     });
   };
-
-  const updateTouched = (key: keyof baseInputType) => {
-    emit("update:touched", {
-      ...props.touched,
-      [key]: true,
-    });
-  };
 </script>
 
 <style scoped>
-  .signup-input-area {
+  .login-input-area {
     display: flex;
     flex-direction: column;
   }
-  .signup-input-area input {
+  .login-input-area input {
     width: 18rem;
     height: 2rem;
     border: 2px solid black;

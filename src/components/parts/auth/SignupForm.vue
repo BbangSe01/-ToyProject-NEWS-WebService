@@ -1,6 +1,6 @@
 <template>
   <div class="signup-area">
-    <img :src="authImg" alt="인증 이미지" class="signup-img" />
+    <img :src="authImg" alt="인증 이미지" class="auth-img" />
     <div class="signup-comments">User Sign Up</div>
     <form class="signup-form-area" @submit.prevent="signUp()">
       <SignupInput v-model="baseInput" v-model:touched="touched" />
@@ -36,8 +36,10 @@
   import SignupInput from "./SignupInput.vue";
   import { signup } from "../../../apis/AuthApis";
   import { AxiosError } from "axios";
+  import { useRouter } from "vue-router";
   import { reactive, watch, ref, computed } from "vue";
 
+  const router = useRouter();
   const baseInput = ref<baseInputType>({
     username: "",
     password: "",
@@ -73,7 +75,11 @@
         username: baseInput.value.username,
         password: baseInput.value.password,
       });
-      console.log(res);
+      if (res.status === 201) {
+        // 로그인 구현 이후 UI 수정하기
+        alert("회원가입 성공");
+        router.push({ name: "Headline" });
+      }
     } catch (err) {
       if (err instanceof AxiosError) {
         const errorType = err.response?.data?.code;
@@ -97,7 +103,7 @@
     flex-direction: column;
     align-items: center;
   }
-  .signup-img {
+  .auth-img {
     width: 150px;
     height: 150px;
   }
