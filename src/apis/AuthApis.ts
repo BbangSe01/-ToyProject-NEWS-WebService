@@ -6,3 +6,10 @@ export const signup = async ({ username, password }: SignupType) => {
     password,
   });
 };
+
+export const login = async ({ username, password }: SignupType) => {
+  return await authInstance.post("user/login", {
+    username,
+    password,
+  });
+};
