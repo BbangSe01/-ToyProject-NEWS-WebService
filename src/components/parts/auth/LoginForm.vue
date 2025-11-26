@@ -30,6 +30,7 @@
   import { login } from "../../../apis/AuthApis";
   import { useTokenDataStore } from "../../../stores/tokenData";
   import { useRouter } from "vue-router";
+  import Swal from "sweetalert2";
   import { reactive, watch, ref, computed } from "vue";
 
   const router = useRouter();
@@ -46,9 +47,20 @@
         password: baseInput.value.password,
       });
       tokenStore.setAccessToken(res.data.token);
+      Swal.fire({
+        title: "Success!",
+        text: "Login Success!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      });
       router.push({ name: "Headline" });
     } catch (err) {
-      console.error(err);
+      Swal.fire({
+        title: "Error!",
+        text: "The username or password you entered is incorrect.",
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
     }
   };
 </script>

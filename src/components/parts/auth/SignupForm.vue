@@ -37,6 +37,7 @@
   import { signup } from "../../../apis/AuthApis";
   import { AxiosError } from "axios";
   import { useRouter } from "vue-router";
+  import Swal from "sweetalert2";
   import { reactive, watch, ref, computed } from "vue";
 
   const router = useRouter();
@@ -76,8 +77,12 @@
         password: baseInput.value.password,
       });
       if (res.status === 201) {
-        // 로그인 구현 이후 UI 수정하기
-        alert("회원가입 성공");
+        Swal.fire({
+          title: "Success!",
+          text: "Signup Success!",
+          icon: "success",
+          confirmButtonText: "Ok",
+        });
         router.push({ name: "Headline" });
       }
     } catch (err) {
@@ -85,10 +90,20 @@
         const errorType = err.response?.data?.code;
         switch (errorType) {
           case "USER_EMAIL_DUPLICATED":
-            alert("Duplicated Email");
+            Swal.fire({
+              title: "Error!",
+              text: "Duplicated Email",
+              icon: "error",
+              confirmButtonText: "Ok",
+            });
             break;
           default:
-            alert("Server Error");
+            Swal.fire({
+              title: "Error!",
+              text: "Server Error",
+              icon: "error",
+              confirmButtonText: "Ok",
+            });
         }
       }
     }
