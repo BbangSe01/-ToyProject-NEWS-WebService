@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const { isValidEmail, isValidPassword } = require("../utils/validators");
 // Register user
 // POST /register
@@ -45,4 +46,41 @@ const registerUser = async (req, res) => {
   }
 };
 
-module.exports = { registerUser };
+// login user
+// POST /login
+const loginUser = async (req, res) => {
+  try {
+    const user = await User.findOne({ username: req.body.username });
+    console.log(user);
+    if (!user) {
+      return res.status(400).json({
+        loginSuccess: false,
+        message: "유효하지 않은 이메일 혹은 비밀번호 형식입니다.",
+      });
+    }
+    // db에서 요청한 email이 있다면 비밀번호가 같은지 확인
+    const isMatch = await user.comparePassword(req.body.password);
+    if (!isMatch) {
+      return res.status(400).json({
+        loginSuccess: false,
+        message: "유효하지 않은 이메일 혹은 비밀번호 형식입니다.",
+      });
+    }
+
+    const token = jwt.sign(
+      { userId: user._id, username: user.username },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1h",
+      }
+    );
+    return res.json({ token });
+  } catch (err) {
+    return res.status(400).json({
+      loginSuccess: false,
+      message: "로그인 중 오류 발생",
+    });
+  }
+};
+
+module.exports = { registerUser, loginUser };
