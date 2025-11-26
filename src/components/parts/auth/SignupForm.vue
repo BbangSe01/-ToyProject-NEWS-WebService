@@ -37,7 +37,7 @@
   import { signup } from "../../../apis/AuthApis";
   import { AxiosError } from "axios";
   import { useRouter } from "vue-router";
-  import Swal from "sweetalert2";
+  import { openAlert } from "../../../utils/alert";
   import { reactive, watch, ref, computed } from "vue";
 
   const router = useRouter();
@@ -77,11 +77,10 @@
         password: baseInput.value.password,
       });
       if (res.status === 201) {
-        Swal.fire({
+        openAlert({
           title: "Success!",
           text: "Signup Success!",
           icon: "success",
-          confirmButtonText: "Ok",
         });
         router.push({ name: "Headline" });
       }
@@ -90,19 +89,17 @@
         const errorType = err.response?.data?.code;
         switch (errorType) {
           case "USER_EMAIL_DUPLICATED":
-            Swal.fire({
+            openAlert({
               title: "Error!",
               text: "Duplicated Email",
               icon: "error",
-              confirmButtonText: "Ok",
             });
             break;
           default:
-            Swal.fire({
+            openAlert({
               title: "Error!",
               text: "Server Error",
               icon: "error",
-              confirmButtonText: "Ok",
             });
         }
       }
