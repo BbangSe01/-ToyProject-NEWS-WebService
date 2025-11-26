@@ -28,7 +28,7 @@
   import type { baseInputType } from "../../../types";
   import LoginInput from "./LoginInput.vue";
   import { login } from "../../../apis/AuthApis";
-  import { AxiosError } from "axios";
+  import { useTokenDataStore } from "../../../stores/tokenData";
   import { useRouter } from "vue-router";
   import { reactive, watch, ref, computed } from "vue";
 
@@ -38,13 +38,14 @@
     password: "",
   });
 
+  const tokenStore = useTokenDataStore();
   const logIn = async () => {
     try {
       const res = await login({
         username: baseInput.value.username,
         password: baseInput.value.password,
       });
-      console.log("로그인 결과", res);
+      tokenStore.setAccessToken(res.data.token);
       router.push({ name: "Headline" });
     } catch (err) {
       console.error(err);
