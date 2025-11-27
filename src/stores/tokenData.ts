@@ -11,8 +11,8 @@ export const useTokenDataStore = defineStore(
     const setAccessToken = (token: string) => {
       accessToken.value = token;
     };
-
-    return { accessToken, setAccessToken };
+    const loginState = computed(() => accessToken.value.length > 0);
+    return { accessToken, setAccessToken, loginState };
   },
   {
     persist: {

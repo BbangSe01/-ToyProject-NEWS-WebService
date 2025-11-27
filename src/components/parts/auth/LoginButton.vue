@@ -1,6 +1,6 @@
 <template>
   <button class="login-button" @click="changeLoginState">
-    {{ loginState ? "Logout" : "Login" }}
+    {{ tokenStore.loginState ? "Logout" : "Login" }}
   </button>
 </template>
 
@@ -11,10 +11,9 @@
   import { openAlert } from "../../../utils/alert";
   const tokenStore = useTokenDataStore();
   const router = useRouter();
-  const loginState = computed(() => tokenStore.accessToken.length > 0);
 
   const changeLoginState = () => {
-    if (loginState.value) {
+    if (tokenStore.loginState) {
       tokenStore.setAccessToken("");
       openAlert({
         title: "Success",
