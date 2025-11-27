@@ -48,8 +48,8 @@
       });
       tokenStore.setAccessToken(res.data.token);
       openAlert({
-        title: "Success!",
-        text: "Login Success!",
+        title: "Success",
+        text: "Login!",
         icon: "success",
       });
       router.push({ name: "Headline" });
