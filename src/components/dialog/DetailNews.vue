@@ -28,8 +28,10 @@
           }}
         </div>
         <div class="button-area">
-          <button class="each-btn">View Full Article</button>
-          <button class="each-btn">View summary</button>
+          <button class="each-btn" @click="goToArticle">
+            View Full Article
+          </button>
+          <button class="each-btn" @click="goToSummary">View summary</button>
         </div>
         <p class="btn-guide" v-if="!tokenStore.loginState">
           ☝️ The summary feature is available after logging in.
@@ -43,6 +45,7 @@
   import { defineEmits } from "vue";
   import { useNewsDataStore } from "../../stores/newsData";
   import { useTokenDataStore } from "../../stores/tokenData";
+  import { getSummaryNews } from "../../apis/NewsApis";
   import noImg from "../../assets/images/Image_not_available.png";
   const emit = defineEmits(["close"]);
 
@@ -54,6 +57,13 @@
     window.open(`${detailData.url}`, "_blank");
   };
 
+  const goToSummary = async () => {
+    if (!tokenStore.loginState) {
+      // 미로그인 시, api 호출 x
+      return;
+    }
+    await getSummaryNews(detailData.url);
+  };
   const onImgError = (e: Event) => {
     const target = e.target as HTMLImageElement;
     target.src = noImg;
