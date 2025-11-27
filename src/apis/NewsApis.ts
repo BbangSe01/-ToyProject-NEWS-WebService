@@ -1,4 +1,4 @@
-import { axiosInstance } from "./axiosInstance";
+import { axiosInstance, backendInstance } from "./axiosInstance";
 import type { SearchType } from "../types";
 const apikey = import.meta.env.VITE_NEWS_API_KEY;
 
@@ -22,4 +22,10 @@ export const searchNewsData = async ({ keyword, sortBy }: SearchType) => {
   } catch (err) {
     console.error(err);
   }
+};
+
+export const getSummaryNews = async (newsUrl: string) => {
+  const res = await backendInstance.post("/summary", {
+    newsUrl,
+  });
 };
