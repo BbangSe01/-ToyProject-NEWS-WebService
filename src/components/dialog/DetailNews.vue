@@ -27,9 +27,13 @@
             detailData.description || "Summary information is not available."
           }}
         </div>
-        <div class="button-box" @click="goToArticle()">
-          <p class="go-article-btn">View Full Article</p>
+        <div class="button-area">
+          <button class="each-btn">View Full Article</button>
+          <button class="each-btn">View summary</button>
         </div>
+        <p class="btn-guide" v-if="!tokenStore.loginState">
+          ☝️ The summary feature is available after logging in.
+        </p>
       </div>
     </div>
   </div>
@@ -38,10 +42,12 @@
 <script setup lang="ts">
   import { defineEmits } from "vue";
   import { useNewsDataStore } from "../../stores/newsData";
+  import { useTokenDataStore } from "../../stores/tokenData";
   import noImg from "../../assets/images/Image_not_available.png";
   const emit = defineEmits(["close"]);
 
   const newsDataStore = useNewsDataStore();
+  const tokenStore = useTokenDataStore();
   const detailData = newsDataStore.detailData;
 
   const goToArticle = () => {
@@ -134,19 +140,32 @@
   .news-description {
     margin-top: 2rem;
   }
-  .button-box {
+  .button-area {
     display: flex;
-    align-items: center;
     justify-content: center;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    width: 100%;
   }
-  .go-article-btn {
+  .button-area button:nth-child(2) {
+    background-color: #1e90ff;
+  }
+  .each-btn {
+    height: 3rem;
     border: 1px solid black;
     border-radius: 0.5rem;
-    padding: 0.5rem;
     background-color: black;
     color: white;
+    margin-right: 1rem;
+    font-size: 1rem;
+    padding: 0.7rem;
     cursor: pointer;
+  }
+  .btn-guide {
+    align-self: center;
+    font-size: 0.9rem;
+    color: red;
+    opacity: 0.7;
+    margin-top: -0.5rem;
   }
 </style>
