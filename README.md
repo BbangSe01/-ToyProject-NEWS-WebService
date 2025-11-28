@@ -8,7 +8,7 @@
 
 ## ✨ 현재 구현된 기능
 
-## FrontEnd (Vue 3)
+### FrontEnd (Vue 3)
 
 ### 📰 헤드라인 뉴스
 - 카테고리별 최신 헤드라인 제공  
@@ -25,8 +25,8 @@
 - Pinia 기반 전역 상태 관리  
 - 로딩 / 에러 처리  
 - 드롭다운/모달 애니메이션 적용
-
-## 🛠 Backend (Express)
+<br>
+### 🛠 Backend (Express)
 
 ### 🔐 회원 인증 기능
 - `bcrypt` 를 사용한 비밀번호 해싱  
