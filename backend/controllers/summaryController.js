@@ -1,12 +1,13 @@
-// return summary news
-// POST /summary
 const puppeteer = require("puppeteer-extra");
 const StealthPlugin = require("puppeteer-extra-plugin-stealth");
 const { Readability } = require("@mozilla/readability");
 const { JSDOM } = require("jsdom");
+const askToGemini = require("../utils/askToGemini");
 
 puppeteer.use(StealthPlugin());
 
+// return summary news
+// POST /summary
 const summaryNews = async (req, res) => {
   let browser;
   try {
@@ -106,12 +107,13 @@ const summaryNews = async (req, res) => {
     }
 
     if (article) {
-      // ai 요약 요청 메서드 연결
-      // return res.status(200).json({
-      //   success: true,
-      //   title: article.title,
-      //   content: article.textContent,
-      // });
+      // ai 요약 결과값 받아오기
+      const summarizedNews = await askToGemini(article.textContent);
+
+      return res.status(200).json({
+        success: true,
+        content: summarizedNews.candidates[0].content.parts[0].text,
+      });
     } else {
       return res.status(200).json({
         success: false,
