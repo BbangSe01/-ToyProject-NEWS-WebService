@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
   import SearchBar from "../parts/search/SearchBar.vue";
-  import LoginButton from "../parts/auth/LoginButton.vue";
+  import LoginButton from "../parts/buttons/LoginButton.vue";
   import { useRouter } from "vue-router";
   import { useSearchDataStore } from "../../stores/searchData";
 
