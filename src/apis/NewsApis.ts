@@ -25,7 +25,14 @@ export const searchNewsData = async ({ keyword, sortBy }: SearchType) => {
 };
 
 export const getSummaryNews = async (newsUrl: string) => {
-  const res = await backendInstance.post("/summary", {
-    newsUrl,
-  });
+  const res = await backendInstance.post(
+    "/summary",
+    {
+      newsUrl,
+    },
+    {
+      timeout: 20000,
+    }
+  );
+  return res;
 };
