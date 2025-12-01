@@ -31,22 +31,31 @@
           <button class="each-btn" @click="goToArticle">
             View Full Article
           </button>
-          <button class="each-btn" @click="goToSummary">View summary</button>
+          <button
+            v-if="!summaryState.isFetching"
+            class="each-btn"
+            @click="goToSummary"
+          >
+            View summary
+          </button>
+          <LoadingSpinner v-else />
         </div>
         <p class="btn-guide" v-if="!tokenStore.loginState">
           ☝️ The summary feature is available after logging in.
         </p>
+        <p v-if="summaryState.isSuccess">{{ summaryState.content }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-  import { defineEmits } from "vue";
+  import { defineEmits, reactive } from "vue";
   import { useNewsDataStore } from "../../stores/newsData";
   import { useTokenDataStore } from "../../stores/tokenData";
   import { getSummaryNews } from "../../apis/NewsApis";
   import noImg from "../../assets/images/Image_not_available.png";
+  import LoadingSpinner from "../parts/buttons/LoadingSpinner.vue";
   const emit = defineEmits(["close"]);
 
   const newsDataStore = useNewsDataStore();
@@ -57,12 +66,28 @@
     window.open(`${detailData.url}`, "_blank");
   };
 
+  const summaryState = reactive({
+    content: "",
+    isFetching: false,
+    isSuccess: false,
+  });
   const goToSummary = async () => {
-    if (!tokenStore.loginState) {
+    if (!tokenStore.loginState || summaryState.isSuccess) {
       // 미로그인 시, api 호출 x
+      // 한번 호출 성공 시에도 재호출 x
       return;
     }
-    await getSummaryNews(detailData.url);
+    try {
+      summaryState.isFetching = true;
+      const res = await getSummaryNews(detailData.url);
+      summaryState.content = res.data.content;
+      summaryState.isSuccess = true;
+      console.log("뉴스 요약", res);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      summaryState.isFetching = false;
+    }
   };
   const onImgError = (e: Event) => {
     const target = e.target as HTMLImageElement;
@@ -161,6 +186,7 @@
     background-color: #1e90ff;
   }
   .each-btn {
+    width: 9rem;
     height: 3rem;
     border: 1px solid black;
     border-radius: 0.5rem;
