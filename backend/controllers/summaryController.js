@@ -13,7 +13,7 @@ const summaryNews = async (req, res) => {
   try {
     // --- puppeteer : 기사의 HTML 긁어오기 ---
     const { newsUrl } = req.body;
-    browser = await puppeteer.launch({ headless: true });
+    browser = await puppeteer.launch({ headless: "new" });
     const page = await browser.newPage();
 
     // page.goto 이전 로직 설정
@@ -48,21 +48,18 @@ const summaryNews = async (req, res) => {
       "//a[contains(text(), 'Accept') or contains(text(), 'Agree') or contains(text(), '동의') or contains(text(), '수락')]",
     ];
 
-    for (const xpath of cookieAcceptXPaths) {
-      const selectorWithPrefix = `xpath/${xpath}`;
-      try {
-        // 5초 내에 버튼을 찾으면 클릭하고 루프 종료
-        const buttonHandle = await page.waitForSelector(selectorWithPrefix, {
-          timeout: 3000,
-        });
-        if (buttonHandle) {
-          await buttonHandle.click();
-          console.log(`쿠키 버튼 클릭 처리 완료.`);
-          break;
-        }
-      } catch (e) {
-        console.log(`[SKIP] 버튼 찾기 실패: ${xpath}`);
+    const selectors = cookieAcceptXPaths.map((xpath) =>
+      page.waitForSelector(`xpath/${xpath}`, { timeout: 1000 })
+    );
+
+    try {
+      const buttonHandle = await Promise.race(selectors);
+      if (buttonHandle) {
+        await buttonHandle.click();
+        console.log(`쿠키 버튼 클릭 처리 완료.`);
       }
+    } catch (e) {
+      console.log(`[SKIP] 버튼 찾기 실패`);
     }
 
     // --- Readability로 본문(HTML) 구조화 및 추출 ---
@@ -89,7 +86,7 @@ const summaryNews = async (req, res) => {
             const text = element.textContent.trim();
             if (text.length > 200 && text.length > maxTextLength) {
               maxTextLength = text.length;
-              longestElementHtml = element.innerHTML;
+              longestElementHtml = text;
             }
           });
         return longestElementHtml;
