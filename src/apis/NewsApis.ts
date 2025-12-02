@@ -1,4 +1,5 @@
-import { axiosInstance, backendInstance } from "./axiosInstance";
+import { axiosInstance } from "./instance/PublicHttp";
+import { backendInstance } from "./instance/TokenHttp";
 import type { SearchType } from "../types";
 const apikey = import.meta.env.VITE_NEWS_API_KEY;
 

@@ -1,14 +1,14 @@
-import { backendInstance } from "./axiosInstance";
+import { authInstance } from "./instance/PublicHttp";
 import type { SignupType } from "../types";
 export const signup = async ({ username, password }: SignupType) => {
-  return await backendInstance.post("user/register", {
+  return await authInstance.post("register", {
     username,
     password,
   });
 };
 
 export const login = async ({ username, password }: SignupType) => {
-  return await backendInstance.post("user/login", {
+  return await authInstance.post("login", {
     username,
     password,
   });
