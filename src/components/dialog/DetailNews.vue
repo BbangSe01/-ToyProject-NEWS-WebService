@@ -7,7 +7,7 @@
         class="close-btn"
         @click="$emit('close', false)"
       />
-      <div class="news-content-area">
+      <div class="news-content-area" id="news-content-area">
         <div class="news-title">{{ detailData.title }}</div>
         <div class="author-and-date">
           <div class="news-author">{{ detailData.author }}</div>
@@ -43,19 +43,23 @@
         <p class="btn-guide" v-if="!tokenStore.loginState">
           ☝️ The summary feature is available after logging in.
         </p>
-        <p v-if="summaryState.isSuccess">{{ summaryState.content }}</p>
+        <SummaryArea
+          v-if="summaryState.isSuccess"
+          :content="summaryState.content"
+        ></SummaryArea>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-  import { defineEmits, reactive } from "vue";
+  import { defineEmits, reactive, nextTick } from "vue";
   import { useNewsDataStore } from "../../stores/newsData";
   import { useTokenDataStore } from "../../stores/tokenData";
   import { getSummaryNews } from "../../apis/NewsApis";
   import noImg from "../../assets/images/Image_not_available.png";
   import LoadingSpinner from "../parts/buttons/LoadingSpinner.vue";
+  import SummaryArea from "../parts/detailPage/SummaryArea.vue";
   const emit = defineEmits(["close"]);
 
   const newsDataStore = useNewsDataStore();
@@ -87,6 +91,17 @@
       console.error(err);
     } finally {
       summaryState.isFetching = false;
+      // 요약 구간이 추가되면서 dom이 새로 기다려지는 과정을 기다린 후,scrollIntoView 수행
+      await nextTick();
+      const element = document.getElementById(
+        "news-content-area"
+      ) as HTMLElement;
+      console.log(element);
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+        inline: "nearest",
+      });
     }
   };
   const onImgError = (e: Event) => {
