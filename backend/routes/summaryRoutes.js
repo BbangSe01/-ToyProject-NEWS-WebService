@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-const summaryNews = require("../controllers/summaryController");
-// const { registerUser, loginUser } = require("../controllers/loginController");
+// jwt 인증 미들웨어
+const authenticateToken = require("../middlewares/authMiddleware");
 
-router.route("/summary").post(summaryNews);
-// router.route("/register").post(registerUser);
-// router.route("/login").post(loginUser);
+const summaryNews = require("../controllers/summaryController");
+
+router.route("/summary").post(authenticateToken, summaryNews);
 module.exports = router;
