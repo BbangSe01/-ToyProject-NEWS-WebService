@@ -19,7 +19,7 @@
 
   const goToHeadline = () => {
     router.push({ name: "Headline" });
-    searchStore.setSearchWord("");
+    searchStore.resetSearchWord();
   };
 </script>
 

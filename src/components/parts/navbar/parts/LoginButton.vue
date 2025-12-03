@@ -6,14 +6,16 @@
 
 <script setup lang="ts">
   import { useTokenDataStore } from "../../../../stores/tokenData";
+  import { useSearchDataStore } from "../../../../stores/searchData";
   import { useRouter } from "vue-router";
-  import { ref, computed, watch } from "vue";
   import { openAlert } from "../../../../utils/alert";
   const tokenStore = useTokenDataStore();
+  const searchStore = useSearchDataStore();
   const router = useRouter();
 
   const changeLoginState = () => {
     if (tokenStore.loginState) {
+      // 로그아웃
       tokenStore.setAccessToken("");
       openAlert({
         title: "Success",
@@ -22,8 +24,11 @@
       });
       router.push({ name: "Headline" });
     } else {
+      // 로그인
       router.push({ name: "Login" });
     }
+    // 로그인/로그아웃 시, 검색어 초기화
+    searchStore.resetSearchWord();
   };
 </script>
 <style>

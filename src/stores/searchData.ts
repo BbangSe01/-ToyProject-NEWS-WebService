@@ -16,7 +16,17 @@ export const useSearchDataStore = defineStore(
       searchData.value = data;
     };
 
-    return { searchData, searchWord, setSearchWord, setSearchData };
+    const resetSearchWord = () => {
+      searchWord.value = "";
+    };
+
+    return {
+      searchData,
+      searchWord,
+      setSearchWord,
+      setSearchData,
+      resetSearchWord,
+    };
   },
   {
     persist: {
