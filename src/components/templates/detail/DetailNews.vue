@@ -131,9 +131,12 @@
     justify-content: center;
     align-items: center;
     z-index: 9999;
+    /* 모달이 감싼 화면 전체에 대한 클릭이벤트를 무시하여 검색바, 로그인 버튼 등의 클릭 허용 */
+    pointer-events: none;
   }
 
   .modal-area {
+    pointer-events: auto; /* 모달창 자체는 클릭 가능 */
     position: relative;
     width: 900px;
     height: 600px;
