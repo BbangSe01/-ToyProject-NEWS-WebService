@@ -2,7 +2,7 @@
   <div class="modal-overlay">
     <div class="modal-area">
       <img
-        src="../../assets//images/close-btn.png"
+        src="../../../assets//images/close-btn.png"
         alt="닫기 버튼"
         class="close-btn"
         @click="$emit('close', false)"
@@ -54,12 +54,12 @@
 
 <script setup lang="ts">
   import { defineEmits, reactive, nextTick } from "vue";
-  import { useNewsDataStore } from "../../stores/newsData";
-  import { useTokenDataStore } from "../../stores/tokenData";
-  import { getSummaryNews } from "../../apis/NewsApis";
-  import noImg from "../../assets/images/Image_not_available.png";
-  import LoadingSpinner from "../parts/buttons/LoadingSpinner.vue";
-  import SummaryArea from "../parts/detailPage/SummaryArea.vue";
+  import { useNewsDataStore } from "../../../stores/newsData";
+  import { useTokenDataStore } from "../../../stores/tokenData";
+  import { getSummaryNews } from "../../../apis/NewsApis";
+  import noImg from "../../../assets/images/Image_not_available.png";
+  import LoadingSpinner from "../../parts/common/LoadingSpinner.vue";
+  import SummaryArea from "./parts/SummaryArea.vue";
   const emit = defineEmits(["close"]);
 
   const newsDataStore = useNewsDataStore();

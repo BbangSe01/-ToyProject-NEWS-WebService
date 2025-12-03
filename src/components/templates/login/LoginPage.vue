@@ -3,5 +3,5 @@
 </template>
 
 <script setup lang="ts">
-  import LoginForm from "../../parts/auth/LoginForm.vue";
+  import LoginForm from "./parts/LoginForm.vue";
 </script>

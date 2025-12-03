@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HeadLinePage from "../components/templates/HeadLinePage.vue";
-import SearchPage from "../components/templates/SearchPage.vue";
-import LoginPage from "../components/templates/auth/LoginPage.vue";
-import SignupPage from "../components/templates/auth/SignupPage.vue";
+import HeadLinePage from "../components/templates/headline/HeadLinePage.vue";
+import SearchPage from "../components/templates/search/SearchPage.vue";
+import LoginPage from "../components/templates/login/LoginPage.vue";
+import SignupPage from "../components/templates/signup/SignupPage.vue";
 const routes = [
   { path: "/", name: "Headline", component: HeadLinePage },
   { path: "/search", name: "Search", component: SearchPage },

@@ -26,18 +26,18 @@
 </template>
 
 <script setup lang="ts">
-  import authImg from "../../../assets/images/auth-img.png";
-  import type { baseInputType, baseTouchType } from "../../../types";
+  import authImg from "../../../../assets/images/auth-img.png";
+  import type { baseInputType, baseTouchType } from "../../../../types";
   import {
     isValidEmail,
     isValidPassword,
     isSamePassword,
-  } from "../../../utils/validators";
+  } from "../../../../utils/validators";
   import SignupInput from "./SignupInput.vue";
-  import { signup } from "../../../apis/AuthApis";
+  import { signup } from "../../../../apis/AuthApis";
   import { AxiosError } from "axios";
   import { useRouter } from "vue-router";
-  import { openAlert } from "../../../utils/alert";
+  import { openAlert } from "../../../../utils/alert";
   import { reactive, watch, ref, computed } from "vue";
 
   const router = useRouter();

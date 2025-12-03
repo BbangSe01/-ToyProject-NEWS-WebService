@@ -24,13 +24,13 @@
 </template>
 
 <script setup lang="ts">
-  import authImg from "../../../assets/images/auth-img.png";
-  import type { baseInputType } from "../../../types";
+  import authImg from "../../../../assets/images/auth-img.png";
+  import type { baseInputType } from "../../../../types";
   import LoginInput from "./LoginInput.vue";
-  import { login } from "../../../apis/AuthApis";
-  import { useTokenDataStore } from "../../../stores/tokenData";
+  import { login } from "../../../../apis/AuthApis";
+  import { useTokenDataStore } from "../../../../stores/tokenData";
   import { useRouter } from "vue-router";
-  import { openAlert } from "../../../utils/alert";
+  import { openAlert } from "../../../../utils/alert";
   import { reactive, watch, ref, computed } from "vue";
 
   const router = useRouter();

@@ -5,10 +5,10 @@
 </template>
 
 <script setup lang="ts">
-  import { useTokenDataStore } from "../../../stores/tokenData";
+  import { useTokenDataStore } from "../../../../stores/tokenData";
   import { useRouter } from "vue-router";
   import { ref, computed, watch } from "vue";
-  import { openAlert } from "../../../utils/alert";
+  import { openAlert } from "../../../../utils/alert";
   const tokenStore = useTokenDataStore();
   const router = useRouter();
 

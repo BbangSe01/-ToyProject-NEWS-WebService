@@ -17,8 +17,8 @@
 
 <script setup lang="ts">
   import { defineProps, defineEmits } from "vue";
-  import noImg from "../../assets/images/Image_not_available.png";
-  import type { NewsType } from "../../types";
+  import noImg from "../../../assets/images/Image_not_available.png";
+  import type { NewsType } from "../../../types";
   const props = defineProps<{
     newsData: NewsType;
   }>();

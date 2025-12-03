@@ -9,10 +9,10 @@
 </template>
 
 <script setup lang="ts">
-  import SearchBar from "../parts/search/SearchBar.vue";
-  import LoginButton from "../parts/buttons/LoginButton.vue";
+  import SearchBar from "./parts/SearchBar.vue";
+  import LoginButton from "../../parts/navbar/parts/LoginButton.vue";
   import { useRouter } from "vue-router";
-  import { useSearchDataStore } from "../../stores/searchData";
+  import { useSearchDataStore } from "../../../stores/searchData";
 
   const router = useRouter();
   const searchStore = useSearchDataStore();
@@ -26,7 +26,7 @@
 <style scoped>
   @font-face {
     font-family: "Continuous";
-    src: url("../../assets/fonts/continuous.ttf") format("truetype");
+    src: url("../../../assets/fonts/continuous.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
   }

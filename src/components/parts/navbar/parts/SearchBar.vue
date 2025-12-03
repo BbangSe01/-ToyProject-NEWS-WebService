@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
   import { ref, watch, computed } from "vue";
-  import { useSearchDataStore } from "../../../stores/searchData";
+  import { useSearchDataStore } from "../../../../stores/searchData";
   import { useRouter } from "vue-router";
   const keyword = ref("");
   const isInput = computed(() => keyword.value.length > 0);
