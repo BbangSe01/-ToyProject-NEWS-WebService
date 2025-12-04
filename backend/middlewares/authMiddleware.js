@@ -23,10 +23,18 @@ const authenticateToken = (req, res, next) => {
       console.error("JWT 검증 오류:", err.name);
       // 만료 오류 처리
       if (err.name === "TokenExpiredError") {
-        return res.status(401).json({ message: "토큰이 만료되었습니다." });
+        return res.status(401).json({
+          success: false,
+          code: "TOKEN_EXPIRED",
+          message: "토큰이 만료되었습니다.",
+        });
       }
       // 일반적인 검증 실패 (위변조 등)
-      return res.status(403).json({ message: "유효하지 않은 토큰입니다." });
+      return res.status(403).json({
+        success: false,
+        code: "INVALID_TOKEN",
+        message: "유효하지 않은 토큰입니다.",
+      });
     }
 
     // 검증 성공: 페이로드 정보 저장 및 다음 미들웨어로 전달
