@@ -57,6 +57,8 @@
   import { useNewsDataStore } from "../../../stores/newsData";
   import { useTokenDataStore } from "../../../stores/tokenData";
   import { getSummaryNews } from "../../../apis/NewsApis";
+  import { AxiosError } from "axios";
+  import { openAlert } from "../../../utils/alert";
   import noImg from "../../../assets/images/Image_not_available.png";
   import LoadingSpinner from "../../parts/common/LoadingSpinner.vue";
   import SummaryArea from "./parts/SummaryArea.vue";
@@ -94,22 +96,47 @@
       const res = await getSummaryNews(detailData.url);
       summaryState.content = res.data.content;
       summaryState.isSuccess = true;
-      console.log("뉴스 요약", res);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      summaryState.isFetching = false;
+
       // 요약 구간이 추가되면서 dom이 새로 기다려지는 과정을 기다린 후,scrollIntoView 수행
       await nextTick();
       const element = document.getElementById(
         "news-content-area"
       ) as HTMLElement;
-      console.log(element);
       element.scrollIntoView({
         behavior: "smooth",
         block: "end",
         inline: "nearest",
       });
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        emit("close", false);
+        const errorType = err.response?.data?.code;
+        switch (errorType) {
+          case "TOKEN_EXPIRED":
+            openAlert({
+              title: "Error!",
+              text: "Token has expired",
+              icon: "error",
+            });
+            break;
+          case "INVALID_TOKEN":
+            openAlert({
+              title: "Error!",
+              text: "Token is invalid",
+              icon: "error",
+            });
+            break;
+          default:
+            openAlert({
+              title: "Error!",
+              text: "Server Error",
+              icon: "error",
+            });
+        }
+        tokenStore.setAccessToken("");
+      }
+    } finally {
+      summaryState.isFetching = false;
     }
   };
   const onImgError = (e: Event) => {
