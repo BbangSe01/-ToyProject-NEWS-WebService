@@ -58,21 +58,12 @@
   import { useTokenDataStore } from "../../../stores/tokenData";
   import { getSummaryNews } from "../../../apis/NewsApis";
   import { AxiosError } from "axios";
-  import { openAlert } from "../../../utils/alert";
   import noImg from "../../../assets/images/Image_not_available.png";
   import LoadingSpinner from "../../parts/common/LoadingSpinner.vue";
   import SummaryArea from "./parts/SummaryArea.vue";
   import { tokenHandler } from "../../../utils/errorHandler/tokenHandler";
   const emit = defineEmits(["close"]);
-  const isOpen = ref(false);
 
-  watch(
-    isOpen,
-    (newVal, oldVal) => {
-      console.log("isOpen", newVal);
-    },
-    { immediate: true }
-  );
   const newsDataStore = useNewsDataStore();
   const tokenStore = useTokenDataStore();
   const detailData = newsDataStore.detailData;
