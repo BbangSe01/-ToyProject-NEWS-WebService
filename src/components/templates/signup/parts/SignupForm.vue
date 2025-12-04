@@ -38,7 +38,8 @@
   import { AxiosError } from "axios";
   import { useRouter } from "vue-router";
   import { openAlert } from "../../../../utils/alert";
-  import { reactive, watch, ref, computed } from "vue";
+  import { signupHandler } from "../../../../utils/errorHandler/signupHandler";
+  import { ref, computed } from "vue";
 
   const router = useRouter();
   const baseInput = ref<baseInputType>({
@@ -87,21 +88,7 @@
     } catch (err) {
       if (err instanceof AxiosError) {
         const errorType = err.response?.data?.code;
-        switch (errorType) {
-          case "USER_EMAIL_DUPLICATED":
-            openAlert({
-              title: "Error!",
-              text: "Duplicated Email",
-              icon: "error",
-            });
-            break;
-          default:
-            openAlert({
-              title: "Error!",
-              text: "Server Error",
-              icon: "error",
-            });
-        }
+        signupHandler(errorType);
       }
     }
   };

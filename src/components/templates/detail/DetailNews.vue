@@ -62,6 +62,7 @@
   import noImg from "../../../assets/images/Image_not_available.png";
   import LoadingSpinner from "../../parts/common/LoadingSpinner.vue";
   import SummaryArea from "./parts/SummaryArea.vue";
+  import { tokenHandler } from "../../../utils/errorHandler/tokenHandler";
   const emit = defineEmits(["close"]);
   const isOpen = ref(false);
 
@@ -111,29 +112,7 @@
       if (err instanceof AxiosError) {
         emit("close", false);
         const errorType = err.response?.data?.code;
-        switch (errorType) {
-          case "TOKEN_EXPIRED":
-            openAlert({
-              title: "Error!",
-              text: "Token has expired",
-              icon: "error",
-            });
-            break;
-          case "INVALID_TOKEN":
-            openAlert({
-              title: "Error!",
-              text: "Token is invalid",
-              icon: "error",
-            });
-            break;
-          default:
-            openAlert({
-              title: "Error!",
-              text: "Server Error",
-              icon: "error",
-            });
-        }
-        tokenStore.setAccessToken("");
+        tokenHandler(errorType);
       }
     } finally {
       summaryState.isFetching = false;
