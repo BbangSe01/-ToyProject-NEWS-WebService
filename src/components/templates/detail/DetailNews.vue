@@ -53,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-  import { defineEmits, reactive, nextTick } from "vue";
+  import { defineEmits, reactive, nextTick, ref, watch } from "vue";
   import { useNewsDataStore } from "../../../stores/newsData";
   import { useTokenDataStore } from "../../../stores/tokenData";
   import { getSummaryNews } from "../../../apis/NewsApis";
@@ -61,7 +61,15 @@
   import LoadingSpinner from "../../parts/common/LoadingSpinner.vue";
   import SummaryArea from "./parts/SummaryArea.vue";
   const emit = defineEmits(["close"]);
+  const isOpen = ref(false);
 
+  watch(
+    isOpen,
+    (newVal, oldVal) => {
+      console.log("isOpen", newVal);
+    },
+    { immediate: true }
+  );
   const newsDataStore = useNewsDataStore();
   const tokenStore = useTokenDataStore();
   const detailData = newsDataStore.detailData;
@@ -131,12 +139,10 @@
     justify-content: center;
     align-items: center;
     z-index: 9999;
-    /* 모달이 감싼 화면 전체에 대한 클릭이벤트를 무시하여 검색바, 로그인 버튼 등의 클릭 허용 */
-    pointer-events: none;
+    background-color: rgba(0, 0, 0, 0.4);
   }
 
   .modal-area {
-    pointer-events: auto; /* 모달창 자체는 클릭 가능 */
     position: relative;
     width: 900px;
     height: 600px;
