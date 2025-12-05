@@ -1,6 +1,6 @@
 <template>
   <div class="headlineArea">
-    <CategoryNav
+      <CategoryNav
       :categories="categories"
       :is-loading="isFetching"
       @update-category="categories.index = $event"
@@ -28,16 +28,14 @@
   import { reactive, watch, ref } from "vue";
   import ErrorImg from "../../../assets/images/error-img.jpg"
   import NewsCard from "../../parts/common/NewsCard.vue";
-  import CategoryNav from "../../parts/navbar/CategoryNav.vue";
+  import CategoryNav from "./parts/CategoryNav.vue";
   import DetailNews from "../detail/DetailNews.vue";
   import type { CategoryType, NewsType } from "../../../types";
   import { getHeadLineData } from "../../../apis/NewsApis";
   import { VueSpinnerClock } from "vue3-spinners";
-  import { useRouter } from "vue-router";
   import { useNewsDataStore } from "../../../stores/newsData.ts";
   import dayjs from "dayjs";
 
-  const router = useRouter();
   const newsStore = useNewsDataStore();
 
   const categories = reactive<CategoryType>({

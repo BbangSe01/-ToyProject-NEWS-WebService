@@ -65,27 +65,8 @@
       opacity: 0.7;
     }
     100% {
-      top: 101%;
+      top: 103%;
       opacity: 1;
-    }
-  }
-
-  @keyframes slide-out {
-    0% {
-      top: 101%;
-      opacity: 1;
-    }
-    40% {
-      top: 70%;
-      opacity: 0.7;
-    }
-    70% {
-      top: 40%;
-      opacity: 0.4;
-    }
-    100% {
-      top: 0%;
-      opacity: 0;
     }
   }
 
@@ -104,11 +85,11 @@
     display: flex;
     padding: 10px;
     text-align: center;
+    cursor: pointer;
   }
 
   .dropdown-menu {
     position: absolute;
-    top: 101%;
     width: 100%;
     background: white;
     border: 1px solid #ddd;
@@ -130,6 +111,7 @@
     height: 1.5rem;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
+    cursor: pointer;
   }
   .dropdown-list:hover {
     background-color: #f3f4f6;
