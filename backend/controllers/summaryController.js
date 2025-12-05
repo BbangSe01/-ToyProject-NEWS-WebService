@@ -1,9 +1,10 @@
-const puppeteer = require("puppeteer-extra");
-const StealthPlugin = require("puppeteer-extra-plugin-stealth");
-const { Readability } = require("@mozilla/readability");
-const { JSDOM } = require("jsdom");
+const puppeteer = require("puppeteer-extra"); // Puppeteer 확장 기능 로드
+const StealthPlugin = require("puppeteer-extra-plugin-stealth"); // 봇 감지 회피 플러그인
+const { Readability } = require("@mozilla/readability"); // 기사 본문 추출
+const { JSDOM } = require("jsdom"); // Node.js 환경에서 DOM 객체 생성(readability 사용 시 필요)
 const askToGemini = require("../utils/askToGemini");
 
+// stealthPlugin을 적용하여 봇 감지 방지
 puppeteer.use(StealthPlugin());
 
 // return summary news
@@ -14,32 +15,20 @@ const summaryNews = async (req, res) => {
     // --- puppeteer : 기사의 HTML 긁어오기 ---
     const { newsUrl } = req.body;
     browser = await puppeteer.launch({ headless: "new" });
+
+    // 새 Chromium 인스턴스 실행
     const page = await browser.newPage();
 
-    // page.goto 이전 로직 설정
-    await page.setRequestInterception(true);
-    page.on("request", (request) => {
-      // 본문 추출에 불필요한 이미지, 광고, 폰트 등을 차단
-      if (
-        ["image", "stylesheet", "font", "media", "other"].includes(
-          request.resourceType()
-        ) ||
-        request.url().includes("google-analytics") ||
-        request.url().includes("doubleclick") ||
-        request.url().includes("adservice")
-      ) {
-        // 해당 리소스 다운로드 x
-        request.abort();
-      } else {
-        request.continue();
-      }
-    });
-    // 브라우저 뷰포트 설정 (봇처럼 보이지 않도록)
-    await page.setViewport({ width: 1280, height: 720 });
+    // page.goto를 통해 url을 탐색하여 메인 프레임을 생성하고 초기화 하는 타이밍에 stealthPlugin이 스크립트를 주입하게 되면
+    // Error: Requesting main frame too early 에러가 생김. 이를 방지하기 위해 stealthPlugin의 비동기 작업이 끝날 시간을 벌어주기 위한 코드
+    await new Promise((resolve) => setTimeout(resolve, 50));
+
     await page.goto(newsUrl, {
       waitUntil: "domcontentloaded",
       timeout: 10000,
     });
+    // 브라우저 뷰포트 설정 (봇처럼 보이지 않도록)
+    await page.setViewport({ width: 1280, height: 720 });
 
     //쿠키/개인정보 보호 배너 처리 (가장 범용적인 XPath 기반)
     // *xPath란 XML/HTML 문서의 특정 부분이나 노드를 탐색하고 선택하기 위한 언어
