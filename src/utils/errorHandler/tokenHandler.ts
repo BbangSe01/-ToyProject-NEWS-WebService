@@ -10,6 +10,7 @@ export const tokenHandler = (errorType: string) => {
         text: "Token has expired",
         icon: "error",
       });
+      tokenStore.setAccessToken("");
       break;
     case "INVALID_TOKEN":
       openAlert({
@@ -17,6 +18,7 @@ export const tokenHandler = (errorType: string) => {
         text: "Token is invalid",
         icon: "error",
       });
+      tokenStore.setAccessToken("");
       break;
     default:
       openAlert({
@@ -25,6 +27,4 @@ export const tokenHandler = (errorType: string) => {
         icon: "error",
       });
   }
-  //   로그아웃
-  tokenStore.setAccessToken("");
 };
