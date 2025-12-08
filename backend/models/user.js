@@ -11,6 +11,9 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  favorites: {
+    type: Array,
+  },
 });
 
 userSchema.methods.comparePassword = function (plainPassword) {
