@@ -53,6 +53,7 @@
             message: "Failed to load favorites list",
             type: "warning",
             duration: 5000,
+            position: "top-right",
           });
         }
       } else {

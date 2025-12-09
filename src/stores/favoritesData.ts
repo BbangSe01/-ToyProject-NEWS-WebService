@@ -1,9 +1,10 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import type { NewsType } from "../types/newsType";
 
 export const useFavoritesDataStore = defineStore("favoritesData", () => {
   const favoritesData = ref<Omit<NewsType, "content" | "source">[]>([]);
+  const favUrlList = computed(() => favoritesData.value.map((x) => x.url));
   const isLoaded = ref<boolean>(false);
 
   const setFavoritesData = (
@@ -16,5 +17,11 @@ export const useFavoritesDataStore = defineStore("favoritesData", () => {
   };
   const deleteFavorites = (newData: Omit<NewsType, "content" | "source">) => {};
 
-  return { favoritesData, isLoaded, setFavoritesData, addFavorites };
+  return {
+    favoritesData,
+    favUrlList,
+    isLoaded,
+    setFavoritesData,
+    addFavorites,
+  };
 });
