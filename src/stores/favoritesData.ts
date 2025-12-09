@@ -4,7 +4,7 @@ import type { NewsType } from "../types/newsType";
 
 export const useFavoritesDataStore = defineStore("favoritesData", () => {
   const favoritesData = ref<Omit<NewsType, "content" | "source">[]>([]);
-  const fetchingError = ref<boolean>(false);
+  const isLoaded = ref<boolean>(false);
 
   const setFavoritesData = (
     newData: Omit<NewsType, "content" | "source">[]
@@ -16,5 +16,5 @@ export const useFavoritesDataStore = defineStore("favoritesData", () => {
   };
   const deleteFavorites = (newData: Omit<NewsType, "content" | "source">) => {};
 
-  return { favoritesData, fetchingError, setFavoritesData, addFavorites };
+  return { favoritesData, isLoaded, setFavoritesData, addFavorites };
 });
