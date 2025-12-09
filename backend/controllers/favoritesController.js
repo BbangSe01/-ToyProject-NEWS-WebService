@@ -75,4 +75,32 @@ const deleteFavorites = async (req, res) => {
   }
 };
 
-module.exports = { postFavorites, deleteFavorites };
+// get Favorites list
+// GET /favorites
+const getFavorites = async (req, res) => {
+  try {
+    const userId = req.user.userId; // 로그인 미들웨어로부터 전달
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const data = [];
+    for (const url of user.favorites) {
+      const perf = await Performance.findOne({ url });
+      data.push(perf);
+    }
+
+    return res.status(200).json({ favorites: data, success: true });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      success: false,
+      code: "SERVER_ERROR",
+      message: "서버 에러",
+    });
+  }
+};
+
+module.exports = { postFavorites, deleteFavorites, getFavorites };
