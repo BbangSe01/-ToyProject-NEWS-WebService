@@ -10,16 +10,6 @@
       <p class="signup-comment">Don't have an account?</p>
       <router-link to="/signup" class="go-signup-btn">Sign up</router-link>
     </div>
-    <!-- <div class="signup-error">
-      <p v-if="touched.username && !usernameValid">
-        - Please enter a valid email address.
-      </p>
-      <p v-if="touched.password && !passwordValid">
-        - Please enter a password with at least one letter, one number, and at
-        least 4 characters in total.
-      </p>
-      <p v-if="passwordValid && !checkPassword">- Passwords do not match.</p>
-    </div> -->
   </div>
 </template>
 

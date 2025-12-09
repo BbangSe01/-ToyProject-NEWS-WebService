@@ -1,6 +1,7 @@
 <template>
   <div class="modal-overlay">
-    <div class="modal-area">
+    <DetailPageLoading v-if="isChecking"></DetailPageLoading>
+    <div v-else class="modal-area">
       <img
         src="../../../assets//images/close-btn.png"
         alt="닫기 버튼"
@@ -13,10 +14,16 @@
           <div class="news-author">{{ detailData.author }}</div>
           <div v-if="detailData.author" class="blank"></div>
           <div class="news-date">{{ detailData.publishedAt }}</div>
+          <img
+            v-if="tokenStore.loginState"
+            :src="isFavorites ? bookmarkImgUrl : notBookmarkImgUrl"
+            class="bookmark-img"
+            @click="updateFavorites"
+          />
         </div>
         <div class="img-box">
           <img
-            :src="detailData.urlToImage as string || noImg"
+            :src="detailData.urlToImage as string || noImgUrl"
             alt="기사 이미지"
             class="news-img"
             @error="onImgError"
@@ -38,7 +45,7 @@
           >
             View summary
           </button>
-          <LoadingSpinner v-else />
+          <ButtonLoading v-else />
         </div>
         <p class="btn-guide" v-if="!tokenStore.loginState">
           ☝️ The summary feature is available after logging in.
@@ -53,23 +60,54 @@
 </template>
 
 <script setup lang="ts">
-  import { defineEmits, reactive, nextTick, ref, watch } from "vue";
+  import { reactive, nextTick, ref, watch, onMounted } from "vue";
   import { useNewsDataStore } from "../../../stores/newsData";
   import { useTokenDataStore } from "../../../stores/tokenData";
+  import { useFavoritesDataStore } from "../../../stores/favoritesData";
   import { getSummaryNews } from "../../../apis/NewsApis";
   import { AxiosError } from "axios";
   import noImg from "../../../assets/images/Image_not_available.png";
-  import LoadingSpinner from "../../parts/common/LoadingSpinner.vue";
+  import ButtonLoading from "../../parts/common/loadingSpinner/ButtonLoading.vue";
   import SummaryArea from "./parts/SummaryArea.vue";
   import { tokenHandler } from "../../../utils/errorHandler/tokenHandler";
+  import bookmarkImg from "../../../assets/images/bookmark-img.png";
+  import { GetFavorites } from "../../../apis/FavoritesApis";
+  import notBookmarkImg from "../../../assets/images/notBookmark-img.png";
+  import DetailPageLoading from "../../parts/common/loadingSpinner/DetailPageLoading.vue";
+  import { useToast } from "vue-toast-notification";
+
+  const $toast = useToast();
+
   const emit = defineEmits(["close"]);
+
+  const bookmarkImgUrl = bookmarkImg;
+  const notBookmarkImgUrl = notBookmarkImg;
+  const noImgUrl = noImg;
 
   const newsDataStore = useNewsDataStore();
   const tokenStore = useTokenDataStore();
-  const detailData = newsDataStore.detailData;
+  const favoritesStore = useFavoritesDataStore();
 
+  const detailData = newsDataStore.detailData;
+  console.log(detailData);
   const goToArticle = () => {
     window.open(`${detailData.url}`, "_blank");
+  };
+
+  const isChecking = ref(false);
+  const isFavorites = ref(false);
+
+  const updateFavorites = async () => {
+    if (!favoritesStore.isLoaded) {
+      $toast.open({
+        message: "Failed to load favorites list",
+        type: "warning",
+        duration: 5000,
+        position: "top-right",
+      });
+    } else {
+      // 성공 로직 작성, isFavorites 값에 따라 처리
+    }
   };
 
   const summaryState = reactive({
@@ -77,6 +115,7 @@
     isFetching: false,
     isSuccess: false,
   });
+
   const goToSummary = async () => {
     if (!tokenStore.loginState || summaryState.isSuccess) {
       // 미로그인 시, api 호출 x
@@ -113,6 +152,26 @@
     const target = e.target as HTMLImageElement;
     target.src = noImg;
   };
+
+  const checkFavorites = () => {
+    return favoritesStore.favUrlList.includes(detailData.url);
+  };
+  onMounted(async () => {
+    // 로그인 이후 즐겨찾기 데이터 GET에 실패한 상태라면 즐겨찾기 api 재호출
+    if (tokenStore.loginState && !favoritesStore.isLoaded) {
+      try {
+        isChecking.value = true;
+        const res = await GetFavorites();
+        favoritesStore.setFavoritesData(res.data.favorites);
+        favoritesStore.isLoaded = true;
+      } catch (err) {
+        console.error(err);
+      } finally {
+        isChecking.value = false;
+      }
+    }
+    isFavorites.value = checkFavorites();
+  });
 </script>
 
 <style scoped>
@@ -177,8 +236,14 @@
   }
   .author-and-date {
     display: flex;
+    align-items: center;
     margin-top: 1rem;
     color: gray;
+  }
+  .bookmark-img {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-left: auto;
   }
   .blank {
     margin-left: 0.5rem;
