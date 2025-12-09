@@ -5,12 +5,20 @@
 </template>
 
 <script setup lang="ts">
+  import { watch } from "vue";
   import { useTokenDataStore } from "../../../../stores/tokenData";
   import { useSearchDataStore } from "../../../../stores/searchData";
+  import { useFavoritesDataStore } from "../../../../stores/favoritesData.ts";
   import { useRouter } from "vue-router";
   import { openAlert } from "../../../../utils/alert";
+  import { GetFavorites } from "../../../../apis/FavoritesApis";
+  import { useToast } from "vue-toast-notification";
+
+  const $toast = useToast();
+
   const tokenStore = useTokenDataStore();
   const searchStore = useSearchDataStore();
+  const favoritesStore = useFavoritesDataStore();
   const router = useRouter();
 
   const changeLoginState = () => {
@@ -30,6 +38,30 @@
     // 로그인/로그아웃 시, 검색어 초기화
     searchStore.resetSearchWord();
   };
+
+  watch(
+    () => tokenStore.loginState,
+    async (newVal, oldVal) => {
+      if (newVal) {
+        try {
+          const res = await GetFavorites();
+          favoritesStore.setFavoritesData(res.data.favorites);
+          favoritesStore.isLoaded = true;
+        } catch (err) {
+          console.log(err);
+          $toast.open({
+            message: "Failed to load favorites list",
+            type: "warning",
+            duration: 5000,
+          });
+        }
+      } else {
+        favoritesStore.setFavoritesData([]);
+        favoritesStore.isLoaded = false;
+      }
+    },
+    { immediate: true }
+  );
 </script>
 <style>
   .login-button {

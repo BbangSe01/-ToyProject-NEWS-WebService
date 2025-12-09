@@ -34,14 +34,8 @@
   import { getHeadLineData } from "../../../apis/NewsApis";
   import { VueSpinnerClock } from "vue3-spinners";
   import { useNewsDataStore } from "../../../stores/newsData.ts";
-  import { useTokenDataStore } from "../../../stores/tokenData.ts";
-  import { useFavoritesDataStore } from "../../../stores/favoritesData.ts";
   import dayjs from "dayjs";
-  import { GetFavorites } from "../../../apis/FavoritesApis.ts";
-
   const newsStore = useNewsDataStore();
-  const tokenStore = useTokenDataStore();
-  const favoritesStore = useFavoritesDataStore();
 
   const ErrorImgUrl = ErrorImg;
   const categories = reactive<CategoryType>({
@@ -92,19 +86,6 @@
     dialogVisible.value = true;
   };
 
-  watch(()=>tokenStore.loginState, async(newVal,oldVal)=> {
-    if(newVal) {
-      try {
-        const res = await GetFavorites();
-        favoritesStore.setFavoritesData(res.data.favorites);
-      } catch(err) {
-        console.log(err);
-        favoritesStore.fetchingError = true;
-      }
-    } else {
-      favoritesStore.setFavoritesData([]);
-    }
-  },{immediate:true});
 </script>
 
 <style scoped>
