@@ -12,9 +12,7 @@
   import { useRouter } from "vue-router";
   import { openAlert } from "../../../../utils/alert";
   import { GetFavorites } from "../../../../apis/FavoritesApis";
-  import { useToast } from "vue-toast-notification";
-
-  const $toast = useToast();
+  import { warningToast } from "../../../../utils/warningtoast.ts";
 
   const tokenStore = useTokenDataStore();
   const searchStore = useSearchDataStore();
@@ -49,12 +47,7 @@
           favoritesStore.isLoaded = true;
         } catch (err) {
           console.log(err);
-          $toast.open({
-            message: "Failed to load favorites list",
-            type: "warning",
-            duration: 5000,
-            position: "top-right",
-          });
+          warningToast("Failed to load favorites list");
         }
       } else {
         favoritesStore.setFavoritesData([]);

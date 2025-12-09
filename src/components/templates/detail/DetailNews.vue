@@ -74,9 +74,7 @@
   import { GetFavorites } from "../../../apis/FavoritesApis";
   import notBookmarkImg from "../../../assets/images/notBookmark-img.png";
   import DetailPageLoading from "../../parts/common/loadingSpinner/DetailPageLoading.vue";
-  import { useToast } from "vue-toast-notification";
-
-  const $toast = useToast();
+  import { warningToast } from "../../../utils/warningtoast";
 
   const emit = defineEmits(["close"]);
 
@@ -99,12 +97,7 @@
 
   const updateFavorites = async () => {
     if (!favoritesStore.isLoaded) {
-      $toast.open({
-        message: "Failed to load favorites list",
-        type: "warning",
-        duration: 5000,
-        position: "top-right",
-      });
+      warningToast("Failed to load favorites list");
     } else {
       // 성공 로직 작성, isFavorites 값에 따라 처리
     }
