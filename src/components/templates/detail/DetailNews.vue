@@ -71,11 +71,10 @@
   import SummaryArea from "./parts/SummaryArea.vue";
   import { tokenHandler } from "../../../utils/errorHandler/tokenHandler";
   import bookmarkImg from "../../../assets/images/bookmark-img.png";
-  import { GetFavorites } from "../../../apis/FavoritesApis";
   import notBookmarkImg from "../../../assets/images/notBookmark-img.png";
   import DetailPageLoading from "../../parts/common/loadingSpinner/DetailPageLoading.vue";
   import { warningToast } from "../../../utils/warningtoast";
-
+  import { recallFavorites } from "./logic/recallFavorites";
   const emit = defineEmits(["close"]);
 
   const bookmarkImgUrl = bookmarkImg;
@@ -141,29 +140,18 @@
       summaryState.isFetching = false;
     }
   };
+
   const onImgError = (e: Event) => {
     const target = e.target as HTMLImageElement;
     target.src = noImg;
   };
 
-  const checkFavorites = () => {
-    return favoritesStore.favUrlList.includes(detailData.url);
-  };
   onMounted(async () => {
-    // 로그인 이후 즐겨찾기 데이터 GET에 실패한 상태라면 즐겨찾기 api 재호출
-    if (tokenStore.loginState && !favoritesStore.isLoaded) {
-      try {
-        isChecking.value = true;
-        const res = await GetFavorites();
-        favoritesStore.setFavoritesData(res.data.favorites);
-        favoritesStore.isLoaded = true;
-      } catch (err) {
-        console.error(err);
-      } finally {
-        isChecking.value = false;
-      }
-    }
-    isFavorites.value = checkFavorites();
+    recallFavorites(
+      { favoritesStore, newsDataStore, tokenStore },
+      isChecking,
+      isFavorites
+    );
   });
 </script>
 
