@@ -4,6 +4,7 @@
     <div class="nav-right">
       <SearchBar />
       <LoginButton />
+      <BookmarkButton />
     </div>
   </div>
 </template>
@@ -11,6 +12,7 @@
 <script setup lang="ts">
   import SearchBar from "./parts/SearchBar.vue";
   import LoginButton from "../../parts/navbar/parts/LoginButton.vue";
+  import BookmarkButton from "./parts/BookmarkButton.vue";
   import { useRouter } from "vue-router";
   import { useSearchDataStore } from "../../../stores/searchData";
 
@@ -23,7 +25,7 @@
   };
 </script>
 
-<style scoped>
+<style>
   @font-face {
     font-family: "Continuous";
     src: url("../../../assets/fonts/continuous.ttf") format("truetype");
