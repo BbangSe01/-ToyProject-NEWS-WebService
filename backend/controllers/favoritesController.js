@@ -1,3 +1,4 @@
+const dayjs = require("dayjs");
 const Performance = require("../models/performance");
 const User = require("../models/user");
 
@@ -6,7 +7,10 @@ const User = require("../models/user");
 const postFavorites = async (req, res) => {
   try {
     const userId = req.user.userId; // 로그인 미들웨어로부터 전달
-    const performanceData = req.body;
+    const formattedDate = dayjs(req.body.publishedAt).format("YYYY-MM-DD");
+    const performanceData = { ...req.body, publishedAt: formattedDate };
+    console.log(performanceData);
+    console.log(formattedDate);
     const url = performanceData.url;
 
     if (!url) {

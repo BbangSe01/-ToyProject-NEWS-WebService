@@ -3,7 +3,7 @@ const mongoose = require("mongoose"); // 몽구스를 가져온다.
 const performanceSchema = mongoose.Schema({
   author: String,
   description: String,
-  publishedAt: Date,
+  publishedAt: String,
   title: {
     type: String,
     required: true,
