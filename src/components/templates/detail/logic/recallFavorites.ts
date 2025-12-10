@@ -1,4 +1,4 @@
-import { GetFavorites } from "../../../../apis/FavoritesApis";
+import { getFavorites } from "../../../../apis/FavoritesApis";
 import type { Ref } from "vue";
 import type { StoreBundle } from "../../../../types/storeType";
 export const recallFavorites = async (
@@ -15,7 +15,7 @@ export const recallFavorites = async (
   try {
     if (tokenStore.loginState && !favoritesStore.isLoaded) {
       isChecking.value = true;
-      const res = await GetFavorites();
+      const res = await getFavorites();
       favoritesStore.setFavoritesData(res.data.favorites);
       favoritesStore.isLoaded = true;
     }

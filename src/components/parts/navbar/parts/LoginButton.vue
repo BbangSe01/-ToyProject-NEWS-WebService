@@ -11,7 +11,7 @@
   import { useFavoritesDataStore } from "../../../../stores/favoritesData.ts";
   import { useRouter } from "vue-router";
   import { openAlert } from "../../../../utils/alert";
-  import { GetFavorites } from "../../../../apis/FavoritesApis";
+  import { getFavorites } from "../../../../apis/FavoritesApis";
   import { warningToast } from "../../../../utils/warningtoast.ts";
 
   const tokenStore = useTokenDataStore();
@@ -42,7 +42,7 @@
     async (newVal, oldVal) => {
       if (newVal) {
         try {
-          const res = await GetFavorites();
+          const res = await getFavorites();
           favoritesStore.setFavoritesData(res.data.favorites);
           favoritesStore.isLoaded = true;
         } catch (err) {
