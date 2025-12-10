@@ -1,5 +1,5 @@
 <template>
-  <button class="bookmark-btn">
+  <button class="bookmark-btn" @click="goToFavPage">
     <img :src="bookmarkImg" alt="북마크" class="bookmark-img" />
     Bookmarks
   </button>
@@ -7,6 +7,20 @@
 
 <script setup lang="ts">
   import bookmarkImg from "../../../../assets/images/bookmark-btn-img.png";
+  import { useTokenDataStore } from "../../../../stores/tokenData";
+  import { warningToast } from "../../../../utils/warningtoast";
+  import { useRouter } from "vue-router";
+
+  const tokenStore = useTokenDataStore();
+
+  const router = useRouter();
+  const goToFavPage = () => {
+    if (tokenStore.loginState) {
+      router.push({ name: "Favorites" });
+    } else {
+      warningToast("Available after logging in.");
+    }
+  };
 </script>
 
 <style>
@@ -21,6 +35,7 @@
     color: black;
     border: 1px solid white;
     border-radius: 10px;
+    font-size: 1rem;
   }
   .bookmark-img {
     width: 1.5rem;
