@@ -1,6 +1,6 @@
 import { searchNewsData } from "../../../../apis/NewsApis";
 import dayjs from "dayjs";
-import type { SearchType, NewsType } from "../../../../types";
+import type { SearchType, useNewsType } from "../../../../types";
 import { useSearchDataStore } from "../../../../stores/searchData";
 
 export const getSearchData = async ({ keyword, sortBy }: SearchType) => {
@@ -10,7 +10,7 @@ export const getSearchData = async ({ keyword, sortBy }: SearchType) => {
     keyword,
     sortBy,
   });
-  results = results.map((x: NewsType) => {
+  results = results.map((x: useNewsType) => {
     const formattedDate = dayjs(x.publishedAt).format("YYYY-MM-DD");
     return {
       ...x,

@@ -16,11 +16,10 @@
 </template>
 
 <script setup lang="ts">
-  import { defineProps, defineEmits } from "vue";
   import noImg from "../../../assets/images/Image_not_available.png";
-  import type { NewsType } from "../../../types";
+  import type { useNewsType } from "../../../types";
   const props = defineProps<{
-    newsData: NewsType;
+    newsData: useNewsType;
   }>();
   const emit = defineEmits(["click"]);
 

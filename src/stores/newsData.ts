@@ -1,20 +1,18 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import type { NewsType } from "../types/newsType";
+import type { useNewsType } from "../types/newsType";
 
 export const useNewsDataStore = defineStore("newsData", () => {
-  const detailData = ref<NewsType>({
+  const detailData = ref<useNewsType>({
     author: "",
-    content: "",
     description: "",
     publishedAt: "",
-    source: { name: "", id: "" },
     title: "",
     url: "",
     urlToImage: "",
   });
 
-  const setDetailData = (newData: NewsType) => {
+  const setDetailData = (newData: useNewsType) => {
     detailData.value = newData;
   };
 

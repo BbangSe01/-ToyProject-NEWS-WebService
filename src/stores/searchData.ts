@@ -1,18 +1,18 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import type { NewsType } from "../types/newsType";
+import type { useNewsType } from "../types/newsType";
 
 export const useSearchDataStore = defineStore(
   "searchData",
   () => {
-    const searchData = ref<NewsType[]>([]);
+    const searchData = ref<useNewsType[]>([]);
     const searchWord = ref<string>("");
 
     const setSearchWord = (word: string) => {
       searchWord.value = word;
     };
 
-    const setSearchData = (data: NewsType[]) => {
+    const setSearchData = (data: useNewsType[]) => {
       searchData.value = data;
     };
 

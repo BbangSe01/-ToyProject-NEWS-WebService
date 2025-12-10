@@ -30,7 +30,7 @@
   import NewsCard from "../../parts/common/NewsCard.vue";
   import CategoryNav from "./parts/CategoryNav.vue";
   import DetailNews from "../detail/DetailNews.vue";
-  import type { CategoryType, NewsType } from "../../../types";
+  import type { CategoryType,useNewsType } from "../../../types";
   import { getHeadLineData } from "../../../apis/NewsApis";
   import { VueSpinnerClock } from "vue3-spinners";
   import { useNewsDataStore } from "../../../stores/newsData.ts";
@@ -51,7 +51,7 @@
     index: 0,
   });
 
-  const headlineData = ref<Array<NewsType>>([]);
+  const headlineData = ref<Array<useNewsType>>([]);
   const isFetching = ref<boolean>(false);
   const isError = ref<boolean>(false);
   watch(
@@ -60,7 +60,8 @@
       try {
         isFetching.value = true;
         const response = await getHeadLineData(categories.list[newVal]!);
-        headlineData.value = response.map((x: NewsType) => {
+        console.log(response)
+        headlineData.value = response.map((x: useNewsType) => {
           const formattedDate = dayjs(x.publishedAt).format("YYYY-MM-DD");
           return {
             ...x,

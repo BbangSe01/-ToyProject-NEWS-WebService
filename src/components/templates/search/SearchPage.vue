@@ -34,7 +34,7 @@
   import { useSearchDataStore } from "../../../stores/searchData.ts";
   import { getSearchData } from "./logic/getSearchData.ts";
   import ErrorImg from "../../../assets/images/error-img.jpg"
-  import type { NewsType } from "../../../types";
+  import type { useNewsType } from "../../../types";
   const route = useRoute();
   const keyword = computed(() => (route.query.keyword as string) || "");
   const newsStore = useNewsDataStore();
@@ -43,7 +43,7 @@
   const isFetching = ref<boolean>(false);
   const isError = ref<boolean>(false);
 
-  const searchData = ref<NewsType[]>([]);
+  const searchData = ref<useNewsType[]>([]);
   const nowPage = ref<number>(1);
 
   const isNext = computed(

@@ -1,5 +1,5 @@
 import { backendInstance } from "./instance/TokenHttp";
-import type { NewsType } from "../types";
+import type { useNewsType } from "../types";
 export const getFavorites = async () => {
   const res = await backendInstance.get("/favorites", {
     timeout: 20000,
@@ -7,9 +7,7 @@ export const getFavorites = async () => {
   return res;
 };
 
-export const postFavRequest = async (
-  sendData: Omit<NewsType, "content" | "source">
-) => {
+export const postFavRequest = async (sendData: useNewsType) => {
   const res = await backendInstance.post(
     "/favorites",
     {

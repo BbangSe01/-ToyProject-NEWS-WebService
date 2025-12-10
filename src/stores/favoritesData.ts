@@ -1,24 +1,23 @@
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
-import type { NewsType } from "../types/newsType";
+import type { useNewsType } from "../types/newsType";
 import { postFavRequest, deleteFavRequest } from "../apis/FavoritesApis";
 import { warningToast } from "../utils/warningtoast";
 export const useFavoritesDataStore = defineStore("favoritesData", () => {
-  const favoritesData = ref<Omit<NewsType, "content" | "source">[]>([]);
+  const favoritesData = ref<useNewsType[]>([]);
   const favUrlList = computed(() => favoritesData.value.map((x) => x.url));
   const isLoaded = ref<boolean>(false);
 
   const setFavoritesData = (
-    newData: Omit<NewsType, "content" | "source">[]
+    newData: Omit<useNewsType, "content" | "source">[]
   ) => {
     favoritesData.value = newData;
   };
 
-  const postFavorites = async (newsData: NewsType) => {
+  const postFavorites = async (newsData: useNewsType) => {
     try {
-      const { content, source, ...sendData } = newsData;
-      await postFavRequest(sendData);
-      favoritesData.value = [...favoritesData.value, sendData];
+      await postFavRequest(newsData);
+      favoritesData.value = [...favoritesData.value, newsData];
       return true;
     } catch (err) {
       console.error(err);
