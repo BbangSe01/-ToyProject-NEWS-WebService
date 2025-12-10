@@ -3,16 +3,31 @@
     <p class="favorites-title">Bookmark List</p>
     <div class="favorites-card-area">
       <div v-for="item in favoritesStore.favoritesData" :key="item.url">
-        <NewsCard :newsData="item" />
+        <NewsCard :newsData="item" @click="goToDetailPage(item.url)" />
       </div>
     </div>
+    <Teleport to="body">
+      <DetailNews v-if="dialogVisible" @close="dialogVisible = $event" />
+    </Teleport>
   </div>
 </template>
 
 <script setup lang="ts">
+  import { ref } from "vue";
   import { useFavoritesDataStore } from "../../../stores/favoritesData";
+  import { useNewsDataStore } from "../../../stores/newsData";
   import NewsCard from "../../parts/common/NewsCard.vue";
+  import DetailNews from "../detail/DetailNews.vue";
   const favoritesStore = useFavoritesDataStore();
+  const newsStore = useNewsDataStore();
+  const dialogVisible = ref(false);
+  const goToDetailPage = (url: string) => {
+    const newData = favoritesStore.favoritesData.find((x) => x.url === url);
+    if (newData) {
+      newsStore.setDetailData(newData);
+    }
+    dialogVisible.value = true;
+  };
 </script>
 
 <style scoped>
