@@ -86,7 +86,6 @@
   const favoritesStore = useFavoritesDataStore();
 
   const detailData = newsDataStore.detailData;
-  console.log(detailData);
   const goToArticle = () => {
     window.open(`${detailData.url}`, "_blank");
   };
@@ -98,7 +97,13 @@
     if (!favoritesStore.isLoaded) {
       warningToast("Failed to load favorites list");
     } else {
-      // 성공 로직 작성, isFavorites 값에 따라 처리
+      if (isFavorites.value) {
+        const ok = await favoritesStore.deleteFavorites(detailData.url);
+        if (ok) isFavorites.value = false;
+      } else {
+        const ok = await favoritesStore.postFavorites(detailData);
+        if (ok) isFavorites.value = true;
+      }
     }
   };
 
