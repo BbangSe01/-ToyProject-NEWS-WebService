@@ -6,7 +6,7 @@ export const warningToast = (message: string) => {
   return $toast.open({
     message: message,
     type: "warning",
-    duration: 5000,
+    duration: 3000,
     position: "top-right",
   });
 };
