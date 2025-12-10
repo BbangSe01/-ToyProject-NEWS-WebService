@@ -12,3 +12,5 @@ export interface NewsType {
   url: string;
   urlToImage: string | null;
 }
+
+export type useNewsType = Omit<NewsType, "content" | "source">;
