@@ -1,7 +1,7 @@
-import { searchNewsData } from "../apis/NewsApis";
+import { searchNewsData } from "../../../../apis/NewsApis";
 import dayjs from "dayjs";
-import type { SearchType, NewsType } from "../types";
-import { useSearchDataStore } from "../stores/searchData";
+import type { SearchType, NewsType } from "../../../../types";
+import { useSearchDataStore } from "../../../../stores/searchData";
 
 export const getSearchData = async ({ keyword, sortBy }: SearchType) => {
   const searchStore = useSearchDataStore();

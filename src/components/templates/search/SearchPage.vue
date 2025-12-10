@@ -32,7 +32,7 @@
   import SearchDropdown from "./parts/SearchDropdown.vue";
   import { useNewsDataStore } from "../../../stores/newsData.ts";
   import { useSearchDataStore } from "../../../stores/searchData.ts";
-  import { getSearchData } from "../../../utils/getSearchData.ts";
+  import { getSearchData } from "./logic/getSearchData.ts";
   import ErrorImg from "../../../assets/images/error-img.jpg"
   import type { NewsType } from "../../../types";
   const route = useRoute();
