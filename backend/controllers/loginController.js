@@ -74,12 +74,19 @@ const loginUser = async (req, res) => {
       username: user.username,
     });
     const refreshToken = makeRefreshToken();
-
     await updateRefresh({
       _id: user._id,
       refreshToken,
     });
-    return res.json({ accessToken: accessToken, refreshToken: refreshToken });
+
+    res.cookie("refreshToken", refreshToken, {
+      httponly: true,
+      secure: true,
+      sameSite: "strict",
+      path: "/auth/refresh", // 특정 경로에서만 전달, CSRF 방지
+      maxAge: 7 * 24 * 60 * 60 * 1000, //7일
+    });
+    return res.json({ accessToken });
   } catch (err) {
     console.error(err);
     return res.status(400).json({
