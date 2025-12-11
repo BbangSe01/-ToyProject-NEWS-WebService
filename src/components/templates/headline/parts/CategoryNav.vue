@@ -3,10 +3,7 @@
     <button
       :disabled="isLoading && idx !== props.categories.index"
       v-for="(category, idx) in props.categories.list"
-      :class="[
-        { active: idx === props.categories.index },
-        // { disabled: isLoading && idx !== props.categories.index },
-      ]"
+      :class="[{ active: idx === props.categories.index }]"
       v-on:click="clickCategory(idx)"
     >
       {{ category }}
@@ -15,7 +12,6 @@
 </template>
 
 <script setup lang="ts">
-  import { defineProps, defineEmits } from "vue";
   import type { CategoryType } from "../../../../types";
 
   const props = defineProps<{

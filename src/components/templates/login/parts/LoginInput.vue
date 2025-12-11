@@ -18,7 +18,6 @@
 </template>
 
 <script setup lang="ts">
-  import { defineProps, defineEmits } from "vue";
   import type { baseInputType } from "../../../../types";
   const props = defineProps<{
     modelValue: Omit<baseInputType, "password2">;

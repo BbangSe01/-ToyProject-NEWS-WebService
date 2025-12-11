@@ -27,7 +27,6 @@
 </template>
 
 <script setup lang="ts">
-  import { defineProps, defineEmits } from "vue";
   import type { baseInputType, baseTouchType } from "../../../../types";
   const props = defineProps<{
     modelValue: baseInputType;

@@ -21,7 +21,7 @@
   import { useTokenDataStore } from "../../../../stores/tokenData";
   import { useRouter } from "vue-router";
   import { openAlert } from "../../../../utils/alert";
-  import { reactive, watch, ref, computed } from "vue";
+  import { ref } from "vue";
 
   const router = useRouter();
   const baseInput = ref<Omit<baseInputType, "password2">>({
