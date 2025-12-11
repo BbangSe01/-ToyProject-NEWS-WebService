@@ -2,6 +2,8 @@ const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { isValidEmail, isValidPassword } = require("../utils/validators");
+const { makeToken, makeRefreshToken } = require("../utils/createToken");
+const { updateRefresh } = require("../services/tokenService");
 // Register user
 // POST /register
 const registerUser = async (req, res) => {
@@ -67,15 +69,19 @@ const loginUser = async (req, res) => {
       });
     }
 
-    const token = jwt.sign(
-      { userId: user._id, username: user.username },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: "1h",
-      }
-    );
-    return res.json({ token });
+    const accessToken = makeToken({
+      userId: user._id,
+      username: user.username,
+    });
+    const refreshToken = makeRefreshToken();
+
+    await updateRefresh({
+      _id: user._id,
+      refreshToken,
+    });
+    return res.json({ accessToken: accessToken, refreshToken: refreshToken });
   } catch (err) {
+    console.error(err);
     return res.status(400).json({
       loginSuccess: false,
       message: "로그인 중 오류 발생",
@@ -84,3 +90,5 @@ const loginUser = async (req, res) => {
 };
 
 module.exports = { registerUser, loginUser };
+
+// https://hello-judy-world.tistory.com/74
