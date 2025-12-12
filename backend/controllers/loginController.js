@@ -80,10 +80,10 @@ const loginUser = async (req, res) => {
     });
 
     res.cookie("refreshToken", refreshToken, {
-      httponly: true,
-      secure: true,
-      sameSite: "strict",
-      path: "/auth/refresh", // 특정 경로에서만 전달, CSRF 방지
+      httpOnly: true, // XSS 방지를 위해 JS 접근 차단
+      secure: false, // 현재 개발서버(HTTP) 환경이므로 false
+      sameSite: "lax",
+      path: "/", // CSRF 방지, 원래는 refresh 요청에만 열어두어야 하지만 현재 프론트/백 모두 개발서버여서 오류가 많아 모든 요청 허용
       maxAge: 7 * 24 * 60 * 60 * 1000, //7일
     });
     return res.json({ accessToken });
