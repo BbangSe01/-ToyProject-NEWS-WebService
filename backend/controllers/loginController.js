@@ -107,22 +107,33 @@ const logoutUser = async (req, res) => {
     });
   }
 
-  await Token.findOneAndDelete({
-    refreshToken: refreshToken,
-  });
+  let dbRevocationFailed = false; // DB 처리 실패 유무
+  // refreshTokoen db 제거 로직
   try {
-    await res.clearCookie("refreshToken", {
-      httpOnly: true,
-      secure: false,
-      sameSite: "lax",
-      path: "/",
+    await Token.findOneAndDelete({ refreshToken: refreshToken });
+  } catch (dbError) {
+    console.error("Refresh Token DB 해지 중 오류 발생:", dbError);
+    dbRevocationFailed = true;
+  }
+
+  // 쿠키에서 refreshToken 제거
+  res.clearCookie("refreshToken", {
+    httpOnly: true,
+    secure: false,
+    sameSite: "lax",
+    path: "/",
+  });
+
+  if (dbRevocationFailed) {
+    // DB는 실패했지만 클라이언트 쿠키는 제거되었으므로 200 OK와 함께 경고 메시지 반환
+    // 실서비스라면 관리자 처리 로직이 필요
+    return res.status(200).send({
+      message:
+        "로그아웃 되었습니다. (refreshToken DB 해지 실패, 관리자 확인 필요).",
     });
-    res.status(200).send({ message: "Logged out successfully" });
-  } catch (err) {
-    console.error("토큰 해지 중 로그아웃 오류 발생:", error);
-    return res
-      .status(500)
-      .send({ message: "서버 측에서 로그아웃 실패했습니다." });
+  } else {
+    // 모든 처리가 완벽히 성공
+    return res.status(200).send({ message: "로그아웃 되었습니다." });
   }
 };
 
