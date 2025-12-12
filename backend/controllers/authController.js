@@ -136,4 +136,33 @@ const logoutUser = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, loginUser, logoutUser };
+const refreshAccessToken = async (req, res) => {
+  const refreshToken = req.cookies.refreshToken;
+  const key = process.env.JWT_SECRET;
+  if (!refreshToken) {
+    return res.status(401).json({
+      message: "리프레시 토큰이 존재하지 않습니다. 다시 로그인 해주세요.",
+    });
+  }
+  jwt.verify(refreshToken, key, (err, user) => {
+    if (err) {
+      if (err.name === "TokenExpiredError") {
+        return res.status(401).json({
+          code: "ReLogin",
+          message: "리프레시 토큰이 만료되었습니다.",
+        });
+      }
+      return res.status(403).json({
+        code: "ReLogin",
+        message: "리프레시 토큰이 유효하지 않음.",
+      });
+    }
+    const accessToken = makeToken({
+      userId: user._id,
+      username: user.username,
+    });
+    res.json({ accessToken });
+  });
+};
+
+module.exports = { registerUser, loginUser, logoutUser, refreshAccessToken };
