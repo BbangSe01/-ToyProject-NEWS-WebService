@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const Token = require("../models/token");
 const { isValidEmail, isValidPassword } = require("../utils/validators");
 const { makeToken, makeRefreshToken } = require("../utils/createToken");
 const { updateRefresh } = require("../services/tokenService");
@@ -96,6 +97,33 @@ const loginUser = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, loginUser };
+// logout user
+// POST /logout
+const logoutUser = async (req, res) => {
+  const refreshToken = req.cookies.refreshToken;
+  if (!refreshToken) {
+    return res.status(200).send({
+      message: "이미 로그아웃 되었습니다.(요청에 토큰을 찾을 수 없습니다.)",
+    });
+  }
 
-// https://hello-judy-world.tistory.com/74
+  await Token.findOneAndDelete({
+    refreshToken: refreshToken,
+  });
+  try {
+    await res.clearCookie("refreshToken", {
+      httpOnly: true,
+      secure: false,
+      sameSite: "lax",
+      path: "/",
+    });
+    res.status(200).send({ message: "Logged out successfully" });
+  } catch (err) {
+    console.error("토큰 해지 중 로그아웃 오류 발생:", error);
+    return res
+      .status(500)
+      .send({ message: "서버 측에서 로그아웃 실패했습니다." });
+  }
+};
+
+module.exports = { registerUser, loginUser, logoutUser };
