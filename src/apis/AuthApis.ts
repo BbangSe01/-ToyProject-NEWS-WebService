@@ -1,14 +1,14 @@
-import { authInstance } from "./instance/PublicHttp";
 import type { SignupType } from "../types";
+import { backendInstance } from "./instance/TokenHttp";
 export const signup = async ({ username, password }: SignupType) => {
-  return await authInstance.post("register", {
+  return await backendInstance.post("/register", {
     username,
     password,
   });
 };
 
 export const login = async ({ username, password }: SignupType) => {
-  return await authInstance.post("login", {
+  return await backendInstance.post("/login", {
     username,
     password,
   });
