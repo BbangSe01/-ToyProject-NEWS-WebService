@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const dbConnect = require("./config/dbConnect");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.get("/", (req, res) => {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 app.use("/user", require("./routes/loginRoutes"));
 app.use("/user", require("./routes/summaryRoutes"));
