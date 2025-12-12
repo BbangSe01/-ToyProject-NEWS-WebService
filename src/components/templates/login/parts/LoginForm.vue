@@ -36,7 +36,7 @@
         username: baseInput.value.username,
         password: baseInput.value.password,
       });
-      tokenStore.setAccessToken(res.data.token);
+      tokenStore.setAccessToken(res.data.accessToken);
       openAlert({
         title: "Success",
         text: "Login!",

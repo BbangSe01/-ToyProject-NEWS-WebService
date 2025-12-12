@@ -60,7 +60,7 @@
 </template>
 
 <script setup lang="ts">
-  import { reactive, nextTick, ref, watch, onMounted } from "vue";
+  import { reactive, nextTick, ref, onMounted } from "vue";
   import { useNewsDataStore } from "../../../stores/newsData";
   import { useTokenDataStore } from "../../../stores/tokenData";
   import { useFavoritesDataStore } from "../../../stores/favoritesData";
