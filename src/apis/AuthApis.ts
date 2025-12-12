@@ -13,3 +13,7 @@ export const login = async ({ username, password }: SignupType) => {
     password,
   });
 };
+
+export const logout = async () => {
+  return await backendInstance.post("/logout");
+};

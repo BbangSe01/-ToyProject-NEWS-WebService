@@ -13,15 +13,17 @@
   import { openAlert } from "../../../../utils/alert";
   import { getFavorites } from "../../../../apis/FavoritesApis";
   import { warningToast } from "../../../../utils/warningtoast.ts";
+  import { logout } from "../../../../apis/AuthApis.ts";
 
   const tokenStore = useTokenDataStore();
   const searchStore = useSearchDataStore();
   const favoritesStore = useFavoritesDataStore();
   const router = useRouter();
 
-  const changeLoginState = () => {
+  const changeLoginState = async () => {
     if (tokenStore.loginState) {
       // 로그아웃
+      await logout();
       tokenStore.setAccessToken("");
       openAlert({
         title: "Success",
