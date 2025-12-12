@@ -26,7 +26,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use("/user", require("./routes/loginRoutes"));
+app.use("/user", require("./routes/authRoutes"));
 app.use("/user", require("./routes/summaryRoutes"));
 app.use("/user", require("./routes/favoritesRoutes"));
 app.listen(port, () => {

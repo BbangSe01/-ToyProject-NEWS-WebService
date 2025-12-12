@@ -54,7 +54,6 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
   try {
     const user = await User.findOne({ username: req.body.username });
-    console.log(user);
     if (!user) {
       return res.status(400).json({
         loginSuccess: false,
