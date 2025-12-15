@@ -12,6 +12,7 @@ const authenticateToken = (req, res, next) => {
   if (token == null) {
     // 토큰이 아예 없는 경우
     return res.status(401).json({
+      code: "TOKEN_MISSING",
       message: "인증 토큰이 누락되었습니다.",
     });
   }
@@ -24,15 +25,13 @@ const authenticateToken = (req, res, next) => {
       // 만료 오류 처리
       if (err.name === "TokenExpiredError") {
         return res.status(401).json({
-          success: false,
           code: "TOKEN_EXPIRED",
           message: "토큰이 만료되었습니다.",
         });
       }
       // 일반적인 검증 실패 (위변조 등)
-      return res.status(403).json({
-        success: false,
-        code: "INVALID_TOKEN",
+      return res.status(401).json({
+        code: "TOKEN_INVALID",
         message: "유효하지 않은 토큰입니다.",
       });
     }

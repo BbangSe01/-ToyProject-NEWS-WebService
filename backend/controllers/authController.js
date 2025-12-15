@@ -75,7 +75,7 @@ const loginUser = async (req, res) => {
     });
     const refreshToken = makeRefreshToken();
     await updateRefresh({
-      _id: user._id,
+      user_id: user._id,
       refreshToken,
     });
 
@@ -138,31 +138,43 @@ const logoutUser = async (req, res) => {
 
 const refreshAccessToken = async (req, res) => {
   const refreshToken = req.cookies.refreshToken;
-  const key = process.env.JWT_SECRET;
+
   if (!refreshToken) {
     return res.status(401).json({
-      message: "리프레시 토큰이 존재하지 않습니다. 다시 로그인 해주세요.",
+      code: "REFRESH_TOKEN_MISSING",
+      message: "Authentication required",
     });
   }
-  jwt.verify(refreshToken, key, (err, user) => {
-    if (err) {
-      if (err.name === "TokenExpiredError") {
-        return res.status(401).json({
-          code: "ReLogin",
-          message: "리프레시 토큰이 만료되었습니다.",
-        });
-      }
-      return res.status(403).json({
-        code: "ReLogin",
-        message: "리프레시 토큰이 유효하지 않음.",
+
+  try {
+    // JWT 자체 검증
+    const payload = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
+
+    // DB 존재 여부 검증
+    const tokenDoc = await Token.findOne({ refreshToken });
+    if (!tokenDoc) {
+      return res.status(401).json({
+        code: "REFRESH_TOKEN_INVALID",
+        message: "Authentication required",
       });
     }
+
+    // access token 재발급
     const accessToken = makeToken({
-      userId: user._id,
-      username: user.username,
+      userId: payload._id,
+      username: payload.username,
     });
-    res.json({ accessToken });
-  });
+
+    return res.json({ accessToken });
+  } catch (err) {
+    return res.status(401).json({
+      code:
+        err.name === "TokenExpiredError"
+          ? "REFRESH_TOKEN_EXPIRED"
+          : "REFRESH_TOKEN_INVALID",
+      message: "Authentication required",
+    });
+  }
 };
 
 module.exports = { registerUser, loginUser, logoutUser, refreshAccessToken };
