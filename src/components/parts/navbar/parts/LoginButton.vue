@@ -49,7 +49,6 @@
           favoritesStore.isLoaded = true;
         } catch (err) {
           console.log(err);
-          warningToast("Failed to load favorites list");
         }
       } else {
         favoritesStore.setFavoritesData([]);

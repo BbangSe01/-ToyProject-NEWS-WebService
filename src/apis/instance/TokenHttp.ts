@@ -62,10 +62,6 @@ backendInstance.interceptors.response.use(
       router.push({ name: "Login" });
     }
 
-    if (status === 500) {
-      // 서버 에러 toast 띄우기
-    }
-
     return Promise.reject(error);
   }
 );

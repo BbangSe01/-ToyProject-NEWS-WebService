@@ -65,11 +65,9 @@
   import { useTokenDataStore } from "../../../stores/tokenData";
   import { useFavoritesDataStore } from "../../../stores/favoritesData";
   import { getSummaryNews } from "../../../apis/NewsApis";
-  import { AxiosError } from "axios";
   import noImg from "../../../assets/images/Image_not_available.png";
   import ButtonLoading from "../../parts/common/loadingSpinner/ButtonLoading.vue";
   import SummaryArea from "./parts/SummaryArea.vue";
-  import { tokenHandler } from "../../../utils/errorHandler/tokenHandler";
   import bookmarkImg from "../../../assets/images/bookmark-img.png";
   import notBookmarkImg from "../../../assets/images/notBookmark-img.png";
   import DetailPageLoading from "../../parts/common/loadingSpinner/DetailPageLoading.vue";
@@ -95,7 +93,7 @@
 
   const updateFavorites = async () => {
     if (!favoritesStore.isLoaded) {
-      warningToast("Failed to load favorites list");
+      warningToast("Server Error: Failed to update favorites list");
     } else {
       if (isFavorites.value) {
         const ok = await favoritesStore.deleteFavorites(detailData.url);
@@ -136,11 +134,8 @@
         inline: "nearest",
       });
     } catch (err) {
-      if (err instanceof AxiosError) {
-        emit("close", false);
-        const errorType = err.response?.data?.code;
-        tokenHandler(errorType);
-      }
+      console.error(err);
+      warningToast("ServerError : Failed to summarize.");
     } finally {
       summaryState.isFetching = false;
     }
