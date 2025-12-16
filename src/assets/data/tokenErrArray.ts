@@ -1,0 +1,11 @@
+export const ACCESS_TOKEN_ERR = [
+  "TOKEN_MISSING",
+  "TOKEN_EXPIRED",
+  "TOKEN_INVALID",
+] as const;
+
+export const REFRESH_TOKEN_ERR = [
+  "REFRESH_TOKEN_MISSING",
+  "REFRESH_TOKEN_EXPIRED",
+  "REFRESH_TOKEN_INVALID",
+] as const;
