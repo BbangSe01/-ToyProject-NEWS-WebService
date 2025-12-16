@@ -146,8 +146,6 @@ const refreshAccessToken = async (req, res) => {
   }
 
   try {
-    // JWT 자체 검증
-    const payload = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
     // DB 존재 여부 검증
     const tokenDoc = await Token.findOne({ refreshToken: refreshToken });
     if (!tokenDoc) {
@@ -156,6 +154,9 @@ const refreshAccessToken = async (req, res) => {
         message: "Authentication required",
       });
     }
+
+    // JWT 자체 검증
+    const payload = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
 
     // access token 재발급
     const accessToken = makeToken({
