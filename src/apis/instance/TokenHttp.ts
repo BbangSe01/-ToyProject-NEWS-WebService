@@ -1,9 +1,14 @@
-import axios, { type AxiosRequestConfig } from "axios";
+import axios from "axios";
+import {
+  ACCESS_TOKEN_ERR,
+  REFRESH_TOKEN_ERR,
+} from "../../assets/data/tokenErrArray";
+import { refresh } from "../AuthApis";
+import { warningToast } from "../../utils/warningtoast";
 import { useTokenDataStore } from "../../stores/tokenData";
 const backendURL = import.meta.env.VITE_BACKEND_BASE_URL;
 export const backendInstance = axios.create({
   baseURL: backendURL,
-  timeout: 2000,
   withCredentials: true,
 });
 
@@ -17,6 +22,38 @@ backendInstance.interceptors.request.use(
     return config;
   },
   (error) => {
+    return Promise.reject(error);
+  }
+);
+
+backendInstance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (error) => {
+    const useAuthStore = useTokenDataStore();
+    const originalRequest = error.config;
+    const { status, data } = error.response;
+    const code = data.code;
+
+    if (ACCESS_TOKEN_ERR.includes(code)) {
+      // 토큰 refresh
+      const res = await refresh();
+      const newAccessToken = res.data.accessToken;
+      useAuthStore.setAccessToken(newAccessToken);
+
+      originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+
+      // accessToken 갱신 후 재시도
+      return await axios(originalRequest);
+    } else if (REFRESH_TOKEN_ERR.includes(code)) {
+      // 강제 로그아웃
+    }
+
+    if (status === 500) {
+      // 서버 에러 toast 띄우기
+    }
+
     return Promise.reject(error);
   }
 );
