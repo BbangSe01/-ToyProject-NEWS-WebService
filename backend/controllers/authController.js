@@ -71,9 +71,8 @@ const loginUser = async (req, res) => {
 
     const accessToken = makeToken({
       userId: user._id,
-      username: user.username,
     });
-    const refreshToken = makeRefreshToken();
+    const refreshToken = makeRefreshToken({ userId: user._id });
     await updateRefresh({
       user_id: user._id,
       refreshToken,
@@ -89,7 +88,7 @@ const loginUser = async (req, res) => {
     return res.json({ accessToken });
   } catch (err) {
     console.error(err);
-    return res.status(400).json({
+    return res.status(500).json({
       loginSuccess: false,
       message: "로그인 중 오류 발생",
     });
@@ -136,9 +135,9 @@ const logoutUser = async (req, res) => {
   }
 };
 
+// accessToken 재발급
 const refreshAccessToken = async (req, res) => {
   const refreshToken = req.cookies.refreshToken;
-
   if (!refreshToken) {
     return res.status(401).json({
       code: "REFRESH_TOKEN_MISSING",
@@ -149,9 +148,8 @@ const refreshAccessToken = async (req, res) => {
   try {
     // JWT 자체 검증
     const payload = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
-
     // DB 존재 여부 검증
-    const tokenDoc = await Token.findOne({ refreshToken });
+    const tokenDoc = await Token.findOne({ refreshToken: refreshToken });
     if (!tokenDoc) {
       return res.status(401).json({
         code: "REFRESH_TOKEN_INVALID",
@@ -161,8 +159,7 @@ const refreshAccessToken = async (req, res) => {
 
     // access token 재발급
     const accessToken = makeToken({
-      userId: payload._id,
-      username: payload.username,
+      userId: payload.userId,
     });
 
     return res.json({ accessToken });

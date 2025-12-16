@@ -7,9 +7,9 @@ const makeToken = (Object) => {
   return token;
 };
 
-const makeRefreshToken = () => {
+const makeRefreshToken = (Object) => {
   // refresh token 발급
-  const refreshToken = jwt.sign({}, JWT_REFRESH_KEY, {
+  const refreshToken = jwt.sign(Object, JWT_REFRESH_KEY, {
     algorithm: "HS256",
     expiresIn: "7d",
   });

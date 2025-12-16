@@ -38,6 +38,7 @@ const authenticateToken = (req, res, next) => {
 
     // 검증 성공: 페이로드 정보 저장 및 다음 미들웨어로 전달
     // 'user'는 jwt.sign() 시 사용한 payload 객체입니다.
+    console.log(user);
     req.user = user;
 
     // 다음 미들웨어/라우트 핸들러로 이동
