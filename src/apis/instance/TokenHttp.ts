@@ -1,10 +1,12 @@
 import axios from "axios";
+import router from "../../router";
 import {
   ACCESS_TOKEN_ERR,
   REFRESH_TOKEN_ERR,
 } from "../../assets/data/tokenErrArray";
-import { refresh } from "../AuthApis";
+import { refresh, logout } from "../AuthApis";
 import { warningToast } from "../../utils/warningtoast";
+import { openAlert } from "../../utils/alert";
 import { useTokenDataStore } from "../../stores/tokenData";
 const backendURL = import.meta.env.VITE_BACKEND_BASE_URL;
 export const backendInstance = axios.create({
@@ -36,8 +38,8 @@ backendInstance.interceptors.response.use(
     const { status, data } = error.response;
     const code = data.code;
 
+    // accessToken 만료 시
     if (ACCESS_TOKEN_ERR.includes(code)) {
-      // 토큰 refresh
       const res = await refresh();
       const newAccessToken = res.data.accessToken;
       useAuthStore.setAccessToken(newAccessToken);
@@ -46,8 +48,18 @@ backendInstance.interceptors.response.use(
 
       // accessToken 갱신 후 재시도
       return await axios(originalRequest);
+
+      // refreshToken 만료 시
     } else if (REFRESH_TOKEN_ERR.includes(code)) {
       // 강제 로그아웃
+      await logout();
+      useAuthStore.setAccessToken("");
+      openAlert({
+        title: "Session Expired",
+        text: "Your session has expired. Please log in again to continue.",
+        icon: "error",
+      });
+      router.push({ name: "Login" });
     }
 
     if (status === 500) {
