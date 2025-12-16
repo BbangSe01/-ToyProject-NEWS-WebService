@@ -1,13 +1,31 @@
-<script setup lang="ts">
-  import MainNav from "./components/parts/navbar/MainNav.vue";
-</script>
-
 <template>
-  <div class="fullScreen">
+  <div v-if="isLoading" class="token-refresh-screen"></div>
+  <div class="fullScreen" v-else>
     <main-nav />
     <router-view />
   </div>
 </template>
+
+<script setup lang="ts">
+  import MainNav from "./components/parts/navbar/MainNav.vue";
+  import { onMounted, ref } from "vue";
+  import { useTokenDataStore } from "./stores/tokenData";
+  import { refresh } from "./apis/AuthApis";
+
+  const tokenStore = useTokenDataStore();
+  const isLoading = ref(true);
+
+  onMounted(async () => {
+    try {
+      const res = await refresh();
+      tokenStore.setAccessToken(res.data.accessToken);
+    } catch {
+      tokenStore.setAccessToken("");
+    } finally {
+      isLoading.value = false;
+    }
+  });
+</script>
 
 <style>
   @import url("https://fonts.googleapis.com/css2?family=Merriweather&family=Montserrat&display=swap");
@@ -26,5 +44,8 @@
     margin: 0;
     padding: 0;
     font-family: "Merriweather", serif;
+  }
+  .token-refresh-screen {
+    min-height: 100dvh;
   }
 </style>

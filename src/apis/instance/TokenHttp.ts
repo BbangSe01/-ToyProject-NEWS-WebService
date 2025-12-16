@@ -49,7 +49,10 @@ backendInstance.interceptors.response.use(
       return await axios(originalRequest);
 
       // refreshToken 만료 시
-    } else if (REFRESH_TOKEN_ERR.includes(code)) {
+    } else if (
+      REFRESH_TOKEN_ERR.includes(code) &&
+      code !== "REFRESH_TOKEN_MISSING" // 초기 화면에서 강제 로그아웃 실행 방지
+    ) {
       // 강제 로그아웃
       await logout();
       useAuthStore.setAccessToken("");
