@@ -60,7 +60,6 @@
       try {
         isFetching.value = true;
         const response = await getHeadLineData(categories.list[newVal]!);
-        console.log(response)
         headlineData.value = response.map((x: useNewsType) => {
           const formattedDate = dayjs(x.publishedAt).format("YYYY-MM-DD");
           return {

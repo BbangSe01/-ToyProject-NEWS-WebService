@@ -13,11 +13,11 @@ export const useTokenDataStore = defineStore(
     };
     const loginState = computed(() => accessToken.value.length > 0);
     return { accessToken, setAccessToken, loginState };
-  },
-  {
-    persist: {
-      storage: sessionStorage,
-      pick: ["accessToken"],
-    },
   }
+  // {
+  //   persist: {
+  //     storage: sessionStorage,
+  //     pick: ["accessToken"],
+  //   },
+  // }
 );

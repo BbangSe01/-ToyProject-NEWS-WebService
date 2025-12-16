@@ -5,7 +5,6 @@ import {
   REFRESH_TOKEN_ERR,
 } from "../../assets/data/tokenErrArray";
 import { refresh, logout } from "../AuthApis";
-import { warningToast } from "../../utils/warningtoast";
 import { openAlert } from "../../utils/alert";
 import { useTokenDataStore } from "../../stores/tokenData";
 const backendURL = import.meta.env.VITE_BACKEND_BASE_URL;
