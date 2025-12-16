@@ -26,12 +26,18 @@
 ### 📝 뉴스 AI 요약 기능 (Login)
 
 - 요약 요청 성공 시, 자동으로 모달창 최하단으로 스크롤 되어 요약문 한 눈에 파악 가능
-- Vue의 nextTick을 활용하여, 요약문 컴포넌트의 DOM이 렌더링된 이후 안전하게 스크롤하도록 처리
+- Vue의 `nextTick`을 활용하여, 요약문 컴포넌트의 DOM이 렌더링된 이후 안전하게 스크롤하도록 처리
 
 ### 🏷️ 북마크 기능 (Login)
 
-- 서버 응답 기준으로 Pinia store와 UI 상태를 정확히 동기화
+- 서버 응답 기준으로 Pinia store와 UI 상태를 정확히 **동기화**
 - 로그인 시 즐겨찾기 데이터를 불러오지 못한 경우, 상세 페이지 진입 시 자동으로 재요청하여 로드 보장
+
+### ⚙ 기타
+
+- `Pinia` 기반 전역 상태 관리
+- `axios interceptors`를 활용한 accessToken 만료 처리 및 재요청 로직 공통화
+- 드롭다운 / 모달 애니메이션 적용
 
 <br>
 
@@ -44,28 +50,28 @@
 ### 🔐 회원 인증
 
 - `bcrypt` 를 사용한 비밀번호 해싱
-- `JWT` 기반 로그인 및 인증 토큰 발급
-- 토큰 검증 미들웨어 추가
+- `JWT` 기반 로그인 로직 구현
+- `accessToken` : 메모리(pinia) / `refreshToken`: 쿠키(httpOnly)
+- 토큰 검증 미들웨어 적용
 
 ### ✂️ AI 뉴스 요약
 
-- `puppeteer 기반` 비동기 HTML 크롤링
+- `puppeteer` 기반 비동기 HTML 크롤링
 - `readability-js`를 사용한 핵심 본문 추출
 - 추출된 텍스트 기반 요약문 생성 컨트롤러 구현 (Gemini 연동)
 
 ### 🏷️ 북마크
 
-URL을 기준으로 User 모델과 Performance 모델을 연동하여 북마크 기능 구현
+URL을 기준으로 User 모델과 Performance 모델을 **연동**하여 북마크 기능 구현
 
-- User: 북마크한 기사 URL 저장
-- Performance: 기사 데이터 자체를 개별 문서로 저장/유지
+- `User`: 북마크한 기사 URL 저장
+- `Performance`: 기사 데이터 자체를 개별 문서로 저장/유지
 - 북마크 제거 시에도 Performance 데이터는 유지되어 뉴스 데이터 캐시 / 히스토리 역할 수행
 
 <br>
 
 ## 🗺 구현 예정 기능
 
-- [ ] Refresh Token 도입
 - [ ] 반응형 UI
 
 <br>
