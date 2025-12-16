@@ -17,3 +17,7 @@ export const login = async ({ username, password }: SignupType) => {
 export const logout = async () => {
   return await backendInstance.post("/logout");
 };
+
+export const refresh = async () => {
+  return await backendInstance.post("/refresh");
+};
