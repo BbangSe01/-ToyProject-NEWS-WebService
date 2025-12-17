@@ -78,11 +78,11 @@ URL을 기준으로 User 모델과 Performance 모델을 **연동**하여 북마
 
 <br>
 
-## 🗺 구현 예정 기능
+## 🗺 구현 예정
 
 - [ ] 반응형 UI
-
-<br>
+- [ ] NewsAPI 요청 최적화를 위한 Backend Proxy 설계
+      <br>
 
 ## 🧰 Tech Stack
 
