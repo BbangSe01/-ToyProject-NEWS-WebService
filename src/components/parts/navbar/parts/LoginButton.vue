@@ -12,7 +12,6 @@
   import { useRouter } from "vue-router";
   import { openAlert } from "../../../../utils/alert";
   import { getFavorites } from "../../../../apis/FavoritesApis";
-  import { warningToast } from "../../../../utils/warningtoast.ts";
   import { logout } from "../../../../apis/AuthApis.ts";
 
   const tokenStore = useTokenDataStore();

@@ -34,7 +34,7 @@ backendInstance.interceptors.response.use(
   async (error) => {
     const useAuthStore = useTokenDataStore();
     const originalRequest = error.config;
-    const { status, data } = error.response;
+    const { data } = error.response;
     const code = data.code;
 
     // accessToken 만료 시
