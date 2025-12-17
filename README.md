@@ -13,11 +13,15 @@
 
 ### 📰 헤드라인 뉴스
 
+![alt text](src/assets/images/gif/headline.gif)
+
 - 카테고리별 최신 헤드라인 제공
 - 카드 클릭 시 **모달 기반 상세 페이지** 표시
 - Vue Teleport 활용한 자연스러운 모달 UX
 
 ### 🔍 검색 기능
+
+![alt text](src/assets/images/gif/search.gif)
 
 - 키워드 기반 뉴스 검색
 - 정렬 옵션 제공: **최신순 / 정확도 / 인기순**
@@ -25,10 +29,14 @@
 
 ### 📝 뉴스 AI 요약 기능 (Login)
 
+![alt text](src/assets/images/gif/summary.gif)
+
 - 요약 요청 성공 시, 자동으로 모달창 최하단으로 스크롤 되어 요약문 한 눈에 파악 가능
 - Vue의 `nextTick`을 활용하여, 요약문 컴포넌트의 DOM이 렌더링된 이후 안전하게 스크롤하도록 처리
 
 ### 🏷️ 북마크 기능 (Login)
+
+![alt text](src/assets/images/gif/bookmark.gif)
 
 - 서버 응답 기준으로 Pinia store와 UI 상태를 정확히 **동기화**
 - 로그인 시 즐겨찾기 데이터를 불러오지 못한 경우, 상세 페이지 진입 시 자동으로 재요청하여 로드 보장
