@@ -1,7 +1,7 @@
 <template>
   <div class="favorites-area">
-    <p class="favorites-title">Bookmark List</p>
-    <div class="favorites-card-area">
+    <p class="favorites-area__title">Bookmark List</p>
+    <div class="favorites-area__card">
       <div v-for="item in favoritesStore.favoritesData" :key="item.url">
         <NewsCard :newsData="item" @click="goToDetailPage(item.url)" />
       </div>
@@ -30,7 +30,7 @@
   };
 </script>
 
-<style scoped>
+<style lang="scss">
   .favorites-area {
     display: flex;
     flex-direction: column;
@@ -40,16 +40,20 @@
     padding-bottom: 2rem;
     margin-bottom: 2rem;
     max-width: 1200px;
-  }
-  .favorites-title {
-    font-size: 2rem;
-    font-weight: bold;
-  }
-  .favorites-card-area {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 2rem;
-    margin-top: 1rem;
+
+    &__title {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    &__card {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
   }
 </style>
+
+<!-- https://mingeesuh.tistory.com/entry/SASSSCSS-%EB%B0%98%EB%B3%B5%EC%A0%81%EC%9D%B8-CSS%EB%8A%94-%EA%B7%B8%EB%A7%8C-SASS-%ED%95%9C%EB%B0%A9%EC%97%90-%EB%81%9D%EB%82%B4%EA%B8%B0-%EB%B3%80%EC%88%98-%EC%A4%91%EC%B2%A9-%EB%AF%B9%EC%8A%A4%EC%9D%B8 -->

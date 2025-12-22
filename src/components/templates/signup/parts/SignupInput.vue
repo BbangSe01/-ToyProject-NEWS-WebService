@@ -52,16 +52,17 @@
   };
 </script>
 
-<style scoped>
+<style lang="scss">
   .signup-input-area {
     display: flex;
     flex-direction: column;
-  }
-  .signup-input-area input {
-    width: 18rem;
-    height: 2rem;
-    border: 2px solid black;
-    border-radius: 10px;
-    margin-bottom: 0.5rem;
+
+    input {
+      width: 18rem;
+      height: 2rem;
+      border: 2px solid black;
+      border-radius: 10px;
+      margin-bottom: 0.5rem;
+    }
   }
 </style>

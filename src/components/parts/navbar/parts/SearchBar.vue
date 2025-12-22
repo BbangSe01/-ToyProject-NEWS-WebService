@@ -1,12 +1,12 @@
 <template>
-  <form class="search-area" @submit.prevent="goSearchPage">
+  <form class="search-box" @submit.prevent="goSearchPage">
     <input
       type="search"
       placeholder="  Search News"
-      class="search-input"
+      class="search-box__input"
       v-model="keyword"
     />
-    <button type="submit" class="search-btn">Search</button>
+    <button type="submit" class="search-box__btn">Search</button>
   </form>
 </template>
 
@@ -34,20 +34,20 @@
     router.push({ name: "Search", query: { keyword: keyword.value } });
   };
 </script>
-<style scoped>
-  .search-area {
+<style lang="scss">
+  .search-box {
     display: flex;
     align-items: center;
     font-size: 1rem;
     font-family: "Merriweather", serif;
-  }
-  .search-input {
-    width: 300px;
-    height: 30px;
-  }
 
-  .search-btn {
-    width: 80px;
-    height: 30px;
+    &__input {
+      width: 300px;
+      height: 30px;
+    }
+    &__btn {
+      width: 80px;
+      height: 30px;
+    }
   }
 </style>

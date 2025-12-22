@@ -1,18 +1,26 @@
 <template>
-  <div class="searchArea">
-    <div class="search-ex">
+  <div class="search-area">
+    <div class="search-area__ex">
       Search results for
       <span class="keyword">"{{ route.query.keyword }}"</span>
     </div>
     <VueSpinnerClock
       v-if="isFetching"
       size="150"
-      class="loading-search"
+      class="search-area__loading"
       :speedMultiplier="1.5"
     />
-    <img v-else-if="isError" :src="ErrorImg" alt="에러 이미지" class="error-img"></img>
-    <div class="news-area" v-else>
-      <SearchDropdown :list="searchCategory.list" v-model="searchCategory.index" />
+    <img
+      v-else-if="isError"
+      :src="ErrorImg"
+      alt="에러 이미지"
+      class="search-area__error-img"
+    />
+    <div class="search-area__news-area" v-else>
+      <SearchDropdown
+        :list="searchCategory.list"
+        v-model="searchCategory.index"
+      />
       <div v-for="item in searchData" :key="item.url">
         <NewsCard :newsData="item" @click="goToDetailPage(item.url)" />
       </div>
@@ -33,7 +41,7 @@
   import { useNewsDataStore } from "../../../stores/newsData.ts";
   import { useSearchDataStore } from "../../../stores/searchData.ts";
   import { getSearchData } from "./logic/getSearchData.ts";
-  import ErrorImg from "../../../assets/images/error-img.jpg"
+  import ErrorImg from "../../../assets/images/error-img.jpg";
   import type { useNewsType } from "../../../types";
   const route = useRoute();
   const keyword = computed(() => (route.query.keyword as string) || "");
@@ -51,40 +59,45 @@
   );
 
   const searchCategory = reactive({
-    list : ['publishedAt', 'relevancy', 'popularity'],
-    index: 0
-  })
+    list: ["publishedAt", "relevancy", "popularity"],
+    index: 0,
+  });
 
-  const fetchSearchData = async()=> {
+  const fetchSearchData = async () => {
     isError.value = false;
-      try {
-        isFetching.value = true;
-        searchStore.searchData = [];
-        nowPage.value = 1;
-        await getSearchData({keyword:keyword.value, sortBy: searchCategory.list[searchCategory.index] as string})
-        searchData.value = searchStore.searchData.slice(0, 10);
+    try {
+      isFetching.value = true;
+      searchStore.searchData = [];
+      nowPage.value = 1;
+      await getSearchData({
+        keyword: keyword.value,
+        sortBy: searchCategory.list[searchCategory.index] as string,
+      });
+      searchData.value = searchStore.searchData.slice(0, 10);
 
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } catch {
-        isError.value = true;
-      } finally {
-        isFetching.value = false;
-      }
-  }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch {
+      isError.value = true;
+    } finally {
+      isFetching.value = false;
+    }
+  };
 
   watch(
     keyword,
     async () => {
-      searchCategory.index=0;
+      searchCategory.index = 0;
       await fetchSearchData();
     },
     { immediate: true }
   );
 
-  watch(()=>searchCategory.index, async () => {
+  watch(
+    () => searchCategory.index,
+    async () => {
       await fetchSearchData();
-    },
-  )
+    }
+  );
 
   watch(nowPage, () => {
     const addData = searchStore.searchData.slice(
@@ -104,8 +117,8 @@
   };
 </script>
 
-<style scoped>
-  .searchArea {
+<style lang="scss">
+  .search-area {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -114,38 +127,40 @@
     padding-bottom: 2rem;
     margin-bottom: 2rem;
     max-width: 1200px;
-  }
-  .search-ex {
-    font-size: 1.5rem;
-  }
-  .keyword {
-    text-decoration: underline;
-  }
-  .loading-search {
-    margin-top: 5rem;
-  }
-  .news-area {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-    margin-top: 2rem;
-    padding-top: 2rem;
-    border-top: 1px solid #e5e7eb;
-  }
-  .more-btn {
-    width: 20rem;
-    height: 3rem;
-    border: 1px solid black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-  }
-  .error-img {
-    width: 80%;
-    height:20rem;
-    padding: 5rem;
+
+    &__ex {
+      font-size: 1.5rem;
+    }
+
+    &__loading {
+      margin-top: 5rem;
+    }
+
+    &__news-area {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid #e5e7eb;
+
+      .more-btn {
+        width: 20rem;
+        height: 3rem;
+        border: 1px solid black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+      }
+    }
+
+    &__error-img {
+      width: 80%;
+      height: 20rem;
+      padding: 5rem;
+    }
   }
 </style>

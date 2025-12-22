@@ -1,19 +1,19 @@
 <template>
-  <div class="headlineArea">
+  <div class="headline-area">
       <CategoryNav
       :categories="categories"
       :is-loading="isFetching"
       @update-category="categories.index = $event"
-      class="categoryBtn"
+      class="headline-area__category"
     />
     <VueSpinnerClock
       v-if="isFetching"
       size="150"
-      class="loading-spinner"
+      class="headline-area__loading-spinner"
       :speedMultiplier="1.5"
     />
-    <img v-else-if="isError" :src="ErrorImgUrl" alt="에러 이미지" class="error-img"></img>
-    <div class="cardArea" v-else>
+    <img v-else-if="isError" :src="ErrorImgUrl" alt="에러 이미지" class="headline-area__error-img"></img>
+    <div class="headline-area__cardArea" v-else>
       <div v-for="item in headlineData" :key="item.url">
         <NewsCard :newsData="item" @click="goToDetailPage(item.url)" />
       </div>
@@ -88,8 +88,8 @@
 
 </script>
 
-<style scoped>
-  .headlineArea {
+<style lang="scss">
+  .headline-area {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -98,21 +98,23 @@
     padding-bottom: 2rem;
     margin-bottom: 2rem;
     max-width: 1200px;
-  }
-  .cardArea {
-    display: flex;
+
+    &__cardArea {
+      display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 2rem;
     margin-top: 1rem;
-  }
-  .loading-spinner {
+    }
+
+    &__loading-spinner {
     margin-top: 10rem;
     margin-bottom: 10rem;
-  }
-  .error-img {
-    width: 80%;
+    }
+    &__error-img {
+      width: 80%;
     height:20rem;
     padding: 5rem;
+    }
   }
 </style>

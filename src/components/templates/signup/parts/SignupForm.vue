@@ -1,8 +1,8 @@
 <template>
   <div class="signup-area">
     <img :src="authImg" alt="인증 이미지" class="auth-img" />
-    <div class="signup-comments">User Sign Up</div>
-    <form class="signup-form-area" @submit.prevent="signUp()">
+    <div class="signup-area__comments">User Sign Up</div>
+    <form class="signup-area__form" @submit.prevent="signUp()">
       <SignupInput v-model="baseInput" v-model:touched="touched" />
       <button
         class="signup-btn"
@@ -12,7 +12,7 @@
         Sign Up
       </button>
     </form>
-    <div class="signup-error">
+    <div class="signup-area__error">
       <p v-if="touched.username && !usernameValid">
         - Please enter a valid email address.
       </p>
@@ -94,51 +94,56 @@
   };
 </script>
 
-<style>
+<style lang="scss">
   .signup-area {
     margin-top: 7rem;
     display: flex;
     width: 30%;
     flex-direction: column;
     align-items: center;
-  }
-  .auth-img {
-    width: 150px;
-    height: 150px;
-  }
-  .signup-comments {
-    margin-top: 0.5rem;
-    font-weight: bold;
-    font-size: 2.5rem;
-  }
-  .signup-form-area {
-    margin-top: 2rem;
-    display: flex;
-    flex-direction: column;
-  }
-  .signup-btn {
-    margin-top: 1rem;
-    width: 18rem;
-    height: 2.5rem;
-    background-color: black;
-    color: white;
-    border: 2px solid black;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 1.2rem;
-  }
-  .signup-btn:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-  }
-  .signup-error {
-    display: flex;
-    flex-direction: column;
-    width: 19rem;
-  }
-  .signup-error p {
-    color: red;
-    font-size: 0.8rem;
-    margin-bottom: -0.2rem;
+
+    &__comments {
+      margin-top: 0.5rem;
+      font-weight: bold;
+      font-size: 2.5rem;
+    }
+
+    &__form {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+
+      .signup-btn {
+        margin-top: 1rem;
+        width: 18rem;
+        height: 2.5rem;
+        background-color: black;
+        color: white;
+        border: 2px solid black;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 1.2rem;
+      }
+      .signup-btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+    }
+
+    &__error {
+      display: flex;
+      flex-direction: column;
+      width: 19rem;
+
+      p {
+        color: red;
+        font-size: 0.8rem;
+        margin-bottom: -0.2rem;
+      }
+    }
+    .auth-img {
+      width: 150px;
+      height: 150px;
+    }
   }
 </style>

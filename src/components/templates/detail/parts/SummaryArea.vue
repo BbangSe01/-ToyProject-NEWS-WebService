@@ -1,7 +1,7 @@
 <template>
   <div class="summary-area">
-    <p class="summary-title">Summary</p>
-    <div class="summary-content">{{ props.content }}</div>
+    <p class="summary-area__title">Summary</p>
+    <div class="summary-area__content">{{ props.content }}</div>
   </div>
 </template>
 
@@ -11,17 +11,17 @@
   }>();
 </script>
 
-<style>
+<style lang="scss">
   .summary-area {
     display: flex;
     flex-direction: column;
     margin-bottom: 2rem;
-  }
-  .summary-title {
-    font-weight: bold;
-    font-size: 2rem;
-  }
-  .summary-content {
-    line-height: 1.5rem;
+    &__title {
+      font-weight: bold;
+      font-size: 2rem;
+    }
+    &__content {
+      line-height: 1.5rem;
+    }
   }
 </style>

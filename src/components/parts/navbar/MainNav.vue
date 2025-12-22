@@ -1,7 +1,7 @@
 <template>
   <div class="nav-area">
-    <div class="nav-title" @click="goToHeadline">News</div>
-    <div class="nav-right">
+    <div class="nav-area__title" @click="goToHeadline">News</div>
+    <div class="nav-area__right">
       <SearchBar />
       <LoginButton />
       <BookmarkButton />
@@ -25,7 +25,7 @@
   };
 </script>
 
-<style>
+<style lang="scss">
   @font-face {
     font-family: "Continuous";
     src: url("../../../assets/fonts/continuous.ttf") format("truetype");
@@ -46,14 +46,16 @@
     justify-content: space-between;
     align-items: center;
     font-size: 55px;
-  }
-  .nav-right {
-    display: flex;
-    margin-right: 5%;
-  }
-  .nav-title {
-    padding-top: 0.7rem;
-    margin-left: 5%;
-    cursor: pointer;
+
+    &__title {
+      padding-top: 0.7rem;
+      margin-left: 5%;
+      cursor: pointer;
+    }
+
+    &__right {
+      display: flex;
+      margin-right: 5%;
+    }
   }
 </style>

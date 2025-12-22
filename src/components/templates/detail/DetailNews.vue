@@ -8,12 +8,12 @@
         class="close-btn"
         @click="$emit('close', false)"
       />
-      <div class="news-content-area" id="news-content-area">
-        <div class="news-title">{{ detailData.title }}</div>
-        <div class="author-and-date">
-          <div class="news-author">{{ detailData.author }}</div>
+      <div class="news-area" id="news-content-area">
+        <div class="news-area__title">{{ detailData.title }}</div>
+        <div class="news-area__author-and-date">
+          <div>{{ detailData.author }}</div>
           <div v-if="detailData.author" class="blank"></div>
-          <div class="news-date">{{ detailData.publishedAt }}</div>
+          <div>{{ detailData.publishedAt }}</div>
           <img
             v-if="tokenStore.loginState"
             :src="isFavorites ? bookmarkImgUrl : notBookmarkImgUrl"
@@ -21,7 +21,7 @@
             @click="updateFavorites"
           />
         </div>
-        <div class="img-box">
+        <div class="news-area__img-box">
           <img
             :src="detailData.urlToImage as string || noImgUrl"
             alt="기사 이미지"
@@ -29,12 +29,12 @@
             @error="onImgError"
           />
         </div>
-        <div class="news-description">
+        <div class="news-area__description">
           {{
             detailData.description || "Summary information is not available."
           }}
         </div>
-        <div class="button-area">
+        <div class="news-area__button-area">
           <button class="each-btn" @click="goToArticle">
             View Full Article
           </button>
@@ -47,7 +47,7 @@
           </button>
           <ButtonLoading v-else />
         </div>
-        <p class="btn-guide" v-if="!tokenStore.loginState">
+        <p class="news-area__btn-guide" v-if="!tokenStore.loginState">
           ☝️ The summary feature is available after logging in.
         </p>
         <SummaryArea
@@ -155,7 +155,7 @@
   });
 </script>
 
-<style scoped>
+<style lang="scss">
   @import url("https://fonts.googleapis.com/css2?family=Merriweather&family=Montserrat&display=swap");
 
   @keyframes showDetailModal {
@@ -177,98 +177,100 @@
     align-items: center;
     z-index: 9999;
     background-color: rgba(0, 0, 0, 0.4);
-  }
 
-  .modal-area {
-    position: relative;
-    width: 900px;
-    height: 600px;
-    background-color: white;
-    color: black;
-    border: 1px solid black;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 5rem;
-    overflow: auto;
-    animation: showDetailModal 0.5s linear;
-  }
-  .close-btn {
-    position: absolute; /*모달 내부 우측 상단 */
-    top: 1rem;
-    right: 1rem;
-    width: 2rem;
-    height: 2rem;
-    cursor: pointer;
-  }
-  .news-content-area {
-    width: 80%;
-    /* background-color: black; */
-    display: flex;
-    flex-direction: column;
-    margin-top: 1rem;
-    font-family: "Merriweather", serif;
-  }
-  .news-title {
-    font-family: "Montserrat", sans-serif;
-    font-size: 1.7rem;
-    padding-top: 1rem;
-  }
-  .author-and-date {
-    display: flex;
-    align-items: center;
-    margin-top: 1rem;
-    color: gray;
-  }
-  .bookmark-img {
-    width: 1.5rem;
-    height: 1.5rem;
-    margin-left: auto;
-  }
-  .blank {
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-  }
-  .img-box {
-    margin-top: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .news-img {
-    width: 85%;
-  }
-  .news-description {
-    margin-top: 2rem;
-  }
-  .button-area {
-    display: flex;
-    justify-content: center;
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
-    width: 100%;
-  }
-  .button-area button:nth-child(2) {
-    background-color: #1e90ff;
-  }
-  .each-btn {
-    width: 9rem;
-    height: 3rem;
-    border: 1px solid black;
-    border-radius: 0.5rem;
-    background-color: black;
-    color: white;
-    margin-right: 1rem;
-    font-size: 1rem;
-    padding: 0.7rem;
-    cursor: pointer;
-  }
-  .btn-guide {
-    align-self: center;
-    font-size: 0.9rem;
-    color: red;
-    opacity: 0.7;
-    margin-top: -0.5rem;
+    .modal-area {
+      position: relative;
+      width: 900px;
+      height: 600px;
+      background-color: white;
+      color: black;
+      border: 1px solid black;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 5rem;
+      overflow: auto;
+      animation: showDetailModal 0.5s linear;
+      .close-btn {
+        position: absolute; /*모달 내부 우측 상단 */
+        top: 1rem;
+        right: 1rem;
+        width: 2rem;
+        height: 2rem;
+        cursor: pointer;
+      }
+      .news-area {
+        width: 80%;
+        /* background-color: black; */
+        display: flex;
+        flex-direction: column;
+        margin-top: 1rem;
+        font-family: "Merriweather", serif;
+
+        &__title {
+          font-family: "Montserrat", sans-serif;
+          font-size: 1.7rem;
+          padding-top: 1rem;
+        }
+        &__author-and-date {
+          display: flex;
+          align-items: center;
+          margin-top: 1rem;
+          color: gray;
+          .blank {
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+          }
+          .bookmark-img {
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-left: auto;
+          }
+        }
+        &__img-box {
+          margin-top: 2rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          .news-img {
+            width: 85%;
+          }
+        }
+        &__description {
+          margin-top: 2rem;
+        }
+        &__button-area {
+          display: flex;
+          justify-content: center;
+          margin-top: 1.5rem;
+          margin-bottom: 1.5rem;
+          width: 100%;
+          .each-btn {
+            width: 9rem;
+            height: 3rem;
+            border: 1px solid black;
+            border-radius: 0.5rem;
+            background-color: black;
+            color: white;
+            margin-right: 1rem;
+            font-size: 1rem;
+            padding: 0.7rem;
+            cursor: pointer;
+          }
+          button:nth-child(2) {
+            background-color: #1e90ff;
+          }
+        }
+        &__btn-guide {
+          align-self: center;
+          font-size: 0.9rem;
+          color: red;
+          opacity: 0.7;
+          margin-top: -0.5rem;
+        }
+      }
+    }
   }
 </style>

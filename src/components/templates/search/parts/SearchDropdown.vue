@@ -1,9 +1,9 @@
 <template>
   <div class="dropdown-area" ref="dropdownRef">
-    <div class="dropdown-button" @click="toggleDropdown">
+    <div class="dropdown-area__button" @click="toggleDropdown">
       {{ list[modelValue] }}
     </div>
-    <ul class="dropdown-menu" v-show="isOpen">
+    <ul class="dropdown-area__menu" v-show="isOpen">
       <li
         v-for="(item, index) in props.list"
         class="dropdown-list"
@@ -50,7 +50,7 @@
   });
 </script>
 
-<style scoped>
+<style lang="scss">
   @keyframes slide-in {
     0% {
       top: 0%;
@@ -79,41 +79,41 @@
     align-items: center;
     justify-content: center;
     align-self: self-end;
-  }
 
-  .dropdown-button {
-    display: flex;
-    padding: 10px;
-    text-align: center;
-    cursor: pointer;
-  }
+    &__button {
+      display: flex;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+    }
 
-  .dropdown-menu {
-    position: absolute;
-    width: 100%;
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    list-style: none;
-    margin: 0;
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 0; /* ← 이것을 빠트려서 들여쓰기처럼 보임 */
-    animation: slide-in 0.4s linear forwards;
-  }
+    &__menu {
+      position: absolute;
+      width: 100%;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      list-style: none;
+      margin: 0;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0; /* ← 이것을 빠트려서 들여쓰기처럼 보임 */
+      animation: slide-in 0.4s linear forwards;
 
-  .dropdown-list {
-    width: 100%;
-    text-align: center;
-    height: 1.5rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    cursor: pointer;
-  }
-  .dropdown-list:hover {
-    background-color: #f3f4f6;
+      .dropdown-list {
+        width: 100%;
+        text-align: center;
+        height: 1.5rem;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        cursor: pointer;
+      }
+      .dropdown-list:hover {
+        background-color: #f3f4f6;
+      }
+    }
   }
 </style>

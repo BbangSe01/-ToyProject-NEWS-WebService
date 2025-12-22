@@ -1,13 +1,13 @@
 <template>
   <div class="login-area">
     <img :src="authImg" alt="인증 이미지" class="auth-img" />
-    <div class="login-comments">Login</div>
-    <form class="login-form-area" @submit.prevent="logIn()">
+    <div class="login-area__comments">Login</div>
+    <form class="login-area__form" @submit.prevent="logIn()">
       <LoginInput v-model="baseInput" />
       <button class="login-btn" type="submit">LogIn</button>
     </form>
-    <div class="go-signup">
-      <p class="signup-comment">Don't have an account?</p>
+    <div class="login-area__go-signup">
+      <p>Don't have an account?</p>
       <router-link to="/signup" class="go-signup-btn">Sign up</router-link>
     </div>
   </div>
@@ -53,69 +53,65 @@
   };
 </script>
 
-<style>
+<style lang="scss">
   .login-area {
     margin-top: 7rem;
     display: flex;
     width: 30%;
     flex-direction: column;
     align-items: center;
-  }
-  .auth-img {
-    width: 150px;
-    height: 150px;
-  }
-  .login-comments {
-    margin-top: 0.5rem;
-    font-weight: bold;
-    font-size: 2.5rem;
-  }
-  .login-form-area {
-    margin-top: 2rem;
-    display: flex;
-    flex-direction: column;
-  }
-  .login-btn {
-    margin-top: 1rem;
-    width: 18rem;
-    height: 2.5rem;
-    background-color: black;
-    color: white;
-    border: 2px solid black;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 1.2rem;
-  }
-  .signup-error {
-    display: flex;
-    flex-direction: column;
-    width: 19rem;
-  }
-  .signup-error p {
-    color: red;
-    font-size: 0.8rem;
-    margin-bottom: -0.2rem;
-  }
-  .go-signup {
-    margin-top: 1.5rem;
-    border-top: 2px solid black;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 18rem;
-    font-size: 0.9rem;
-  }
-  .go-signup-btn {
-    color: inherit;
-    width: 3.5rem;
-    height: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 1rem;
-    font-weight: 700;
-  }
-  .go-signup-btn:hover {
-    color: purple;
+
+    &__comments {
+      margin-top: 0.5rem;
+      font-weight: bold;
+      font-size: 2.5rem;
+    }
+
+    &__form {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+
+      .login-btn {
+        margin-top: 1rem;
+        width: 18rem;
+        height: 2.5rem;
+        background-color: black;
+        color: white;
+        border: 2px solid black;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 1.2rem;
+      }
+    }
+
+    &__go-signup {
+      margin-top: 1.5rem;
+      border-top: 2px solid black;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      width: 18rem;
+      font-size: 0.9rem;
+
+      .go-signup-btn {
+        color: inherit;
+        width: 3.5rem;
+        height: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 1rem;
+        font-weight: 700;
+      }
+      .go-signup-btn:hover {
+        color: purple;
+      }
+    }
+
+    .auth-img {
+      width: 150px;
+      height: 150px;
+    }
   }
 </style>

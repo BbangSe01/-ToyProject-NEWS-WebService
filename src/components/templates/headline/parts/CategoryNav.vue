@@ -28,19 +28,21 @@
   .button-line {
     display: flex;
     margin-bottom: 2rem;
-  }
-  button {
-    font-family: "Merriweather", serif;
-    padding: 0.7rem;
-    background-color: white;
-    margin-right: 1rem;
-    border: 1px solid black;
-    border-radius: 20px;
-    font-size: 15px;
-  }
-  button.active {
-    background-color: black;
-    color: white;
-    border-color: white;
+
+    button {
+      font-family: "Merriweather", serif;
+      padding: 0.7rem;
+      background-color: white;
+      margin-right: 1rem;
+      border: 1px solid black;
+      border-radius: 20px;
+      font-size: 15px;
+    }
+
+    button.active {
+      background-color: black;
+      color: white;
+      border-color: white;
+    }
   }
 </style>

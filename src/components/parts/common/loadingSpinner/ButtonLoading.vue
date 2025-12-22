@@ -6,7 +6,7 @@
 
 <script setup lang="ts"></script>
 
-<style>
+<style scoped>
   .loader-box {
     width: 9rem;
     height: 3rem;
