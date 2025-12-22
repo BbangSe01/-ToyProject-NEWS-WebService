@@ -1,0 +1,25 @@
+@use "./variable" as *;
+
+@mixin respond($device) {
+  @if $device == mobile {
+    @media (max-width: #{$breakpoint-tablet - 1px}) {
+      @content;
+    }
+  } @else if $device == tablet {
+    @media (min-width: #{$breakpoint-tablet}) and (max-width: #{$breakpoint-laptop - 1px}) {
+      @content;
+    }
+  } @else if $device == laptop {
+    @media (min-width: #{$breakpoint-laptop}) and (max-width: #{$breakpoint-desktop - 1px}) {
+      @content;
+    }
+  } @else if $device == desktop {
+    @media (min-width: #{$breakpoint-desktop}) and (max-width: #{$breakpoint-wide - 1px}) {
+      @content;
+    }
+  } @else if $device == wide {
+    @media (min-width: #{$breakpoint-wide}) {
+      @content;
+    }
+  }
+}
