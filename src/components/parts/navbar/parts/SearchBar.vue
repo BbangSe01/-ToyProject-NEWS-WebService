@@ -6,7 +6,7 @@
       class="search-box__input"
       v-model="keyword"
     />
-    <button type="submit" class="search-box__btn">Search</button>
+    <button type="submit" class="search-box__btn"><p>Search</p></button>
   </form>
 </template>
 
@@ -34,7 +34,10 @@
     router.push({ name: "Search", query: { keyword: keyword.value } });
   };
 </script>
+
 <style lang="scss">
+  @import "../../../../assets/css/mixin.scss";
+
   .search-box {
     display: flex;
     align-items: center;
@@ -44,10 +47,21 @@
     &__input {
       width: 300px;
       height: 30px;
+      @include respond(mobile) {
+        font-size: 0.9rem;
+        width: 10rem;
+      }
     }
     &__btn {
       width: 80px;
       height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      @include respond(mobile) {
+        display: none;
+      }
     }
   }
 </style>

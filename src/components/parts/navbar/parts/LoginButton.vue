@@ -7,36 +7,12 @@
 <script setup lang="ts">
   import { watch } from "vue";
   import { useTokenDataStore } from "../../../../stores/tokenData";
-  import { useSearchDataStore } from "../../../../stores/searchData";
   import { useFavoritesDataStore } from "../../../../stores/favoritesData.ts";
-  import { useRouter } from "vue-router";
-  import { openAlert } from "../../../../utils/alert";
   import { getFavorites } from "../../../../apis/FavoritesApis";
-  import { logout } from "../../../../apis/AuthApis.ts";
+  import { changeLoginState } from "../logic/changeLoginState.ts";
 
   const tokenStore = useTokenDataStore();
-  const searchStore = useSearchDataStore();
   const favoritesStore = useFavoritesDataStore();
-  const router = useRouter();
-
-  const changeLoginState = async () => {
-    if (tokenStore.loginState) {
-      // 로그아웃
-      await logout();
-      tokenStore.setAccessToken("");
-      openAlert({
-        title: "Success",
-        text: "Logout!",
-        icon: "success",
-      });
-      router.push({ name: "Headline" });
-    } else {
-      // 로그인
-      router.push({ name: "Login" });
-    }
-    // 로그인/로그아웃 시, 검색어 초기화
-    searchStore.resetSearchWord();
-  };
 
   watch(
     () => tokenStore.loginState,
@@ -57,7 +33,9 @@
     { immediate: true }
   );
 </script>
-<style>
+<style lang="scss">
+  @import "../../../../assets/css/mixin.scss";
+
   .login-button {
     font-family: "Merriweather", serif;
     width: 4rem;
@@ -73,6 +51,10 @@
     margin-left: 1rem;
     color: inherit;
     text-decoration: none;
+
+    @include respond(mobile) {
+      display: none;
+    }
   }
   .login-button:hover {
     background-color: white;

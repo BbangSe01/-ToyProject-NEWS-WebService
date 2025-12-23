@@ -5,6 +5,7 @@
       <SearchBar />
       <LoginButton />
       <BookmarkButton />
+      <MobileDropdown />
     </div>
   </div>
 </template>
@@ -15,6 +16,7 @@
   import BookmarkButton from "./parts/BookmarkButton.vue";
   import { useRouter } from "vue-router";
   import { useSearchDataStore } from "../../../stores/searchData";
+  import MobileDropdown from "./parts/MobileDropdown.vue";
 
   const router = useRouter();
   const searchStore = useSearchDataStore();
@@ -26,12 +28,7 @@
 </script>
 
 <style lang="scss">
-  @font-face {
-    font-family: "Continuous";
-    src: url("../../../assets/fonts/continuous.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
-  }
+  @import "../../../assets/css/mixin.scss";
   .nav-area {
     font-family: "Continuous", serif;
     position: fixed;
@@ -51,11 +48,21 @@
       padding-top: 0.7rem;
       margin-left: 5%;
       cursor: pointer;
+
+      @include respond(mobile) {
+        padding-top: 0.5rem;
+        font-size: 1.8rem;
+        margin-left: 3%;
+        margin-right: 5%;
+      }
     }
 
     &__right {
       display: flex;
-      margin-right: 5%;
+      margin-right: 3rem;
+      @include respond(mobile) {
+        margin-right: 0.5rem;
+      }
     }
   }
 </style>

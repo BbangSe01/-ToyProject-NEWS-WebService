@@ -7,23 +7,11 @@
 
 <script setup lang="ts">
   import bookmarkImg from "../../../../assets/images/bookmark-btn-img.png";
-  import { useTokenDataStore } from "../../../../stores/tokenData";
-  import { warningToast } from "../../../../utils/warningtoast";
-  import { useRouter } from "vue-router";
-
-  const tokenStore = useTokenDataStore();
-
-  const router = useRouter();
-  const goToFavPage = () => {
-    if (tokenStore.loginState) {
-      router.push({ name: "Favorites" });
-    } else {
-      warningToast("Available after logging in.");
-    }
-  };
+  import { goToFavPage } from "../logic/goToFavPage";
 </script>
 
-<style>
+<style lang="scss">
+  @import "../../../../assets/css/mixin.scss";
   .bookmark-btn {
     font-family: "Merriweather", serif;
     display: flex;
@@ -36,10 +24,17 @@
     border: 1px solid white;
     border-radius: 10px;
     font-size: 1rem;
+
+    @include respond(mobile) {
+      display: none;
+    }
   }
   .bookmark-img {
     width: 1.5rem;
     height: 1.5rem;
     margin-right: 0.5rem;
+    @include respond(mobile) {
+      margin-right: 0rem;
+    }
   }
 </style>
