@@ -156,8 +156,6 @@
 </script>
 
 <style lang="scss">
-  @import url("https://fonts.googleapis.com/css2?family=Merriweather&family=Montserrat&display=swap");
-
   @keyframes showDetailModal {
     from {
       opacity: 0;

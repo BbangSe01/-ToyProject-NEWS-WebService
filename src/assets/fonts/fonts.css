@@ -1,0 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather&family=Montserrat&display=swap");
+
+@font-face {
+    font-family: "Continuous";
+    src: url("../fonts/continuous.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
