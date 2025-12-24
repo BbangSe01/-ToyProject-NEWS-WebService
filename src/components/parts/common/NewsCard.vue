@@ -30,6 +30,7 @@
 </script>
 
 <style lang="scss">
+  @import "../../../assets/css/mixin.scss";
   .card-box {
     width: 55rem;
     height: 10rem;
@@ -39,11 +40,20 @@
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     cursor: pointer;
 
+    @include respond(mobile) {
+      width: 18rem;
+      height: 5rem;
+    }
+
     &__img {
       width: 20rem;
       height: 100%;
       border: 1px solid #e2e2e2;
       border-radius: 10px 0 0 10px; /* 왼쪽 위, 왼쪽 아래만 둥글게 */
+
+      @include respond(mobile) {
+        width: 7rem;
+      }
     }
 
     &__text-area {
@@ -51,6 +61,9 @@
       height: 100%;
       display: flex;
       flex-direction: column;
+      @include respond(mobile) {
+        width: 10rem;
+      }
 
       &__title {
         font-family: "Montserrat", sans-serif;
@@ -60,6 +73,12 @@
         display: flex;
         align-items: center;
         padding-left: 1rem;
+
+        @include respond(mobile) {
+          font-size: 0.5rem;
+          font-weight: bold;
+          padding-left: 0.5rem;
+        }
       }
       &__date {
         display: flex;
@@ -68,6 +87,11 @@
         margin-right: 1.5rem;
         font-size: 0.9rem;
         padding-top: 1rem;
+
+        @include respond(mobile) {
+          font-size: 0.4rem;
+          margin-right: 0rem;
+        }
       }
     }
   }
