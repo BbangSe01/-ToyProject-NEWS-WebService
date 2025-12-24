@@ -89,6 +89,8 @@
 </script>
 
 <style lang="scss">
+  @import "../../../assets/css/mixin.scss";
+
   .headline-area {
     display: flex;
     flex-direction: column;
@@ -105,6 +107,9 @@
     justify-content: center;
     gap: 2rem;
     margin-top: 1rem;
+    @include respond(mobile) {
+      gap:1rem;
+    }
     }
 
     &__loading-spinner {

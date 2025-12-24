@@ -12,6 +12,8 @@
 </script>
 
 <style lang="scss">
+  @import "../../../../assets/css/mixin.scss";
+
   .summary-area {
     display: flex;
     flex-direction: column;
@@ -19,9 +21,15 @@
     &__title {
       font-weight: bold;
       font-size: 2rem;
+      @include respond(mobile) {
+        font-size: 1.2rem;
+      }
     }
     &__content {
       line-height: 1.5rem;
+      @include respond(mobile) {
+        font-size: 0.8rem;
+      }
     }
   }
 </style>

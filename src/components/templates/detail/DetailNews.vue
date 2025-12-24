@@ -156,6 +156,8 @@
 </script>
 
 <style lang="scss">
+  @import "../../../assets/css/mixin.scss";
+
   @keyframes showDetailModal {
     from {
       opacity: 0;
@@ -190,6 +192,16 @@
       margin-top: 5rem;
       overflow: auto;
       animation: showDetailModal 0.5s linear;
+
+      @include respond(mobile) {
+        width: 80vw;
+        height: 40vh;
+        margin-top: 0;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+
       .close-btn {
         position: absolute; /*모달 내부 우측 상단 */
         top: 1rem;
@@ -197,10 +209,17 @@
         width: 2rem;
         height: 2rem;
         cursor: pointer;
+
+        @include respond(mobile) {
+          width: 1.5rem;
+          height: 1.5rem;
+          top: 0.5rem;
+          right: 0.7rem;
+        }
       }
       .news-area {
         width: 80%;
-        /* background-color: black; */
+        // background-color: black;
         display: flex;
         flex-direction: column;
         margin-top: 1rem;
@@ -210,20 +229,40 @@
           font-family: "Montserrat", sans-serif;
           font-size: 1.7rem;
           padding-top: 1rem;
+
+          @include respond(mobile) {
+            font-size: 1rem;
+            padding-top: 0.7rem;
+          }
         }
         &__author-and-date {
           display: flex;
           align-items: center;
           margin-top: 1rem;
           color: gray;
+          @include respond(mobile) {
+            margin-top: 0.5rem;
+            font-size: 0.6rem;
+          }
+
           .blank {
             margin-left: 0.5rem;
             margin-right: 0.5rem;
+
+            @include respond(mobile) {
+              margin-left: 0.2rem;
+              margin-right: 0.2rem;
+            }
           }
           .bookmark-img {
             width: 1.5rem;
             height: 1.5rem;
             margin-left: auto;
+
+            @include respond(mobile) {
+              width: 0.8rem;
+              height: 0.8rem;
+            }
           }
         }
         &__img-box {
@@ -231,13 +270,20 @@
           display: flex;
           align-items: center;
           justify-content: center;
+          @include respond(mobile) {
+            margin-top: 1.5rem;
+          }
 
           .news-img {
-            width: 85%;
+            width: 100%;
           }
         }
         &__description {
           margin-top: 2rem;
+          @include respond(mobile) {
+            margin-top: 0.7rem;
+            font-size: 0.7rem;
+          }
         }
         &__button-area {
           display: flex;
@@ -254,8 +300,13 @@
             color: white;
             margin-right: 1rem;
             font-size: 1rem;
-            padding: 0.7rem;
             cursor: pointer;
+            @include respond(mobile) {
+              width: 5rem;
+              height: 2rem;
+              font-size: 0.6rem;
+              padding: 0;
+            }
           }
           button:nth-child(2) {
             background-color: #1e90ff;
@@ -267,6 +318,10 @@
           color: red;
           opacity: 0.7;
           margin-top: -0.5rem;
+          @include respond(mobile) {
+            font-size: 0.5rem;
+            margin-top: -1rem;
+          }
         }
       }
     }
