@@ -45,7 +45,7 @@
           >
             View summary
           </button>
-          <ButtonLoading v-else />
+          <SummaryLoadingBtn v-else />
         </div>
         <p class="news-area__btn-guide" v-if="!tokenStore.loginState">
           ☝️ The summary feature is available after logging in.
@@ -66,7 +66,7 @@
   import { useFavoritesDataStore } from "../../../stores/favoritesData";
   import { getSummaryNews } from "../../../apis/NewsApis";
   import noImg from "../../../assets/images/Image_not_available.png";
-  import ButtonLoading from "../../parts/common/loadingSpinner/ButtonLoading.vue";
+  import SummaryLoadingBtn from "./parts/SummaryLoadingBtn.vue";
   import SummaryArea from "./parts/SummaryArea.vue";
   import bookmarkImg from "../../../assets/images/bookmark-img.png";
   import notBookmarkImg from "../../../assets/images/notBookmark-img.png";

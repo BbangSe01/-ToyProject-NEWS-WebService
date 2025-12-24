@@ -1,10 +1,13 @@
 <template>
   <div class="loader-box">
     <div class="custom-loader"></div>
+    <img :src="mobileLoading" class="mobile-loader" />
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  import mobileLoading from "../../../../assets/images/gif/mobile-loading.gif";
+</script>
 
 <style lang="scss">
   @import "../../../../assets/css/mixin.scss";
@@ -42,18 +45,23 @@
       calc(-0.707 * var(--d)) calc(-0.707 * var(--d)) 0 2.5px,
       calc(0 * var(--d)) calc(-1 * var(--d)) 0 3px;
     animation: s7 1s infinite steps(8);
-
     @include respond(mobile) {
-      --d: 9px;
-      width: 0.5px;
-      height: 0.5px;
-      border-radius: 80%;
+      display: none;
     }
   }
 
   @keyframes s7 {
     100% {
       transform: rotate(1turn);
+    }
+  }
+
+  .mobile-loader {
+    display: none;
+    @include respond(mobile) {
+      width: 25px;
+      height: 25px;
+      display: block;
     }
   }
 </style>
