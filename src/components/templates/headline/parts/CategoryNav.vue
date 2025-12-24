@@ -24,10 +24,22 @@
     emit("update-category", index);
   };
 </script>
-<style scoped>
+<style lang="scss">
+  @import "../../../../assets/css/mixin.scss";
   .button-line {
     display: flex;
     margin-bottom: 2rem;
+
+    @include respond(mobile) {
+      margin-bottom: 0.5rem;
+      width: 15.5rem;
+      overflow: auto;
+      border-bottom: 1px solid black;
+      padding-bottom: 0.5rem;
+    }
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     button {
       font-family: "Merriweather", serif;
@@ -37,6 +49,12 @@
       border: 1px solid black;
       border-radius: 20px;
       font-size: 15px;
+
+      @include respond(mobile) {
+        font-size: 0.6rem;
+        padding: 0.3rem;
+        margin-right: 0.3rem;
+      }
     }
 
     button.active {
