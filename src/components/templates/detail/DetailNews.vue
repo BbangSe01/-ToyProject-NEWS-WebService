@@ -194,7 +194,7 @@
       animation: showDetailModal 0.5s linear;
 
       @include respond(mobile) {
-        width: 80vw;
+        width: 90vw;
         height: 40vh;
         margin-top: 0;
         &::-webkit-scrollbar {

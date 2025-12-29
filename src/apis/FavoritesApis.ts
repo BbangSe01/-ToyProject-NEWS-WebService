@@ -9,7 +9,7 @@ export const getFavorites = async () => {
 
 export const postFavRequest = async (sendData: useNewsType) => {
   const res = await backendInstance.post(
-    "/fav4orites",
+    "/favorites",
     {
       ...sendData,
     },
