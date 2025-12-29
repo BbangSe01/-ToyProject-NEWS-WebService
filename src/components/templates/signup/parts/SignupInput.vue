@@ -53,9 +53,12 @@
 </script>
 
 <style lang="scss">
+  @import "../../../../assets/css/mixin.scss";
   .signup-input-area {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
     input {
       width: 18rem;
@@ -63,6 +66,9 @@
       border: 2px solid black;
       border-radius: 10px;
       margin-bottom: 0.5rem;
+      @include respond(mobile) {
+        width: 17rem;
+      }
     }
   }
 </style>

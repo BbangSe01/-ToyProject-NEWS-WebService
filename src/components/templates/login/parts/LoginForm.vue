@@ -54,6 +54,7 @@
 </script>
 
 <style lang="scss">
+  @import "../../../../assets/css/mixin.scss";
   .login-area {
     margin-top: 7rem;
     display: flex;
@@ -82,6 +83,9 @@
         border-radius: 10px;
         cursor: pointer;
         font-size: 1.2rem;
+        @include respond(mobile) {
+          width: 17rem;
+        }
       }
     }
 

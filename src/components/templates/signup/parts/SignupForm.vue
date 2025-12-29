@@ -1,7 +1,7 @@
 <template>
   <div class="signup-area">
     <img :src="authImg" alt="인증 이미지" class="auth-img" />
-    <div class="signup-area__comments">User Sign Up</div>
+    <div class="signup-area__comments">Sign Up</div>
     <form class="signup-area__form" @submit.prevent="signUp()">
       <SignupInput v-model="baseInput" v-model:touched="touched" />
       <button
@@ -95,10 +95,10 @@
 </script>
 
 <style lang="scss">
+  @import "../../../../assets/css/mixin.scss";
   .signup-area {
     margin-top: 7rem;
     display: flex;
-    width: 30%;
     flex-direction: column;
     align-items: center;
 
@@ -123,6 +123,9 @@
         border-radius: 10px;
         cursor: pointer;
         font-size: 1.2rem;
+        @include respond(mobile) {
+          width: 17rem;
+        }
       }
       .signup-btn:disabled {
         opacity: 0.4;

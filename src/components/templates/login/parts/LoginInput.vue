@@ -36,6 +36,7 @@
 </script>
 
 <style lang="scss">
+  @import "../../../../assets/css/mixin.scss";
   .login-input-area {
     display: flex;
     flex-direction: column;
@@ -46,6 +47,9 @@
       border: 2px solid black;
       border-radius: 10px;
       margin-bottom: 0.5rem;
+      @include respond(mobile) {
+        width: 17rem;
+      }
     }
   }
 </style>
