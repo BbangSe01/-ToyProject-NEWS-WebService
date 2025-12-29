@@ -69,6 +69,7 @@
       isFetching.value = true;
       searchStore.searchData = [];
       nowPage.value = 1;
+      // throw new Error();
       await getSearchData({
         keyword: keyword.value,
         sortBy: searchCategory.list[searchCategory.index] as string,
@@ -118,18 +119,20 @@
 </script>
 
 <style lang="scss">
+  @import "../../../assets/css/mixin.scss";
   .search-area {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-bottom: 1px solid #e5e7eb;
     margin-top: 7rem;
-    padding-bottom: 2rem;
-    margin-bottom: 2rem;
     max-width: 1200px;
+    margin-bottom: 0.6rem;
 
     &__ex {
       font-size: 1.5rem;
+      @include respond(mobile) {
+        font-size: 1rem;
+      }
     }
 
     &__loading {
@@ -145,15 +148,25 @@
       margin-top: 2rem;
       padding-top: 2rem;
       border-top: 1px solid #e5e7eb;
+      @include respond(mobile) {
+        margin-top: 1rem;
+        padding-top: 1rem;
+        gap: 1rem;
+      }
 
       .more-btn {
         width: 20rem;
         height: 3rem;
         border: 1px solid black;
+        border-radius: 0.7rem;
         display: flex;
         justify-content: center;
         align-items: center;
         cursor: pointer;
+        @include respond(mobile) {
+          width: 15rem;
+          height: 2rem;
+        }
       }
     }
 
