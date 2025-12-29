@@ -126,7 +126,14 @@
     align-items: center;
     margin-top: 7rem;
     max-width: 1200px;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
     margin-bottom: 0.6rem;
+    @include respond(mobile) {
+      font-size: 1rem;
+      padding-bottom: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
 
     &__ex {
       font-size: 1.5rem;
