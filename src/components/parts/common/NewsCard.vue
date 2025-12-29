@@ -44,6 +44,10 @@
       width: 18rem;
       height: 5rem;
     }
+    @include respond(tablet) {
+      width: 40rem;
+      height: 8rem;
+    }
 
     &__img {
       width: 20rem;
@@ -54,6 +58,9 @@
       @include respond(mobile) {
         width: 7rem;
       }
+      @include respond(tablet) {
+        width: 15rem;
+      }
     }
 
     &__text-area {
@@ -63,6 +70,9 @@
       flex-direction: column;
       @include respond(mobile) {
         width: 10rem;
+      }
+      @include respond(tablet) {
+        width: 25rem;
       }
 
       &__title {
@@ -79,6 +89,9 @@
           font-weight: bold;
           padding-left: 0.5rem;
         }
+        @include respond(tablet) {
+          font-size: 1rem;
+        }
       }
       &__date {
         display: flex;
@@ -91,6 +104,10 @@
         @include respond(mobile) {
           font-size: 0.4rem;
           margin-right: 0rem;
+        }
+        @include respond(tablet) {
+          font-size: 0.8rem;
+          margin-right: 1rem;
         }
       }
     }
