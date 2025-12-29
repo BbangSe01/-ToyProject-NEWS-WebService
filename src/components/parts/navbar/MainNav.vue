@@ -55,6 +55,10 @@
         margin-left: 3%;
         margin-right: 5%;
       }
+      @include respond(tablet) {
+        margin-left: 2%;
+        margin-right: 3%;
+      }
     }
 
     &__right {
@@ -62,6 +66,9 @@
       margin-right: 3rem;
       @include respond(mobile) {
         margin-right: 0.5rem;
+      }
+      @include respond(tablet) {
+        margin-right: 1rem;
       }
     }
   }

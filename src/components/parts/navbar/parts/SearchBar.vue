@@ -51,6 +51,10 @@
         font-size: 0.9rem;
         width: 10rem;
       }
+      @include respond(tablet) {
+        font-size: 1rem;
+        width: 17rem;
+      }
     }
     &__btn {
       width: 80px;
@@ -61,6 +65,9 @@
 
       @include respond(mobile) {
         display: none;
+      }
+      @include respond(tablet) {
+        width: 3.5rem;
       }
     }
   }

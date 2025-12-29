@@ -55,6 +55,9 @@
     @include respond(mobile) {
       display: none;
     }
+    @include respond(tablet) {
+      margin-left: 0.5rem;
+    }
   }
   .login-button:hover {
     background-color: white;
