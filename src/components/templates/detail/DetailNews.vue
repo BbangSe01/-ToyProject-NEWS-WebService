@@ -201,6 +201,14 @@
           display: none;
         }
       }
+      @include respond(tablet) {
+        width: 90vw;
+        height: 50vh;
+        margin-top: 0;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
 
       .close-btn {
         position: absolute; /*모달 내부 우측 상단 */
