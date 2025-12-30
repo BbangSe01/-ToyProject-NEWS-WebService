@@ -45,9 +45,8 @@
 
 - `Pinia` 기반 전역 상태 관리
 - `axios interceptors`를 활용한 accessToken 만료 처리 및 재요청 로직 공통화
-- 드롭다운 / 모달 애니메이션 적용
-
-<br>
+- 모바일·태블릿 대응 `반응형 UI` (노트북 기준 설계)
+  <br>
 
 ---
 
@@ -80,7 +79,6 @@ URL을 기준으로 User 모델과 Performance 모델을 **연동**하여 북마
 
 ## 🗺 구현 예정
 
-- [ ] 반응형 UI
 - [ ] NewsAPI 요청 최적화를 위한 Backend Proxy 설계
       <br>
 
