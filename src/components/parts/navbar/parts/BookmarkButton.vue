@@ -11,7 +11,7 @@
 </script>
 
 <style lang="scss">
-  @import "../../../../assets/css/mixin.scss";
+  @use "../../../../assets/css/mixin.scss" as mixin;
   .bookmark-btn {
     font-family: "Merriweather", serif;
     display: flex;
@@ -25,7 +25,7 @@
     border-radius: 10px;
     font-size: 1rem;
 
-    @include respond(mobile) {
+    @include mixin.respond(mobile) {
       display: none;
     }
   }
@@ -33,7 +33,7 @@
     width: 1.5rem;
     height: 1.5rem;
     margin-right: 0.5rem;
-    @include respond(mobile) {
+    @include mixin.respond(mobile) {
       margin-right: 0rem;
     }
   }

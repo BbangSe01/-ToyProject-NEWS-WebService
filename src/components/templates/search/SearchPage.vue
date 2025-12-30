@@ -119,7 +119,7 @@
 </script>
 
 <style lang="scss">
-  @import "../../../assets/css/mixin.scss";
+  @use "../../../assets/css/mixin.scss" as mixin;
   .search-area {
     display: flex;
     flex-direction: column;
@@ -129,7 +129,7 @@
     padding-bottom: 2rem;
     margin-bottom: 2rem;
     margin-bottom: 0.6rem;
-    @include respond(mobile) {
+    @include mixin.respond(mobile) {
       font-size: 1rem;
       padding-bottom: 0.5rem;
       margin-bottom: 0.5rem;
@@ -137,7 +137,7 @@
 
     &__ex {
       font-size: 1.5rem;
-      @include respond(mobile) {
+      @include mixin.respond(mobile) {
         font-size: 1rem;
       }
     }
@@ -155,7 +155,7 @@
       margin-top: 2rem;
       padding-top: 2rem;
       border-top: 1px solid #e5e7eb;
-      @include respond(mobile) {
+      @include mixin.respond(mobile) {
         margin-top: 1rem;
         padding-top: 1rem;
         gap: 1rem;
@@ -170,7 +170,7 @@
         justify-content: center;
         align-items: center;
         cursor: pointer;
-        @include respond(mobile) {
+        @include mixin.respond(mobile) {
           width: 15rem;
           height: 2rem;
         }

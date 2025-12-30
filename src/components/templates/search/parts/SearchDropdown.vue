@@ -51,7 +51,7 @@
 </script>
 
 <style lang="scss">
-  @import "../../../../assets/css/mixin.scss";
+  @use "../../../../assets/css/mixin.scss" as mixin;
   @keyframes slide-in {
     0% {
       top: 0%;
@@ -80,7 +80,7 @@
     align-items: center;
     justify-content: center;
     align-self: self-end;
-    @include respond(mobile) {
+    @include mixin.respond(mobile) {
       width: 4.5rem;
       height: 1.7rem;
       font-size: 0.6rem;
@@ -92,7 +92,7 @@
       text-align: center;
       cursor: pointer;
 
-      @include respond(mobile) {
+      @include mixin.respond(mobile) {
         padding: 0px;
       }
     }
@@ -120,7 +120,7 @@
         padding-top: 0.5rem;
         padding-bottom: 0.5rem;
         cursor: pointer;
-        @include respond(mobile) {
+        @include mixin.respond(mobile) {
           height: 1rem;
           padding-top: 0.3rem;
           padding-bottom: 0.3rem;

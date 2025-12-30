@@ -65,7 +65,7 @@ const dropdownMenu = reactive({
 </script>
 
 <style lang="scss">
-  @import "../../../../assets/css/mixin.scss";
+  @use "../../../../assets/css/mixin.scss" as mixin;
   @keyframes slide-in {
     0% {
       top: 0%;
@@ -86,7 +86,7 @@ const dropdownMenu = reactive({
   }
   .mobile-dropdown {
     display:none;
-    @include respond(mobile) {
+    @include mixin.respond(mobile) {
         position: relative;
         display: flex;
         align-items: center;

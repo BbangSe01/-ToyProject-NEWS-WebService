@@ -53,7 +53,7 @@
 </script>
 
 <style lang="scss">
-  @import "../../../../assets/css/mixin.scss";
+  @use "../../../../assets/css/mixin.scss" as mixin;
   .signup-input-area {
     display: flex;
     flex-direction: column;
@@ -66,7 +66,7 @@
       border: 2px solid black;
       border-radius: 10px;
       margin-bottom: 0.5rem;
-      @include respond(mobile) {
+      @include mixin.respond(mobile) {
         width: 17rem;
       }
     }

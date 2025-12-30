@@ -28,7 +28,7 @@
 </script>
 
 <style lang="scss">
-  @import "../../../assets/css/mixin.scss";
+  @use "../../../assets/css/mixin.scss" as mixin;
   .nav-area {
     font-family: "Continuous", serif;
     position: fixed;
@@ -49,13 +49,13 @@
       margin-left: 5%;
       cursor: pointer;
 
-      @include respond(mobile) {
+      @include mixin.respond(mobile) {
         padding-top: 0.5rem;
         font-size: 1.8rem;
         margin-left: 3%;
         margin-right: 5%;
       }
-      @include respond(tablet) {
+      @include mixin.respond(tablet) {
         margin-left: 2%;
         margin-right: 3%;
       }
@@ -64,10 +64,10 @@
     &__right {
       display: flex;
       margin-right: 3rem;
-      @include respond(mobile) {
+      @include mixin.respond(mobile) {
         margin-right: 0.5rem;
       }
-      @include respond(tablet) {
+      @include mixin.respond(tablet) {
         margin-right: 1rem;
       }
     }

@@ -10,7 +10,7 @@
 </script>
 
 <style lang="scss">
-  @import "../../../../assets/css/mixin.scss";
+  @use "../../../../assets/css/mixin.scss" as mixin;
   .loader-box {
     width: 9rem;
     height: 3rem;
@@ -24,7 +24,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    @include respond(mobile) {
+    @include mixin.respond(mobile) {
       width: 5rem;
       height: 2rem;
       font-size: 0.6rem;
@@ -45,7 +45,7 @@
       calc(-0.707 * var(--d)) calc(-0.707 * var(--d)) 0 2.5px,
       calc(0 * var(--d)) calc(-1 * var(--d)) 0 3px;
     animation: s7 1s infinite steps(8);
-    @include respond(mobile) {
+    @include mixin.respond(mobile) {
       display: none;
     }
   }
@@ -58,7 +58,7 @@
 
   .mobile-loader {
     display: none;
-    @include respond(mobile) {
+    @include mixin.respond(mobile) {
       width: 25px;
       height: 25px;
       display: block;

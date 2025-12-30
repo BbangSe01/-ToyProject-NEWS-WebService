@@ -36,7 +36,7 @@
 </script>
 
 <style lang="scss">
-  @import "../../../../assets/css/mixin.scss";
+  @use "../../../../assets/css/mixin.scss" as mixin;
 
   .search-box {
     display: flex;
@@ -47,11 +47,11 @@
     &__input {
       width: 300px;
       height: 30px;
-      @include respond(mobile) {
+      @include mixin.respond(mobile) {
         font-size: 0.9rem;
         width: 10rem;
       }
-      @include respond(tablet) {
+      @include mixin.respond(tablet) {
         font-size: 1rem;
         width: 17rem;
       }
@@ -63,10 +63,10 @@
       justify-content: center;
       align-items: center;
 
-      @include respond(mobile) {
+      @include mixin.respond(mobile) {
         display: none;
       }
-      @include respond(tablet) {
+      @include mixin.respond(tablet) {
         width: 3.5rem;
       }
     }

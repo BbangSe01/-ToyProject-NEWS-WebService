@@ -89,7 +89,7 @@
 </script>
 
 <style lang="scss">
-  @import "../../../assets/css/mixin.scss";
+  @use "../../../assets/css/mixin.scss" as mixin;
 
   .headline-area {
     display: flex;
@@ -107,7 +107,7 @@
     justify-content: center;
     gap: 2rem;
     margin-top: 1rem;
-    @include respond(mobile) {
+    @include mixin.respond(mobile) {
       gap:1rem;
     }
     }

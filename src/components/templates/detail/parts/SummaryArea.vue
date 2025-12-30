@@ -12,7 +12,7 @@
 </script>
 
 <style lang="scss">
-  @import "../../../../assets/css/mixin.scss";
+  @use "../../../../assets/css/mixin.scss" as mixin;
 
   .summary-area {
     display: flex;
@@ -21,13 +21,13 @@
     &__title {
       font-weight: bold;
       font-size: 2rem;
-      @include respond(mobile) {
+      @include mixin.respond(mobile) {
         font-size: 1.2rem;
       }
     }
     &__content {
       line-height: 1.5rem;
-      @include respond(mobile) {
+      @include mixin.respond(mobile) {
         font-size: 0.8rem;
       }
     }

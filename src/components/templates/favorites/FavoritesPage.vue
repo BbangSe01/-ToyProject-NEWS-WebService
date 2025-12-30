@@ -31,7 +31,7 @@
 </script>
 
 <style lang="scss">
-  @import "../../../assets/css/mixin.scss";
+  @use "../../../assets/css/mixin.scss" as mixin;
   .favorites-area {
     display: flex;
     flex-direction: column;
@@ -41,7 +41,7 @@
     padding-bottom: 2rem;
     margin-bottom: 2rem;
     max-width: 1200px;
-    @include respond(mobile) {
+    @include mixin.respond(mobile) {
       font-size: 1.5rem;
       margin-top: 5rem;
     }
@@ -49,7 +49,7 @@
     &__title {
       font-size: 2rem;
       font-weight: bold;
-      @include respond(mobile) {
+      @include mixin.respond(mobile) {
         font-size: 1.5rem;
       }
     }
@@ -60,7 +60,7 @@
       justify-content: center;
       gap: 2rem;
       margin-top: 1rem;
-      @include respond(mobile) {
+      @include mixin.respond(mobile) {
         gap: 1rem;
         margin-top: 0rem;
       }

@@ -30,7 +30,7 @@
 </script>
 
 <style lang="scss">
-  @import "../../../assets/css/mixin.scss";
+  @use "../../../assets/css/mixin.scss" as mixin;
   .card-box {
     width: 55rem;
     height: 10rem;
@@ -40,11 +40,11 @@
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     cursor: pointer;
 
-    @include respond(mobile) {
+    @include mixin.respond(mobile) {
       width: 18rem;
       height: 5rem;
     }
-    @include respond(tablet) {
+    @include mixin.respond(tablet) {
       width: 40rem;
       height: 8rem;
     }
@@ -55,10 +55,10 @@
       border: 1px solid #e2e2e2;
       border-radius: 10px 0 0 10px; /* 왼쪽 위, 왼쪽 아래만 둥글게 */
 
-      @include respond(mobile) {
+      @include mixin.respond(mobile) {
         width: 7rem;
       }
-      @include respond(tablet) {
+      @include mixin.respond(tablet) {
         width: 15rem;
       }
     }
@@ -68,10 +68,10 @@
       height: 100%;
       display: flex;
       flex-direction: column;
-      @include respond(mobile) {
+      @include mixin.respond(mobile) {
         width: 10rem;
       }
-      @include respond(tablet) {
+      @include mixin.respond(tablet) {
         width: 25rem;
       }
 
@@ -84,12 +84,12 @@
         align-items: center;
         padding-left: 1rem;
 
-        @include respond(mobile) {
+        @include mixin.respond(mobile) {
           font-size: 0.5rem;
           font-weight: bold;
           padding-left: 0.5rem;
         }
-        @include respond(tablet) {
+        @include mixin.respond(tablet) {
           font-size: 1rem;
         }
       }
@@ -101,11 +101,11 @@
         font-size: 0.9rem;
         padding-top: 1rem;
 
-        @include respond(mobile) {
+        @include mixin.respond(mobile) {
           font-size: 0.4rem;
           margin-right: 0rem;
         }
-        @include respond(tablet) {
+        @include mixin.respond(tablet) {
           font-size: 0.8rem;
           margin-right: 1rem;
         }

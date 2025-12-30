@@ -25,12 +25,12 @@
   };
 </script>
 <style lang="scss">
-  @import "../../../../assets/css/mixin.scss";
+  @use "../../../../assets/css/mixin.scss" as mixin;
   .button-line {
     display: flex;
     margin-bottom: 2rem;
 
-    @include respond(mobile) {
+    @include mixin.respond(mobile) {
       margin-bottom: 0.5rem;
       width: 15.5rem;
       overflow: auto;
@@ -50,7 +50,7 @@
       border-radius: 20px;
       font-size: 15px;
 
-      @include respond(mobile) {
+      @include mixin.respond(mobile) {
         font-size: 0.6rem;
         padding: 0.3rem;
         margin-right: 0.3rem;

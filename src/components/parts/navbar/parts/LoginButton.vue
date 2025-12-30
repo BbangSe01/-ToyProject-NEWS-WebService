@@ -34,7 +34,7 @@
   );
 </script>
 <style lang="scss">
-  @import "../../../../assets/css/mixin.scss";
+  @use "../../../../assets/css/mixin.scss" as mixin;
 
   .login-button {
     font-family: "Merriweather", serif;
@@ -52,10 +52,10 @@
     color: inherit;
     text-decoration: none;
 
-    @include respond(mobile) {
+    @include mixin.respond(mobile) {
       display: none;
     }
-    @include respond(tablet) {
+    @include mixin.respond(tablet) {
       margin-left: 0.5rem;
     }
   }
