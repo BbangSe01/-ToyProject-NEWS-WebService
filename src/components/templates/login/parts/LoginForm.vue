@@ -58,10 +58,8 @@
   .login-area {
     margin-top: 7rem;
     display: flex;
-    width: 30%;
     flex-direction: column;
     align-items: center;
-
     &__comments {
       margin-top: 0.5rem;
       font-weight: bold;
@@ -114,8 +112,8 @@
     }
 
     .auth-img {
-      width: 150px;
-      height: 150px;
+      width: 200px;
+      height: 200px;
     }
   }
 </style>
